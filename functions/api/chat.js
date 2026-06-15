@@ -239,7 +239,7 @@ TONE & BEHAVIOR:
         reply = reply.trim();
         
         return new Response(
-            JSON.stringify({ reply }),
+            JSON.stringify({ reply, debugData: data, successfulModel }),
             { 
                 status: 200, 
                 headers: { "Content-Type": "application/json" } 
