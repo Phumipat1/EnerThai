@@ -114,63 +114,72 @@ TONE & BEHAVIOR:
             });
         }
 
+        const fallbackModels = [
+            "gemini-2.5-flash",
+            "gemini-2.0-flash",
+            "gemini-3.5-flash",
+            "gemma-4-31b-it"
+        ];
+
         let response;
         let data;
+        let lastError = "";
+        let successfulModel = "";
 
-        try {
-            response = await fetch(
-                `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
-                {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        contents,
-                        tools: [
-                            {
-                                google_search: {}
-                            }
-                        ],
-                        generationConfig: {
-                            temperature: 0.7,
-                            maxOutputTokens: 1000
+        for (let i = 0; i < fallbackModels.length; i++) {
+            const modelName = fallbackModels[i];
+            const isGemma = modelName.startsWith("gemma");
+            
+            try {
+                const bodyPayload = {
+                    contents,
+                    generationConfig: {
+                        temperature: 0.7,
+                        maxOutputTokens: 1000
+                    }
+                };
+                
+                // Only Gemini models support search grounding tools
+                if (!isGemma) {
+                    bodyPayload.tools = [
+                        {
+                            google_search: {}
                         }
-                    })
+                    ];
                 }
-            );
-            data = await response.json();
-            
-            if (!response.ok || data.error) {
-                throw new Error(data.error?.message || `HTTP ${response.status}`);
-            }
-        } catch (error) {
-            console.warn("Primary Gemini 2.5 Flash query failed, falling back to Gemma 4 31B. Error:", error.message);
-            
-            // Fallback: Query gemma-4-31b-it (without google_search tool to avoid config issues)
-            response = await fetch(
-                `https://generativelanguage.googleapis.com/v1/models/gemma-4-31b-it:generateContent?key=${apiKey}`,
-                {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        contents,
-                        generationConfig: {
-                            temperature: 0.7,
-                            maxOutputTokens: 1000
-                        }
-                    })
-                }
-            );
-            data = await response.json();
-            
-            if (!response.ok || data.error) {
-                return new Response(
-                    JSON.stringify({ error: `Both Gemini 2.5 Flash and Gemma 4 31B failed. Fallback error: ${data.error?.message || response.statusText}` }),
-                    { 
-                        status: 500, 
-                        headers: { "Content-Type": "application/json" } 
+                
+                response = await fetch(
+                    `https://generativelanguage.googleapis.com/v1/models/${modelName}:generateContent?key=${apiKey}`,
+                    {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(bodyPayload)
                     }
                 );
+                
+                data = await response.json();
+                
+                if (response.ok && !data.error) {
+                    successfulModel = modelName;
+                    break;
+                } else {
+                    lastError = data.error?.message || `HTTP ${response.status}`;
+                    console.warn(`Model ${modelName} call failed: ${lastError}`);
+                }
+            } catch (err) {
+                lastError = err.message;
+                console.warn(`Model ${modelName} fetch threw error: ${lastError}`);
             }
+        }
+
+        if (!successfulModel) {
+            return new Response(
+                JSON.stringify({ error: `All models in fallback chain failed. Last error: ${lastError}` }),
+                { 
+                    status: 500, 
+                    headers: { "Content-Type": "application/json" } 
+                }
+            );
         }
 
         const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't formulate a response. Please try again.";
