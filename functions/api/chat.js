@@ -83,6 +83,7 @@ TONE & BEHAVIOR:
 - Keep responses concise (under 150 words) unless you are delivering a structured custom fueling plan.
 - Use markdown formatting, bullet points, and clean spacing.
 - Recommend users visit the custom Fueling Calculator page (calculator.html) if they want a visual printable timeline.
+- Never output your internal thinking, draft plans, calculations, self-correction logs, or scratchpad steps to the user. Only provide the final clean response in character.
 - Never mention internal coding details, JSON, or APIs.`;
 
         // Format clean history for Gemini API (roles must be either 'user' or 'model')
