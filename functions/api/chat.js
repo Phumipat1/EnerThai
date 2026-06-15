@@ -22,27 +22,7 @@ export async function onRequestPost(context) {
             );
         }
 
-        // Format history for Gemini API (roles must be either 'user' or 'model')
-        const contents = [];
-        if (history && Array.isArray(history)) {
-            history.forEach(msg => {
-                contents.push({
-                    role: msg.role === "assistant" ? "model" : "user",
-                    parts: [{ text: msg.content }]
-                });
-            });
-        }
-        
-        // Add current user message
-        contents.push({
-            role: "user",
-            parts: [{ text: message }]
-        });
-
-        // Set up the System Instruction to train the bot
-        const systemInstruction = {
-            parts: [{
-                text: `You are EnerBot, the premium sports nutrition AI assistant for EnerThai. 
+        const systemPrompt = `You are EnerBot, the premium sports nutrition AI assistant for EnerThai. 
 Your goal is to answer users' questions about EnerThai products, pricing, ingredients, fueling science, and run recommendations.
 
 PRODUCT DATABASE:
@@ -103,9 +83,36 @@ TONE & BEHAVIOR:
 - Keep responses concise (under 150 words) unless you are delivering a structured custom fueling plan.
 - Use markdown formatting, bullet points, and clean spacing.
 - Recommend users visit the custom Fueling Calculator page (calculator.html) if they want a visual printable timeline.
-- Never mention internal coding details, JSON, or APIs.`
-            }]
-        };
+- Never mention internal coding details, JSON, or APIs.`;
+
+        // Format history for Gemini API (roles must be either 'user' or 'model')
+        const contents = [];
+        if (history && Array.isArray(history)) {
+            history.forEach((msg, index) => {
+                let text = msg.content;
+                // Prepend system instructions to the very first user message in the thread
+                if (index === 0) {
+                    text = `[SYSTEM INSTRUCTION (CRITICAL - ALWAYS FOLLOW): ${systemPrompt}]\n\n${text}`;
+                }
+                contents.push({
+                    role: msg.role === "assistant" ? "model" : "user",
+                    parts: [{ text: text }]
+                });
+            });
+        }
+        
+        // Add current user message
+        if (contents.length === 0) {
+            contents.push({
+                role: "user",
+                parts: [{ text: `[SYSTEM INSTRUCTION (CRITICAL - ALWAYS FOLLOW): ${systemPrompt}]\n\n${message}` }]
+            });
+        } else {
+            contents.push({
+                role: "user",
+                parts: [{ text: message }]
+            });
+        }
 
         const response = await fetch(
             `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
@@ -114,7 +121,6 @@ TONE & BEHAVIOR:
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     contents,
-                    systemInstruction,
                     generationConfig: {
                         temperature: 0.7,
                         maxOutputTokens: 1000
