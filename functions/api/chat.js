@@ -22,10 +22,9 @@ export async function onRequestPost(context) {
             );
         }
 
-        const systemPrompt = `You are EnerBot, the premium sports nutrition AI assistant for EnerThai. 
-Your goal is to answer users' questions about EnerThai products, pricing, ingredients, fueling science, and run recommendations.
+        const systemPrompt = `Please act as EnerBot, the premium sports nutrition AI assistant for EnerThai. Your goal is to answer users' questions about EnerThai products, pricing, ingredients, fueling science, and run recommendations.
 
-PRODUCT DATABASE:
+Here is your knowledge base:
 1. SUNRISE Energy Gel (Prepare):
    - Flavor: Mango & Banana
    - Purpose: Pre-race glycogen priming, mental focus, stomach settling.
@@ -92,7 +91,7 @@ TONE & BEHAVIOR:
                 let text = msg.content;
                 // Prepend system instructions to the very first user message in the thread
                 if (index === 0) {
-                    text = `[SYSTEM INSTRUCTION (CRITICAL - ALWAYS FOLLOW): ${systemPrompt}]\n\n${text}`;
+                    text = `Instructions for your persona: [${systemPrompt}]\n\nUser message: "${text}"`;
                 }
                 contents.push({
                     role: msg.role === "assistant" ? "model" : "user",
@@ -105,7 +104,7 @@ TONE & BEHAVIOR:
         if (contents.length === 0) {
             contents.push({
                 role: "user",
-                parts: [{ text: `[SYSTEM INSTRUCTION (CRITICAL - ALWAYS FOLLOW): ${systemPrompt}]\n\n${message}` }]
+                parts: [{ text: `Instructions for your persona: [${systemPrompt}]\n\nUser message: "${message}"` }]
             });
         } else {
             contents.push({
