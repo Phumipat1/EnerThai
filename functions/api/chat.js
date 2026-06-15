@@ -114,35 +114,63 @@ TONE & BEHAVIOR:
             });
         }
 
-        const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
-            {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    contents,
-                    tools: [
-                        {
-                            google_search: {}
-                        }
-                    ],
-                    generationConfig: {
-                        temperature: 0.7,
-                        maxOutputTokens: 1000
-                    }
-                })
-            }
-        );
+        let response;
+        let data;
 
-        const data = await response.json();
-        if (data.error) {
-            return new Response(
-                JSON.stringify({ error: data.error.message }),
-                { 
-                    status: 500, 
-                    headers: { "Content-Type": "application/json" } 
+        try {
+            response = await fetch(
+                `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        contents,
+                        tools: [
+                            {
+                                google_search: {}
+                            }
+                        ],
+                        generationConfig: {
+                            temperature: 0.7,
+                            maxOutputTokens: 1000
+                        }
+                    })
                 }
             );
+            data = await response.json();
+            
+            if (!response.ok || data.error) {
+                throw new Error(data.error?.message || `HTTP ${response.status}`);
+            }
+        } catch (error) {
+            console.warn("Primary Gemini 2.5 Flash query failed, falling back to Gemma 4 31B. Error:", error.message);
+            
+            // Fallback: Query gemma-4-31b-it (without google_search tool to avoid config issues)
+            response = await fetch(
+                `https://generativelanguage.googleapis.com/v1/models/gemma-4-31b-it:generateContent?key=${apiKey}`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        contents,
+                        generationConfig: {
+                            temperature: 0.7,
+                            maxOutputTokens: 1000
+                        }
+                    })
+                }
+            );
+            data = await response.json();
+            
+            if (!response.ok || data.error) {
+                return new Response(
+                    JSON.stringify({ error: `Both Gemini 2.5 Flash and Gemma 4 31B failed. Fallback error: ${data.error?.message || response.statusText}` }),
+                    { 
+                        status: 500, 
+                        headers: { "Content-Type": "application/json" } 
+                    }
+                );
+            }
         }
 
         const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't formulate a response. Please try again.";
