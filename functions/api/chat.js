@@ -231,15 +231,31 @@ TONE & BEHAVIOR:
             );
         }
 
-        let reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't formulate a response. Please try again.";
+        const parts = data.candidates?.[0]?.content?.parts || [];
+        let replyText = "";
         
-        // Strip out thinking/thought blocks to guarantee clean responses (handles Gemma and standard XML-style tags)
+        // Find the first part that is a text response and NOT a thought process
+        const textPart = parts.find(part => !part.thought && part.text);
+        if (textPart) {
+            replyText = textPart.text;
+        } else {
+            // Fallback to joining all parts that do not have thought: true
+            replyText = parts
+                .filter(part => !part.thought)
+                .map(part => part.text || "")
+                .join("")
+                .trim();
+        }
+        
+        let reply = replyText || "Sorry, I couldn't formulate a response. Please try again.";
+        
+        // Clean any residual thought delimiters (just in case they are inline)
         reply = reply.replace(/<\|channel>thought[\s\S]*?<channel\|>/gi, "");
         reply = reply.replace(/<think>[\s\S]*?<\/think>/gi, "");
         reply = reply.trim();
         
         return new Response(
-            JSON.stringify({ reply, debugData: data, successfulModel }),
+            JSON.stringify({ reply }),
             { 
                 status: 200, 
                 headers: { "Content-Type": "application/json" } 
