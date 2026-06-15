@@ -1,7 +1,7 @@
 {
   "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary":  "Implementation plan to update nutrition labels, central product database, catalog grids, details pages, and calculator outputs according to the newly uploaded English FDA-style nutrition labels.",
-  "updatedAt":  "2026-06-15T15:17:56.277499800Z",
+  "summary":  "Detailed implementation plan for adding a secure, real-time AI chatbot to the EnerThai website using Cloudflare Pages Functions (serverless proxy) and the Gemini API.",
+  "updatedAt":  "2026-06-15T16:19:59.014002600Z",
   "requestFeedback":  true,
   "userFacing":  true
 }

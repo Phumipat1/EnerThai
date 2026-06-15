@@ -44,3 +44,10 @@
 - `[x]` Update FDA-style static panel structure and loader logic in `product.html`
 - `[x]` Update calculator timeline strings in `js/calculator.js`
 - `[x]` Verify new nutrition filters, labels, and math, and update walkthrough.md
+
+## Phase 6: AI Chatbot Integration
+- `[x]` Create Cloudflare Pages Function `/functions/api/chat.js` for Gemini API proxying
+- `[x]` Add global floating chat widget styles to `css/style.css`
+- `[x]` Build dynamic chatbot script `js/chatbot.js` containing chat UI rendering, state, and user interactions
+- `[x]` Integrate `js/chatbot.js` script tag across all 8 HTML page files
+- `[x]` Verify local execution and update walkthrough.md

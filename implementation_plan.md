@@ -1,83 +1,82 @@
-# Implementation Plan - Nutrition Facts & Product Database Update
+# Implementation Plan - AI Chatbot Integration
 
-Update the **EnerThai** product database, catalog grids, detailed pages, and fueling calculator outputs to match the newly provided nutrition and ingredient profiles.
+Implement a secure, real-time AI chatbot ("EnerBot") on all pages of the website. The bot will run serverless on Cloudflare Pages Functions to keep the API key 100% hidden and secure.
 
 ---
 
-## New Nutrition & Ingredient Specifications
+## User Review Required
 
-### 1. SUNRISE (Prepare)
-- **Flavor**: Mango & Banana
-- **Caffeine**: 70mg (Caffeinated from green tea)
-- **Energy**: 135 kcal
-- **Carbohydrates**: 31g
-- **Sugars**: 27g (0g added sugars)
-- **Sodium**: 15mg (Natural from fruit, no added salt)
-- **Potassium**: 250mg
-- **Antioxidants**: Catechin from tea + Carotene from mango
-- **Ingredients**: Natural Mango Puree, Natural Banana Puree, Water, Maltodextrin, Green Tea Extract (Caffeine), Citric Acid.
+> [!IMPORTANT]
+> - **API Key Setup:** You will need to obtain a Gemini API key (or OpenAI key) and add it to your Cloudflare dashboard environment variables under the name `GEMINI_API_KEY` for the serverless function to work in production.
+> - **Hosting Deployment:** To run the backend portion of this chatbot, the site must be hosted on Cloudflare Pages (which is free and connects directly to your GitHub repository).
 
-### 2. STRIKE (Perform)
-- **Flavor**: Thai Coconut & Guava
-- **Caffeine**: 0mg (Caffeine-free)
-- **Energy**: 118 kcal
-- **Carbohydrates**: 30g
-- **Sugars**: 26g (0g added sugars)
-- **Sodium**: 225mg (Thai sea salt)
-- **Potassium**: 350mg
-- **Calcium**: 40mg
-- **Vitamin C**: 40mg (53% Thai RDI)
-- **Ingredients**: Thai Coconut Water, Natural Guava Puree, Lime Juice, Sea Salt, Maltodextrin, Calcium Lactate, Ascorbic Acid (Vitamin C).
+---
 
-### 3. SUNSET (Recover)
-- **Flavor**: Thai Forest Honey & Organic Pea Protein
-- **Energy**: 117 kcal
-- **Carbohydrates**: 23g
-- **Sugars**: 20g (0g added sugars)
-- **Protein**: 9g (from organic plant pea protein)
-- **Sodium**: 25mg (no added salt)
-- **Potassium**: 50mg (natural)
-- **Ingredients**: Organic Plant-based Pea Protein, Thai Forest Honey, Water, Ginger Root Extract, Lemon Juice, Sea Salt.
+## Open Questions
+
+> [!NOTE]
+> - **Which LLM API would you like to use?**
+>   - **Option 1 (Recommended):** Gemini 1.5 Flash (extremely fast, low latency, and has a generous free tier of 15 requests/minute).
+>   - **Option 2:** OpenAI GPT-4o-mini (highly capable, requires a paid API account with credits).
+> - **Default Quick-Replies:** What pre-canned buttons should appear when opening the chat? (e.g., "Recommend a bundle", "Are these gels vegan?", "Why 99 THB?", "Will I get fat?").
 
 ---
 
 ## Proposed Changes
 
-### Centralized Product Database
-#### [MODIFY] [main.js](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/js/main.js)
-- Update product descriptors, flavor strings, ingredients, and nutrition fields for `sunrise`, `strike`, and `sunset`.
+### Backend Function (Cloudflare Workers Proxy)
+#### [NEW] [chat.js](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/functions/api/chat.js)
+- Create a Cloudflare Pages Function endpoint at `/functions/api/chat.js` that intercepts requests sent to `/api/chat`.
+- Securely fetch the API key from the environment variables (`context.env.GEMINI_API_KEY`).
+- Provide system instructions detailing:
+  - **Brand Voice:** Professional, energetic, scientifically grounded, friendly.
+  - **Product Lineup:** Sunrise (Pre-race, 31g carbs, 70mg caffeine, Mango & Banana), Strike (During, 30g carbs, 225mg sodium, 350mg potassium, 40mg Vitamin C, Coconut & Guava), Sunset (Post-race, 23g carbs, 9g pea protein, vegan, Pineapple, Mandarin & Passion Fruit).
+  - **Pricing:** Flat rate of 99.00 THB / $3.00 USD for all individual sachets.
+  - **Pacing Science:** 60-minute rule (runs over 60 mins need fueling), calorie balance (running 10K burns ~700 kcal, consuming 4 gels is only ~488 kcal, so there is no risk of getting fat; in fact, proper fueling prevents post-run binge eating).
+- Send the chat history and the user prompt to Gemini, and stream or send the text back in a JSON response.
 
 ---
 
-### Catalog Grid Update
+### Global Chat UI Widget
+#### [MODIFY] [style.css](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/css/style.css)
+- Add styles for the floating chatbot:
+  - A subtle, glowing circular action button (fixed at bottom-right with an animated chat bubble icon).
+  - A premium chat window with dark-glassmorphism styling, clean message bubbles, an input field, quick-reply chips, and smooth slide-in/fade-out animations.
+  - Dark-mode support to ensure readability matching the rest of the theme.
+
+#### [NEW] [chatbot.js](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/js/chatbot.js)
+- Implement frontend chatbot logic:
+  - Create the chat DOM structure dynamically or load it so it appears on all pages.
+  - Maintain conversation history in session storage.
+  - Render message bubbles with auto-scroll to the bottom.
+  - Manage loading states (typing indicators).
+  - Connect quick-reply buttons directly into the input handler.
+  - Make POST requests to `/api/chat` with user queries.
+
+---
+
+### Page Integrations
+#### [MODIFY] [index.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/index.html)
 #### [MODIFY] [products.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/products.html)
-- Swap filtering tags for Sunrise and Strike:
-  - Sunrise: `data-caffeine="true"`, `data-keywords="mango banana yellow caffeine green tea prepare"`
-  - Strike: `data-caffeine="false"`, `data-keywords="coconut guava lime sodium electrolytes vitamin c perform strike"`
-- Update card descriptions, flavors, list items, and expanding accordion panels for **NUTRITION FACTS** and **INGREDIENTS** to reflect the new specifications.
-
----
-
-### Detailed Product Layout & Dynamic Label Loader
 #### [MODIFY] [product.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/product.html)
-- Reformat the static `#nutritionPanel` HTML to match the English version of the standard FDA-style output (incorporating Saturated Fat, Trans Fat, Cholesterol, Dietary Fiber, Added Sugars, Calcium, and Vitamin C).
-- Update the javascript loader script to dynamically populate all these fields and calculate % Daily Value (DV) percentages based on standard references (e.g. 2300mg Sodium, 275g Carbs, 28g Fiber, 50g Protein, 4700mg Potassium, 1300mg Calcium, 90mg Vitamin C).
-
----
-
-### Calculator Timing & Timeline Update
-#### [MODIFY] [calculator.js](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/js/calculator.js)
-- Update the timeline HTML output blocks:
-  - Sunrise node description: list `31g carbs` and `70mg caffeine`.
-  - Sunset node description: list `23g carbs` and `9g pea protein`.
-- Verify the math in the recommended bundle calculator works accurately with the updated sachet counts.
+#### [MODIFY] [calculator.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/calculator.html)
+#### [MODIFY] [science.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/science.html)
+#### [MODIFY] [story.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/story.html)
+#### [MODIFY] [faq.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/faq.html)
+#### [MODIFY] [contact.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/contact.html)
+- Include `<script src="js/chatbot.js" defer></script>` in the header/footer of all templates.
 
 ---
 
 ## Verification Plan
 
+### Automated Tests
+- Setup a local test server using Wrangler (`npx wrangler pages dev .`) to simulate the Cloudflare Workers / Functions environment locally.
+- Test the `/api/chat` route with mock prompts to verify it receives requests, accesses environment variables, and correctly queries the Gemini API.
+
 ### Manual Verification
-- Verify search & phase filtering widgets in `products.html` correctly display the new caffeine status (Sunrise shows up under "Caffeinated", Strike shows up under "Caffeine-free").
-- Expand the Nutrition Facts panels on `products.html` and verify the values.
-- Navigate to `product.html?id=strike`, `product.html?id=sunrise`, and `product.html?id=sunset` and check the FDA-styled nutrition facts panels for formatting accuracy and correct % DV math.
-- Generate a fueling plan on `calculator.html` and verify that the generated timeline prints the updated specs.
+- Verify that the chat bubble floats cleanly above page layouts on desktop, tablet, and mobile views.
+- Test toggling the chat window open and closed, and verifying that the animations are fluid.
+- Send messages and test the typing indicator.
+- Verify that clicking quick replies automatically sends the prompt and starts the response.
+- Verify that the API key is completely invisible in developer tools (Inspect Source / Network requests).

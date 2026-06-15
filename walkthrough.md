@@ -199,3 +199,47 @@ We have successfully completed all Phase 5 updates:
 4. **Verify Fueling Timeline Outputs**:
    - Generate a fueling schedule on [calculator.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/calculator.html).
    - Verify that the timeline prints `caffeinated SUNRISE gel (31g carbs, 70mg caffeine)` for pre-race, `caffeine-free STRIKE gel` during the race, and `SUNSET recovery gel (23g carbs, 9g pea protein)` post-race.
+
+---
+
+## Phase 6: AI Chatbot Integration
+
+We have successfully integrated the real-time AI Chatbot ("EnerBot"):
+
+1. **Secure Cloudflare Pages Backend Function**:
+   - Created [/functions/api/chat.js](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/functions/api/chat.js) as a serverless backend proxy.
+   - It securely accesses the `GEMINI_API_KEY` from the environment and makes HTTP requests to Gemini 1.5 Flash. The API key is kept 100% hidden on the server, avoiding any exposure in public browser code.
+   - Embeds a comprehensive knowledge base as system instructions: products details, flat 99 THB ($3.00 USD) pricing, clean-ingredient profiles, and custom pacing math models.
+2. **Interactive UI Widget & Styles**:
+   - Appended chatbot container styles to the end of [/css/style.css](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/css/style.css).
+   - Features a floating sunset-gradient circular toggle button with hover scaling and toggle rotation effects.
+   - Includes a premium chat window with glassmorphism blending, clean text inputs, quick-reply chips, and a smooth slide-and-scale entry animation.
+   - Fully optimized for dark theme compatibility, mobile responsiveness, and hidden during print tasks.
+3. **Dynamic Frontend Client**:
+   - Implemented [/js/chatbot.js](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/js/chatbot.js) which dynamically builds the chatbot DOM structure, handles message session persistence, displays scrolling typing indicators, and renders markdown formats (bolding, paragraphs, bullet/numbered lists) into clean HTML bubbles.
+4. **Site-Wide Tag Inclusion**:
+   - Integrated the defer-script script tag into the head of all 8 main HTML pages.
+
+---
+
+## Verification Steps (Phase 6 Updates)
+
+1. **Verify Visual Presence**:
+   - Load any page (e.g. `index.html`, `calculator.html`). Confirm that a round orange sunset-gradient chat toggle floats in the bottom-right corner.
+   - Confirm that the toast notifications container is adjusted to sit above the chat toggle (`bottom: 96px`) when triggered, preventing overlap.
+2. **Verify Toggle & Close Actions**:
+   - Click the chat toggle. Confirm the chat window slides up smoothly and the input field auto-focuses.
+   - Click the toggle again (which shows an 'X') or click the close button. Confirm the window slides away.
+3. **Verify Conversation Flow & Markdown Rendering**:
+   - Open the chat and ask a question, e.g. *"What is in the Sunrise gel?"*
+   - Verify the typing indicator (three pulsing dots) is displayed while waiting.
+   - Once the response arrives, confirm it details Mango & Banana, 31g carbs, 70mg caffeine, and 250mg potassium, formatted in clean bold lines and lists.
+4. **Verify Personalized Pacing Calculator advice**:
+   - Ask: *"Can you recommend a plan for my 10K run?"*
+   - The bot should ask you details like pace, weight, experience level, etc.
+   - Answer: *"My pace is 7:30 min/km and weight is 70 kg, recreational level."*
+   - Verify that the bot calculates the finish time (75 minutes), carbs per hour (60g), and details the exact 4-gel pacing timeline (1 Sunrise 60m before, 2 Strike during at 30m and 60m, and 1 Sunset recovery gel) with explanations of why it works and why they won't get fat.
+5. **Verify Print Media Layout**:
+   - Open `calculator.html`, open the chatbot, and press `Ctrl+P`.
+   - Verify that the print preview excludes the chatbot button and chat window, keeping the printable plan layout 100% clean.
+
