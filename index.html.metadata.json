@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_OTHER",
-  "summary":  "Updated logo and sachet images in index.html, with dynamic dark theme support for header logo and clean layout integrations.",
-  "updatedAt":  "2026-06-15T14:50:40.507453400Z",
+  "summary":  "Updated index.html to set all product prices to ฿99.00 (with corresponding Add to Cart labels) and updated the Sunset recovery gel flavor (Pineapple, Mandarin & Passion Fruit) and description.",
+  "updatedAt":  "2026-06-15T15:39:42.788936Z",
   "userFacing":  true
 }

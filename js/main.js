@@ -8,87 +8,104 @@ window.EnerThaiProducts = {
         id: 'sunrise',
         name: 'SUNRISE Energy Gel',
         purpose: 'Prepare',
-        price: 95.00,
+        price: 99.00,
         currency: '฿',
-        flavor: 'Jasmine Rice & Mango',
+        flavor: 'Mango & Banana',
         imageGrad: 'sunrise-grad',
-        tagline: 'Pre-race energy preparation to prime your muscles.',
-        description: 'Formulated with organic Thai Jasmine Rice syrup and sweet mango puree, SUNRISE provides slow-release carbohydrates and essential electrolytes to top off your glycogen stores before intense exercise. Gentle on the stomach with a subtle, refreshing tropical taste.',
+        tagline: 'Pre-race caffeinated preparation to prime your muscles.',
+        description: 'Formulated with sweet mango puree and ripe banana puree, SUNRISE provides 31g of easily digestible carbohydrates. Infused with 70mg of natural green tea caffeine to boost mental focus and key antioxidants (catechins and beta-carotene) to protect cells during extreme exercise. Formulated with zero added sodium for an organic, smooth pre-workout fuel.',
         benefits: [
-            'Optimal glycemic index profile for sustained pre-run energy',
-            'Made with natural Thai Jasmine Rice syrup and real mango puree',
-            'Rich in Potassium and Sodium to prevent early dehydration',
-            'Zero artificial preservatives or colorings'
+            '31g of fast and slow-release carbohydrates from real mango and banana',
+            '70mg of natural caffeine from organic green tea extract for cognitive focus',
+            'Packed with natural Potassium (250mg) from bananas to prime fluid balance',
+            'Rich in tea catechins and mango carotene antioxidants'
         ],
         nutrition: {
-            servingSize: '1 Sachet (45g)',
-            calories: 160,
+            servingSize: '1 Sachet (50g)',
+            calories: 135,
             totalFat: '0g',
-            sodium: '180mg',
-            totalCarb: '40g',
-            sugars: '16g',
+            satFat: '0g',
+            transFat: '0g',
+            cholesterol: '0mg',
+            sodium: '15mg',
+            totalCarb: '31g',
+            fiber: '0g',
+            sugars: '27g',
+            addedSugars: '0g',
             protein: '0g',
-            potassium: '90mg'
+            potassium: '250mg',
+            caffeine: '70mg'
         },
-        ingredients: 'Organic Thai Jasmine Rice Syrup, Natural Mango Puree, Water, Sea Salt, Potassium Chloride, Citric Acid, Natural Beta-Carotene (for color).'
+        ingredients: 'Natural Mango Puree, Natural Banana Puree, Water, Maltodextrin, Green Tea Extract (Caffeine source), Citric Acid.'
     },
     strike: {
         id: 'strike',
         name: 'STRIKE Energy Gel',
         purpose: 'Perform',
-        price: 85.00,
+        price: 99.00,
         currency: '฿',
-        flavor: 'Thai Coconut & Lime',
+        flavor: 'Thai Coconut & Guava',
         imageGrad: 'strike-grad',
-        tagline: 'High-speed carbohydrate absorption during intense running.',
-        description: 'STRIKE is our high-performance fuel utilizing Thailand\'s premium coconut water concentrate and lime juice. It features a scientifically proven 1:0.8 Maltodextrin-to-Fructose ratio to deliver 30g of fast-absorbing carbohydrates per hour without triggering gastrointestinal distress.',
+        tagline: 'High-speed carbohydrate and electrolyte absorption during intense exercise.',
+        description: 'STRIKE is our premium performance fuel, utilizing organic coconut water and guava puree. It delivers 30g of fast-absorbing carbohydrates per sachet. Packed with 225mg of natural sea salt sodium, 350mg of potassium, and 40mg of Vitamin C, it maintains fluid balance and prevents muscle cramps at race pace. Caffeine-free and easy on the stomach.',
         benefits: [
-            'Dual-source carbohydrate ratio (1:0.8) for maximum absorption',
-            'Real Thai Coconut Water concentrate providing natural potassium',
-            '100mg of caffeine from organic green tea extract for mental focus',
-            'Light, non-sticky consistency, easy to swallow at race pace'
+            '30g of dual-source carbohydrates (fructose-dominant ~1:0.7) for gut-friendly absorption',
+            '225mg of clean Thai sea salt sodium to replenish lost sweat minerals',
+            '350mg of Potassium and 40mg of Calcium from natural coconut and guava',
+            '40mg of Vitamin C to reduce oxidative stress during heavy efforts'
         ],
         nutrition: {
-            servingSize: '1 Sachet (40g)',
-            calories: 120,
+            servingSize: '1 Sachet (50g)',
+            calories: 118,
             totalFat: '0g',
-            sodium: '250mg',
+            satFat: '0g',
+            transFat: '0g',
+            cholesterol: '0mg',
+            sodium: '225mg',
             totalCarb: '30g',
-            sugars: '12g',
+            fiber: 'less than 1g',
+            sugars: '26g',
+            addedSugars: '0g',
             protein: '0g',
-            potassium: '110mg',
-            caffeine: '100mg'
+            potassium: '350mg',
+            calcium: '40mg',
+            vitC: '40mg'
         },
-        ingredients: 'Maltodextrin, Water, Fructose, Thai Coconut Water Concentrate, Lime Juice, Sea Salt, Green Tea Extract (Caffeine source), Natural Flavors, Sodium Benzoate (preservative).'
+        ingredients: 'Thai Coconut Water, Natural Guava Puree, Lime Juice, Sea Salt, Maltodextrin, Calcium Lactate, Ascorbic Acid (Vitamin C).'
     },
     sunset: {
         id: 'sunset',
         name: 'SUNSET Recovery Gel',
         purpose: 'Recover',
-        price: 105.00,
+        price: 99.00,
         currency: '฿',
-        flavor: 'Thai Ginger & Forest Honey',
+        flavor: 'Pineapple, Mandarin Orange & Passion Fruit',
         imageGrad: 'sunset-grad',
-        tagline: 'Post-run cooling recovery to accelerate muscle repair.',
-        description: 'Rebuild and reduce inflammation with SUNSET. Infused with active Thai ginger extract (gingerol) and raw forest honey, it blends 25g of recovery carbs with 10g of plant-based essential amino acids (BCAAs) to kickstart muscle protein synthesis and soothe aching joints immediately after you cross the finish line.',
+        tagline: 'Post-run tropical fruit and plant protein recovery to rebuild muscle.',
+        description: 'SUNSET is built to kickstart muscle recovery immediately after your run. Formulated with organic plant-based pea protein isolate providing 9g of protein and concentrated pineapple, mandarin orange, and passion fruit purees yielding 23g of natural recovery carbohydrates. Restores glycogen stores and repairs muscle fibers naturally. 100% vegan.',
         benefits: [
-            '10g of high-quality plant-based BCAAs (2:1:1 ratio) to rebuild muscle',
-            'Thai Ginger extract containing active gingerol to combat muscle soreness',
-            'Raw Thai Forest Honey for natural enzyme-rich glycogen replenishment',
-            'Soothing warm ginger taste that relaxes the stomach post-effort'
+            '9g of clean organic pea protein isolate to rebuild muscle tissue',
+            '23g of fast-replenishing carbohydrates from concentrated tropical fruits',
+            'High in natural Vitamin C and Manganese to support immune recovery',
+            '100% vegan, clean-label formulation with no synthetic additives'
         ],
         nutrition: {
             servingSize: '1 Sachet (50g)',
-            calories: 140,
+            calories: 117,
             totalFat: '0g',
-            sodium: '120mg',
-            totalCarb: '25g',
-            sugars: '18g',
-            protein: '10g',
-            potassium: '75mg',
-            bcaas: '5000mg'
+            satFat: '0g',
+            transFat: '0g',
+            cholesterol: '0mg',
+            sodium: '25mg',
+            totalCarb: '23g',
+            fiber: '0g',
+            sugars: '20g',
+            addedSugars: '0g',
+            protein: '9g',
+            potassium: '50mg',
+            vitC: '24mg'
         },
-        ingredients: 'Thai Forest Honey, Water, Plant-based L-Leucine, L-Isoleucine, L-Valine, Ginger Root Extract, Lemon Juice Concentrate, Sea Salt, Potassium Sorbate.'
+        ingredients: 'Concentrated Pineapple Puree, Concentrated Mandarin Orange Juice, Concentrated Passion Fruit Puree, Organic Pea Protein Isolate, Tapioca Starch (Pregelatinized), Filtered Water.'
     }
 };
 
@@ -98,10 +115,7 @@ window.getConvertedPrice = function(id, currency = 'THB') {
     if (!product) return 0;
     
     if (currency === 'USD') {
-        if (id === 'sunrise') return 3.00;
-        if (id === 'strike') return 2.75;
-        if (id === 'sunset') return 3.25;
-        return product.price / 32;
+        return 3.00; // 99 THB is roughly 3.00 USD
     }
     return product.price; // default THB
 };

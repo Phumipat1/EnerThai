@@ -185,13 +185,6 @@ document.addEventListener('DOMContentLoaded', () => {
             countStrike = Math.max(1, Math.round(totalCarbsRequired / 30));
         }
         
-        // Keep in local page variables for bundle add-to-cart
-        calculatedBundle = {
-            sunrise: countSunrise,
-            strike: countStrike,
-            sunset: countSunset
-        };
-        
         // 3.3 Build Timeline
         let timelineHTML = '';
         
@@ -203,13 +196,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="timeline-time">60 Minutes Before Start</div>
                     <div class="timeline-content">
                         <span class="timeline-product-tag sunrise">SUNRISE</span>
-                        <div><strong>Prep Glycogen:</strong> Take 1 SUNRISE gel with 250ml water to prime muscle glycogen and settle your stomach.</div>
+                        <div><strong>Prep Glycogen:</strong> Take 1 caffeinated SUNRISE gel (31g carbs, 70mg caffeine) with 250ml water to prime muscle glycogen, boost cognitive focus, and settle your stomach.</div>
                     </div>
                 </div>
             `;
         }
         
         // During Race Strike Gels
+        let actualStrikeCount = 0;
         if (countStrike > 0) {
             // Space out Strike gels evenly.
             // E.g., if duration is 120 mins and count is 3, take them at 30 min, 60 min, 90 min.
@@ -223,18 +217,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 // If it happens after the race is over, adjust it.
                 if (timePoint >= durationMinutes - 5) break;
                 
+                actualStrikeCount++;
                 timelineHTML += `
                     <div class="timeline-item">
                         <div class="timeline-dot strike"></div>
                         <div class="timeline-time">${timePoint} Minutes In</div>
                         <div class="timeline-content">
                             <span class="timeline-product-tag strike">STRIKE</span>
-                            <div><strong>Maintain energy:</strong> Take STRIKE gel #${i} (${i * 30}g cumulative carbs). Wash down with a few sips of water.</div>
+                            <div><strong>Maintain energy:</strong> Take caffeine-free STRIKE gel #${actualStrikeCount} (${actualStrikeCount * 30}g cumulative carbs, electrolytes). Wash down with a few sips of water.</div>
                         </div>
                     </div>
                 `;
             }
         }
+        // Update countStrike to match the actual number of Strike gels rendered
+        countStrike = actualStrikeCount;
         
         // Post-race Sunset Gel
         if (countSunset > 0) {
@@ -244,11 +241,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="timeline-time">Finish Line (Within 30 Min)</div>
                     <div class="timeline-content">
                         <span class="timeline-product-tag sunset">SUNSET</span>
-                        <div><strong>Accelerate Repair:</strong> Take 1 SUNSET recovery gel. Wild honey replenishes muscles, ginger fights inflammation, and 10g BCAAs repair fibers.</div>
+                        <div><strong>Accelerate Repair:</strong> Take 1 SUNSET recovery gel (23g carbs, 9g pea protein). Concentrated pineapple, mandarin, and passion fruit purees replenish glycogen, while organic pea protein isolate repairs muscle fibers.</div>
                     </div>
                 </div>
             `;
         }
+        
+        // Keep in local page variables for bundle add-to-cart
+        calculatedBundle = {
+            sunrise: countSunrise,
+            strike: countStrike,
+            sunset: countSunset
+        };
         
         // If race is extremely short and no gels recommended
         if (timelineHTML === '') {

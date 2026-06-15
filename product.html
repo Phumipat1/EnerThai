@@ -30,7 +30,7 @@
         .loop-section {
             border-top: 1px solid var(--border-color);
             padding: 80px 0;
-            background-color: #FFFFFF;
+            background-color: var(--bg-primary);
         }
         
         /* Grid for systemic relationship */
@@ -55,6 +55,7 @@
             padding: 24px;
             text-align: center;
             transition: var(--transition-smooth);
+            background-color: var(--bg-card);
         }
         
         .system-step-card.active {
@@ -183,42 +184,66 @@
                         <div class="nutrition-panel" id="nutritionPanel">
                             <h4 style="border-bottom-width: 6px;">Nutrition Facts</h4>
                             <div class="nutrition-panel-serving">
-                                <div>Serving Size: <span id="nutrServing">1 Sachet (40g)</span></div>
+                                <div>Serving Size: <span id="nutrServing">1 Sachet (50g)</span></div>
                                 <div>Servings Per Container: 1</div>
                             </div>
                             <div class="nutrition-calories-row">
                                 <span>Calories</span>
-                                <span id="nutrCalories">120</span>
+                                <span id="nutrCalories">118</span>
                             </div>
                             <div class="nutrition-dv-header">% Daily Value *</div>
                             
-                            <div class="nutrition-row">
+                            <div class="nutrition-row bold">
                                 <span>Total Fat 0g</span>
-                                <span class="bold">0%</span>
+                                <span>0%</span>
                             </div>
-                            <div class="nutrition-row">
-                                <span>Sodium <span id="nutrSodium">250mg</span></span>
-                                <span class="bold" id="nutrSodiumDV">10%</span>
+                            <div class="nutrition-row indent">
+                                <span>Saturated Fat 0g</span>
+                                <span>0%</span>
+                            </div>
+                            <div class="nutrition-row indent">
+                                <span>Trans Fat 0g</span>
+                                <span></span>
+                            </div>
+                            <div class="nutrition-row bold">
+                                <span>Cholesterol 0mg</span>
+                                <span>0%</span>
+                            </div>
+                            <div class="nutrition-row bold">
+                                <span>Sodium <span id="nutrSodium">225mg</span></span>
+                                <span id="nutrSodiumDV">10%</span>
                             </div>
                             <div class="nutrition-row bold">
                                 <span>Total Carbohydrate <span id="nutrCarbs">30g</span></span>
                                 <span id="nutrCarbsDV">11%</span>
                             </div>
                             <div class="nutrition-row indent">
-                                <span>Dietary Fiber 0g</span>
-                                <span>0%</span>
+                                <span>Dietary Fiber <span id="nutrFiber">less than 1g</span></span>
+                                <span id="nutrFiberDV">2%</span>
                             </div>
                             <div class="nutrition-row indent">
-                                <span>Total Sugars <span id="nutrSugars">12g</span></span>
+                                <span>Total Sugars <span id="nutrSugars">26g</span></span>
                                 <span></span>
+                            </div>
+                            <div class="nutrition-row indent" style="padding-left: 28px;">
+                                <span>Includes <span id="nutrAddedSugars">0g</span> Added Sugars</span>
+                                <span class="bold">0%</span>
+                            </div>
+                            <div class="nutrition-row bold">
+                                <span>Protein <span id="nutrProtein">0g</span></span>
+                                <span id="nutrProteinDV">0%</span>
                             </div>
                             <div class="nutrition-row">
-                                <span>Protein <span id="nutrProtein">0g</span></span>
-                                <span></span>
+                                <span>Calcium <span id="nutrCalcium">40mg</span></span>
+                                <span id="nutrCalciumDV">3%</span>
+                            </div>
+                            <div class="nutrition-row">
+                                <span>Potassium <span id="nutrPotassium">350mg</span></span>
+                                <span class="bold" id="nutrPotassiumDV">7%</span>
                             </div>
                             <div class="nutrition-row thick-bottom">
-                                <span>Potassium <span id="nutrPotassium">110mg</span></span>
-                                <span class="bold" id="nutrPotassiumDV">2%</span>
+                                <span>Vitamin C <span id="nutrVitC">40mg</span></span>
+                                <span class="bold" id="nutrVitCDV">44%</span>
                             </div>
                             
                             <!-- Custom nutrient row for specific active items (caffeine or BCAAs) -->
@@ -258,7 +283,7 @@
                     <div class="system-step-card" id="step-sunset">
                         <span class="system-step-num">Phase 3</span>
                         <div class="system-step-title">SUNSET (Recover)</div>
-                        <div class="system-step-desc">Recover faster. Honey, ginger, and BCAAs after.</div>
+                        <div class="system-step-desc">Recover faster. Tropical fruits and organic pea protein isolate after.</div>
                         <a href="product.html?id=sunset" class="btn btn-secondary" style="font-size: 11px; padding: 6px 12px; border-radius: 15px;">View Gel</a>
                     </div>
 
@@ -445,21 +470,49 @@
             document.getElementById('nutrSodium').textContent = product.nutrition.sodium;
             document.getElementById('nutrCarbs').textContent = product.nutrition.totalCarb;
             document.getElementById('nutrSugars').textContent = product.nutrition.sugars;
+            document.getElementById('nutrAddedSugars').textContent = product.nutrition.addedSugars || '0g';
             document.getElementById('nutrProtein').textContent = product.nutrition.protein;
             document.getElementById('nutrPotassium').textContent = product.nutrition.potassium;
 
             // Calculate percentage DV based on normal standards
             // Sodium DV reference ~ 2300mg
-            const sodiumMg = parseInt(product.nutrition.sodium);
+            const sodiumMg = parseInt(product.nutrition.sodium) || 0;
             document.getElementById('nutrSodiumDV').textContent = `${Math.round(sodiumMg / 2300 * 100)}%`;
             
             // Carbs DV reference ~ 275g
-            const carbsG = parseInt(product.nutrition.totalCarb);
+            const carbsG = parseInt(product.nutrition.totalCarb) || 0;
             document.getElementById('nutrCarbsDV').textContent = `${Math.round(carbsG / 275 * 100)}%`;
 
+            // Dietary Fiber DV reference ~ 28g
+            const fiberText = product.nutrition.fiber || '0g';
+            let fiberG = 0;
+            if (fiberText.includes('less than')) {
+                fiberG = 0.5;
+            } else {
+                fiberG = parseFloat(fiberText) || 0;
+            }
+            document.getElementById('nutrFiber').textContent = fiberText;
+            document.getElementById('nutrFiberDV').textContent = `${Math.round(fiberG / 28 * 100)}%`;
+
+            // Protein DV reference ~ 50g
+            const proteinG = parseFloat(product.nutrition.protein) || 0;
+            document.getElementById('nutrProteinDV').textContent = `${Math.round(proteinG / 50 * 100)}%`;
+
+            // Calcium DV reference ~ 1300mg
+            const calciumText = product.nutrition.calcium || '0mg';
+            const calciumMg = parseInt(calciumText) || 0;
+            document.getElementById('nutrCalcium').textContent = calciumText;
+            document.getElementById('nutrCalciumDV').textContent = `${Math.round(calciumMg / 1300 * 100)}%`;
+
             // Potassium DV reference ~ 4700mg
-            const potassiumMg = parseInt(product.nutrition.potassium);
+            const potassiumMg = parseInt(product.nutrition.potassium) || 0;
             document.getElementById('nutrPotassiumDV').textContent = `${Math.round(potassiumMg / 4700 * 100)}%`;
+
+            // Vitamin C DV reference ~ 90mg
+            const vitCText = product.nutrition.vitC || '0mg';
+            const vitCMg = parseInt(vitCText) || 0;
+            document.getElementById('nutrVitC').textContent = vitCText;
+            document.getElementById('nutrVitCDV').textContent = `${Math.round(vitCMg / 90 * 100)}%`;
 
             // Handle special rows (Caffeine or BCAAs)
             const specialRow = document.getElementById('nutrSpecialRow');

@@ -145,3 +145,57 @@ We have successfully integrated the official brand assets:
    - Click on a product card or go to [product.html?id=sunrise](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/product.html?id=sunrise). Confirm that the left visual gallery dynamically renders the correct high-res packaging image corresponding to the product.
 3. **Verify Cart Drawer Thumbnails**:
    - Add a product to your cart and open the drawer. Observe that the cart item thumbnail displays the actual sachet packaging design rather than a flat CSS color block.
+
+---
+
+## Phase 5: Nutrition Database & FDA Label Updates
+
+We have successfully completed all Phase 5 updates:
+
+1. **Centralized Product Database Updates**:
+   - Swapped caffeine roles: **SUNRISE** is now caffeinated (70mg from green tea) and **STRIKE** is caffeine-free.
+   - Set the price of Sunrise, Strike, and Sunset to **฿99.00** THB ($3.00 USD).
+   - Updated Sunrise to 135 kcal, 31g carbs, 27g sugars, 15mg sodium, 250mg potassium, mango & banana flavor.
+   - Updated Strike to 118 kcal, 30g carbs, 26g sugars, 225mg sodium, 350mg potassium, 40mg calcium, 40mg Vitamin C, coconut & guava flavor.
+   - Updated Sunset recovery gel to 117 kcal, 23g carbs, 20g sugars, 9g organic pea protein isolate, 25mg sodium, 50mg potassium, 24mg Vitamin C, pineapple, mandarin orange & passion fruit flavor.
+2. **Catalog Grid Updates (`products.html` & `index.html`)**:
+   - Swapped filtering attributes (`data-caffeine="true"` for Sunrise, `data-caffeine="false"` for Strike) so the live filters remain accurate.
+   - Marked Sunset as vegan-friendly (`data-vegan="true"`) since it uses tropical fruits instead of forest honey.
+   - Updated search keywords (`data-keywords`) for all three products.
+   - Updated all expandable card panels for Nutrition Facts and Ingredients to show exact new specs.
+   - Updated home page tabs, featured product cards, testimonials, and FAQs.
+3. **FDA-Style Nutrition Fact Labels (`product.html`)**:
+   - Formatted the detailed dynamic label to match the English version of the standard FDA-style output.
+   - Added Saturated Fat, Trans Fat, Cholesterol, Dietary Fiber, Added Sugars, Calcium, and Vitamin C rows.
+   - Updated the JavaScript loader script to dynamically calculate and display % Daily Value (% DV) based on standard daily value benchmarks:
+     - Sodium: 2300mg
+     - Carbohydrates: 275g
+     - Dietary Fiber: 28g
+     - Protein: 50g
+     - Potassium: 4700mg
+     - Calcium: 1300mg
+     - Vitamin C: 90mg
+4. **Fueling Calculator Updates (`js/calculator.js`)**:
+   - Updated the timeline step details:
+     - Sunrise node displays `31g carbs, 70mg caffeine`.
+     - Sunset recovery node displays `23g carbs, 9g pea protein`.
+     - Strike interval nodes display `caffeine-free STRIKE gel` and correct cumulative carbs.
+   - Verified that recommended bundle calculator and checkout add-to-cart operations work accurately with the updated sachet counts and specifications.
+
+---
+
+## Verification Steps (Phase 5 Updates)
+
+1. **Verify Live Search & Caffeine/Vegan Filters**:
+   - Go to [products.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/products.html).
+   - Check `Caffeinated Only` filter. Only Sunrise should be visible.
+   - Check `Vegan Only` filter. Sunrise and Strike should be visible, and Sunset (which contains honey) should be hidden.
+   - Search for `guava`. Only Strike should be visible.
+2. **Verify Expanded Nutrition Accordions**:
+   - On the products catalog, expand the Nutrition Facts and Ingredients accordions for each gel and verify the values.
+3. **Verify Detailed FDA Nutrition Panel**:
+   - Click on the product cards to go to `product.html` (e.g. `product.html?id=sunrise`, `?id=strike`, `?id=sunset`).
+   - Check the FDA-styled nutrition facts panel. All fields (including Saturated Fat, Cholesterol, Added Sugars, Calcium, and Vitamin C) should display with correct calculated % Daily Value (DV).
+4. **Verify Fueling Timeline Outputs**:
+   - Generate a fueling schedule on [calculator.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/calculator.html).
+   - Verify that the timeline prints `caffeinated SUNRISE gel (31g carbs, 70mg caffeine)` for pre-race, `caffeine-free STRIKE gel` during the race, and `SUNSET recovery gel (23g carbs, 9g pea protein)` post-race.

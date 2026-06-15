@@ -37,3 +37,10 @@
 - `[x]` Update dynamic product details sachet image swaps in `product.html` JavaScript
 - `[x]` Update dynamic cart item sachet thumbnail rendering in `js/main.js`
 - `[x]` Verify asset rendering, theme compatibility, and print layout, and update walkthrough.md
+
+## Phase 5: Nutrition Database & FDA Label Updates
+- `[x]` Update central product database in `js/main.js` with new specifications
+- `[x]` Update filter tags and expander panels on `products.html`
+- `[x]` Update FDA-style static panel structure and loader logic in `product.html`
+- `[x]` Update calculator timeline strings in `js/calculator.js`
+- `[x]` Verify new nutrition filters, labels, and math, and update walkthrough.md

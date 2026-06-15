@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_OTHER",
-  "summary":  "Updated logo and sachet images in products.html, keeping dynamic theme compatibility.",
-  "updatedAt":  "2026-06-15T14:50:58.214579700Z",
+  "summary":  "Updated products.html to use the new Sunset ingredients, flavor profile (Pineapple, Mandarin Orange & Passion Fruit), vegan status, and static price of 99.00 THB for all three energy gels.",
+  "updatedAt":  "2026-06-15T15:39:36.485578200Z",
   "userFacing":  true
 }

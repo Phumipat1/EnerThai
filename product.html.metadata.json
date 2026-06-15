@@ -1,6 +1,6 @@
 {
   "artifactType":  "ARTIFACT_TYPE_OTHER",
-  "summary":  "Updated product.html to render real product package images in the detail page, updating both the HTML markup and the javascript loader logic.",
-  "updatedAt":  "2026-06-15T14:51:03.199088700Z",
+  "summary":  "Updated product.html to support the expanded English version of the FDA-style Nutrition Facts panel, with dynamic calculations for % Daily Value of fiber, protein, calcium, potassium, and Vitamin C.",
+  "updatedAt":  "2026-06-15T15:28:21.067756500Z",
   "userFacing":  true
 }
