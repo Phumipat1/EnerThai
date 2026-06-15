@@ -121,6 +121,11 @@ TONE & BEHAVIOR:
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     contents,
+                    tools: [
+                        {
+                            google_search: {}
+                        }
+                    ],
                     generationConfig: {
                         temperature: 0.7,
                         maxOutputTokens: 1000
