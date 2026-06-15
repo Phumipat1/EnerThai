@@ -1,0 +1,147 @@
+# Walkthrough - EnerThai Nutrition E-Commerce Website
+
+A complete, premium, responsive e-commerce web platform for **EnerThai Nutrition**, a premium Thai natural sports nutrition company creating energy gels (SUNRISE, STRIKE, and SUNSET) for endurance runners.
+
+The website has been built using 100% vanilla **HTML5, CSS3, and JavaScript**, completely free of external dependencies. This makes it light, secure, and ready to deploy instantly onto **GitHub Pages**.
+
+---
+
+## Page Inventory & Features
+
+All 8 requested pages are located in the project root:
+
+1. **Home Page ([index.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/index.html))**
+   - Premium atmospheric hero section showcasing EnerThai’s natural identity.
+   - Interactive, tab-based **PREPARE → PERFORM → RECOVER** switcher displaying Sunrise, Strike, and Sunset timing, flavors, and buy buttons.
+   - Featured products row, benefit points (stomach safety, natural absorption), customer testimonials, and FAQ preview accordions.
+   - Newsletter signup.
+2. **Products Catalog ([products.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/products.html))**
+   - Clean, modern grid displaying all 3 gels.
+   - Features individual quantity selectors and "Add to Cart" hooks.
+   - Features inline-accordion card expansions for complete FDA-style nutrition labels and detailed ingredient lists.
+3. **Dynamic Product Detail Page ([product.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/product.html))**
+   - Dynamically renders product assets by reading the URL query parameter `?id=sunrise`, `?id=strike`, or `?id=sunset`.
+   - Populates descriptions, specific ingredient lists, benefits lists, and custom-styled FDA Nutrition Facts tables.
+   - Includes cross-sell panels showcasing the other products in the three-step fueling loop.
+   - **SEO Enhancement**: Dynamically generates and injects JSON-LD Product Schema markup (names, details, prices, THB currency, and stock availability) into the document `<head>` to support search engines indexing.
+4. **Fueling Calculator ([calculator.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/calculator.html))**
+   - Form sidebar with quick distance presets (5K to 100K Ultra) and pacing presets (Beginner to Elite) with optional weight, temperature, and digestive tolerance toggles.
+   - **Sweat Rate Tool**: Collapsible section that lets runners input training weight before/after runs, duration in minutes, and fluid intake to calculate their hourly sweat rate (ml/hour). Features a checkable toggle to automatically apply this sweat rate directly into the fluid calculation formulas instead of standard templates.
+   - Triggers real-time athletic calculations, including race duration, target carbohydrates per hour, cumulative carb grams, and fluid volumes.
+   - Generates an interactive vertical timeline showing precisely when to consume each product (e.g. 1 hour pre-race Sunrise, Strike intervals during running, and post-race Sunset).
+   - "Add Bundle" button that calculates the precise packet count required for the race and adds the package to the cart in a single click.
+5. **Our Story ([story.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/story.html))**
+   - Magazine-style editorial page telling the stories of sourcing high-grade Jasmine rice from Isan, coconuts from Amphawa, forest honey from Chiang Mai, and raw ginger from Phetchabun hill cooperatives.
+   - Outlines environmental commitments and fair direct-trade farmer initiatives.
+6. **Science ([science.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/science.html))**
+   - Explains the carbohydrate gate limits (SGLT1 and GLUT5 transporters) and the benefits of the 1:0.8 Maltodextrin-to-Fructose absorption ratio.
+   - Features a styled SVG line graph visualizing muscle glycogen depletion curves.
+7. **FAQ ([faq.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/faq.html))**
+   - Interactive accordion groupings covering gel biology, pacing timings, hydration, storage, and logistics.
+8. **Contact ([contact.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/contact.html))**
+   - Contact form with an interception script that simulates form delivery and replaces the form with a success checkmark and follow-up message.
+
+---
+
+## Phase 3: Ultimate UX Polish
+
+We have successfully implemented all Phase 3 enhancements:
+
+1. **Global Currency Switcher (THB ฿ / USD $)**:
+   - Header button toggles currency selections dynamically.
+   - Choices are persisted in `localStorage` under `enerthai_currency`.
+   - Triggers a custom window event (`currencychange`) that updates in-page pricing displays on `products.html`, `product.html` (detail page), and the shopping cart drawer subtotal/total counts automatically.
+2. **Dark Mode Toggle**:
+   - A theme selector in the header switches between light and dark themes.
+   - Persisted in `localStorage` under `enerthai_theme` and toggles the class `.dark-theme` on the body element.
+   - **Scroll Styling Fix**: Sticky header class toggle (`.scrolled`) handles background color shifts natively in CSS, preventing scrolled light backgrounds on dark-mode layouts.
+   - **Contrast & Button Fixes**: Primary buttons (`.btn-primary`), recommended product pills (`.rec-product-pill`), and the header cart badge (`.cart-badge`) adapt dynamically in dark mode for clear readability, avoiding white-on-white text layouts.
+   - **Page-Specific Dark Overrides**: Custom overrides style diagrams, channel gates, grid lines, and magazine image sections in `science.html` and `story.html` to align with the night theme.
+   - **Gastric Emptying Times Chart**: Replaced static text placeholder in `science.html` with a fully responsive Y-axis SVG bar chart comparing gastric transit speeds (45 min vs. 15 min).
+3. **Dynamic Toast Notifications**:
+   - Custom overlay toasts notify customers when adding items to the cart, switching currencies, or copying timelines.
+   - Toasts feature interactive actions (e.g. clicking "View Cart" on an add-to-cart toast instantly slides the cart drawer open).
+4. **Live Search & Phase/Dietary Filtering**:
+   - Search bar in `products.html` filters gels by name, flavor, and custom keyword attributes.
+   - Phase filter buttons isolate gels by Prepare (Pre), Perform (During), and Recover (Post) phases.
+   - Dietary toggle checkboxes filter by Caffeinated and Vegan formulas.
+5. **Timeline Copying & Print-Friendly Stylesheets**:
+   - **Copy Plan**: Extracts the dynamic timeline points, formats them chronologically, and copies them to the system clipboard with toast confirmation.
+   - **Print Plan**: Triggers `window.print()` to print/export the fueling schedule.
+   - **Print stylesheet overrides**: A custom `@media print` block in both `css/style.css` and `css/pages.css` hides headers, footers, forms, checkouts, and **mobile navigation menus** (`.mobile-menu` / `#mobileMenu`) to deliver a clean, publication-ready timeline sheet.
+
+---
+
+## Technical & Sourcing Assets
+
+- **PWA Offline Integration**:
+  - [manifest.json](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/manifest.json): Declares application names, orientation, theme colors, and SVG app icon parameters.
+  - [sw.js](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/sw.js): Caches all page assets locally on installation for complete offline operation.
+- **Stylesheets**: 
+  - [css/style.css](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/css/style.css): Holds custom CSS variables (including dark-mode variables), resets, layout grids, global header/footer, mobile menu sliders, toasts, and the cart drawer panels.
+  - [css/pages.css](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/css/pages.css): Houses page-specific styling (hero alignments, custom FDA labels, timeline nodes, FAQ structures) and `@media print` rules.
+- **Scripts**:
+  - [js/main.js](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/js/main.js): Runs the central `localStorage` shopping cart engine, registers the Service Worker, handles theme/currency selections, generates dynamic WhatsApp & LINE checkouts, and renders dynamic toast notifications.
+  - [js/calculator.js](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/js/calculator.js): Handles math calculators (finish times, sweat rate indices, target carbs/fluids), generates timelines, binds copy/print actions, and triggers bundle purchases.
+
+---
+
+## Verification Steps (Phase 3 Updates)
+
+1. **Verify Global Currency Selector**:
+   - Click the currency indicator button in the header (e.g. `THB`).
+   - Observe that the button toggles to `USD` and a toast notification states: `Currency switched to USD`.
+   - Go to [products.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/products.html) and observe that the card price tags instantly convert (e.g., Strike becomes `$2.75`, Sunrise becomes `$3.00`, and Sunset becomes `$3.25`).
+   - Add Sunrise to your cart and open the drawer. Verify that the cart drawer's item pricing and subtotals display correctly in USD format (e.g. `$3.00`).
+   - Switch back to `THB` and confirm that all values revert to Thai Baht values immediately.
+
+2. **Verify Dark Mode Toggle**:
+   - Click the sun/moon icon in the header actions.
+   - Observe that the layout switches instantly to a dark-mode theme. Refresh the page or click a navigation link; verify that the dark-mode theme remains persistent.
+   - Click the icon again to revert back to the light-mode theme.
+
+3. **Verify Catalog Live Search & Filters**:
+   - Navigate to [products.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/products.html).
+   - Enter `lime` in the search bar. Observe that only the Strike card remains visible. Clear the search.
+   - Click `Prepare (Pre)` in the phase list. Observe that only the Sunrise card is shown. Click `All Phases` to restore all cards.
+   - Check the `Caffeinated Only` checkbox. Observe that only Strike remains visible. Uncheck it.
+   - Check `Vegan Only` checkbox. Observe that Sunrise and Strike remain visible, while Sunset (containing forest honey) is hidden.
+
+4. **Verify Timeline Copy & Print Actions**:
+   - Go to [calculator.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/calculator.html) and click `Generate Fuel Plan`.
+   - Click `Copy Plan`. Verify that a toast confirmation shows: `Fueling plan copied to clipboard!`. Paste the contents in a text editor to confirm the chronological timeline list.
+   - Click `Print Plan`. Verify that your browser opens the system print dialogue, showcasing a cleanly formatted, print-optimized document containing only your race fueling plan (omitting headers, footers, sidebars, and buttons).
+
+---
+
+## Phase 4: Brand Assets & Packaging Integration
+
+We have successfully integrated the official brand assets:
+
+1. **Brand Logo Integration**:
+   - Replaced all inline SVG navigation logos with high-resolution brand logo images: `assets/logo-black.png` (light theme) and `assets/logo-white.png` (dark theme).
+   - Designed a responsive CSS switcher for the logo: when dark mode is toggled, the logo automatically switches colors.
+   - Added the white logo to the permanently dark global footer, establishing a cohesive premium identity.
+2. **Product Packaging Integration (SUNRISE, STRIKE, SUNSET)**:
+   - Replaced all gradient box placeholders across the site (Home page, Catalog, Details page, and Cart drawer thumbnails) with the actual sachet transparent PNG packaging images:
+     - `assets/gel-sunrise.png` (Yellow brush style sachet)
+     - `assets/gel-strike.png` (Red brush style sachet)
+     - `assets/gel-sunset.png` (Purple brush style sachet)
+   - Created interactive CSS classes (`.hero-gel-image`, `.journey-gel-image`, `.product-card-image`, and `.product-detail-image`) with subtle rotations, drop-shadows, and scaling zoom animations on hover to deliver a premium, responsive touch.
+3. **PWA & Offline Integrity**:
+   - Updated the service worker cache file list in `sw.js` and bumped cache version to `enerthai-v2` to cache the new logo and sachet images locally, ensuring they render perfectly when offline.
+
+---
+
+## Verification Steps (Phase 4 Updates)
+
+1. **Verify Logo Rendering & Theme Toggling**:
+   - Refresh the page and inspect the header. Confirm that the black EnerThai logo is displayed cleanly.
+   - Click the Dark Mode toggle button. Verify that the logo instantly transitions to the white version.
+   - Inspect the global footer. Verify that the white EnerThai logo is rendered on the dark background.
+2. **Verify Sachet Packagings & Animations**:
+   - On [index.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/index.html), verify that the hero visual displays the Strike sachet image, and the PREPARE/PERFORM/RECOVER journey tabs render the respective Sunrise/Strike/Sunset sachet images. Hover over them to see the smooth float/tilt hover animation.
+   - Go to [products.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/products.html) and check that each product card contains its respective sachet image instead of solid color gradients.
+   - Click on a product card or go to [product.html?id=sunrise](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/product.html?id=sunrise). Confirm that the left visual gallery dynamically renders the correct high-res packaging image corresponding to the product.
+3. **Verify Cart Drawer Thumbnails**:
+   - Add a product to your cart and open the drawer. Observe that the cart item thumbnail displays the actual sachet packaging design rather than a flat CSS color block.

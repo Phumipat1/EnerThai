@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gel Details | EnerThai Sports Nutrition</title>
+    <meta name="description" content="View ingredients, nutrition facts, and usage recommendations for EnerThai sports nutrition energy gels.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Custom Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link class="style-sheet-inject" rel="stylesheet" href="css/pages.css">
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <style>
+        .detail-container {
+            padding-top: 140px;
+            padding-bottom: 80px;
+        }
+        
+        .other-products-heading {
+            font-size: 28px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .loop-section {
+            border-top: 1px solid var(--border-color);
+            padding: 80px 0;
+            background-color: #FFFFFF;
+        }
+        
+        /* Grid for systemic relationship */
+        .system-journey-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 768px) {
+            .system-journey-row {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+        }
+        
+        .system-step-card {
+            border: 1px dashed var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: var(--transition-smooth);
+        }
+        
+        .system-step-card.active {
+            border-style: solid;
+            border-color: var(--text-primary);
+            background-color: var(--bg-primary);
+        }
+        
+        .system-step-num {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        
+        .system-step-title {
+            font-size: 18px;
+            font-weight: 700;
+            font-family: var(--font-heading);
+            margin-bottom: 4px;
+        }
+        
+        .system-step-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo-black.png" alt="EnerThai Logo" class="logo-img logo-light-theme">
+                <img src="assets/logo-white.png" alt="EnerThai Logo" class="logo-img logo-dark-theme">
+            </a>
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="products.html" class="nav-link active">Gels</a>
+                <a href="calculator.html" class="nav-link">Fueling Calculator</a>
+                <a href="science.html" class="nav-link">Science</a>
+                <a href="story.html" class="nav-link">Our Story</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <button id="cartToggle" class="cart-toggle" aria-label="Shopping Cart">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span id="cartBadge" class="cart-badge">0</span>
+                </button>
+                <button id="menuBurger" class="menu-burger" aria-label="Open Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Nav Overlay -->
+    <div id="mobileMenu" class="mobile-menu">
+        <a href="index.html" class="mobile-menu-link">Home</a>
+        <a href="products.html" class="mobile-menu-link active">Gels</a>
+        <a href="calculator.html" class="mobile-menu-link">Fueling Calculator</a>
+        <a href="science.html" class="mobile-menu-link">Science</a>
+        <a href="story.html" class="mobile-menu-link">Our Story</a>
+        <a href="faq.html" class="mobile-menu-link">FAQ</a>
+        <a href="contact.html" class="mobile-menu-link">Contact</a>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="detail-container">
+            <div class="container product-detail-grid">
+                
+                <!-- Left Side: Product Gallery visual (Dynamic Class) -->
+                <div class="product-gallery animate-fade-in visible">
+                    <div class="gallery-main" style="display: flex; justify-content: center; align-items: center; background: none;">
+                        <img id="productDetailImage" src="assets/gel-strike.png" alt="EnerThai Gel Detail" class="product-detail-image">
+                    </div>
+                </div>
+
+                <!-- Right Side: Dynamic Info Panel -->
+                <div class="product-info-panel animate-fade-in visible" style="animation-delay: 0.1s;">
+                    <span id="productPurposeTag" class="product-purpose-tag badge" style="background-color: var(--border-color); color: var(--text-primary);">PERFORM</span>
+                    <h1 id="productName">STRIKE Energy Gel</h1>
+                    <div id="productFlavor" style="font-size: 16px; font-weight: 600; color: var(--text-muted); margin-bottom: 16px;">Thai Coconut & Lime</div>
+                    <div id="productPrice" class="product-price-large">฿85.00</div>
+                    <p id="productTagline" class="product-desc-large" style="font-weight: 600; color: var(--text-primary); margin-bottom: 16px;"></p>
+                    <p id="productDescription" class="product-desc-large"></p>
+
+                    <div class="product-buy-row">
+                        <div class="qty-selector" style="background-color: var(--bg-card);">
+                            <button class="qty-btn" id="qtyMinus">-</button>
+                            <span class="qty-val" id="qtyVal">1</span>
+                            <button class="qty-btn" id="qtyPlus">+</button>
+                        </div>
+                        <button id="addToCartBtn" class="btn btn-primary" style="flex: 1;">Add to Cart</button>
+                    </div>
+
+                    <!-- Benefits Section -->
+                    <div class="product-detail-section">
+                        <h3>Key Benefits</h3>
+                        <ul id="productBenefits" class="benefit-bullets" style="margin-bottom: 0;">
+                            <!-- Populated dynamically -->
+                        </ul>
+                    </div>
+
+                    <!-- Ingredients Section -->
+                    <div class="product-detail-section">
+                        <h3>Ingredients</h3>
+                        <p id="productIngredients" style="font-size: 14px; color: var(--text-muted); line-height: 1.5;"></p>
+                    </div>
+
+                    <!-- Nutrition Label Section -->
+                    <div class="product-detail-section">
+                        <h3>Nutrition Facts</h3>
+                        <div class="nutrition-panel" id="nutritionPanel">
+                            <h4 style="border-bottom-width: 6px;">Nutrition Facts</h4>
+                            <div class="nutrition-panel-serving">
+                                <div>Serving Size: <span id="nutrServing">1 Sachet (40g)</span></div>
+                                <div>Servings Per Container: 1</div>
+                            </div>
+                            <div class="nutrition-calories-row">
+                                <span>Calories</span>
+                                <span id="nutrCalories">120</span>
+                            </div>
+                            <div class="nutrition-dv-header">% Daily Value *</div>
+                            
+                            <div class="nutrition-row">
+                                <span>Total Fat 0g</span>
+                                <span class="bold">0%</span>
+                            </div>
+                            <div class="nutrition-row">
+                                <span>Sodium <span id="nutrSodium">250mg</span></span>
+                                <span class="bold" id="nutrSodiumDV">10%</span>
+                            </div>
+                            <div class="nutrition-row bold">
+                                <span>Total Carbohydrate <span id="nutrCarbs">30g</span></span>
+                                <span id="nutrCarbsDV">11%</span>
+                            </div>
+                            <div class="nutrition-row indent">
+                                <span>Dietary Fiber 0g</span>
+                                <span>0%</span>
+                            </div>
+                            <div class="nutrition-row indent">
+                                <span>Total Sugars <span id="nutrSugars">12g</span></span>
+                                <span></span>
+                            </div>
+                            <div class="nutrition-row">
+                                <span>Protein <span id="nutrProtein">0g</span></span>
+                                <span></span>
+                            </div>
+                            <div class="nutrition-row thick-bottom">
+                                <span>Potassium <span id="nutrPotassium">110mg</span></span>
+                                <span class="bold" id="nutrPotassiumDV">2%</span>
+                            </div>
+                            
+                            <!-- Custom nutrient row for specific active items (caffeine or BCAAs) -->
+                            <div id="nutrSpecialRow" class="nutrition-row bold" style="display: none;">
+                                <span id="nutrSpecialLabel">Caffeine</span>
+                                <span id="nutrSpecialVal">100mg</span>
+                            </div>
+
+                            <p class="nutrition-disclaimer">* The % Daily Value (DV) tells you how much a nutrient in a serving of food contributes to a daily diet. 2,000 calories a day is used for general nutrition advice.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- System Journey Cross-Sell -->
+        <section class="loop-section">
+            <div class="container">
+                <h2 class="other-products-heading animate-fade-in">The EnerThai Loop</h2>
+                <div class="system-journey-row animate-fade-in">
+                    
+                    <div class="system-step-card" id="step-sunrise">
+                        <span class="system-step-num">Phase 1</span>
+                        <div class="system-step-title">SUNRISE (Prepare)</div>
+                        <div class="system-step-desc">Start primed. Clean carbohydrate fuel before you run.</div>
+                        <a href="product.html?id=sunrise" class="btn btn-secondary" style="font-size: 11px; padding: 6px 12px; border-radius: 15px;">View Gel</a>
+                    </div>
+
+                    <div class="system-step-card" id="step-strike">
+                        <span class="system-step-num">Phase 2</span>
+                        <div class="system-step-title">STRIKE (Perform)</div>
+                        <div class="system-step-desc">Maintain flow. Elite energy delivery during exercise.</div>
+                        <a href="product.html?id=strike" class="btn btn-secondary" style="font-size: 11px; padding: 6px 12px; border-radius: 15px;">View Gel</a>
+                    </div>
+
+                    <div class="system-step-card" id="step-sunset">
+                        <span class="system-step-num">Phase 3</span>
+                        <div class="system-step-title">SUNSET (Recover)</div>
+                        <div class="system-step-desc">Recover faster. Honey, ginger, and BCAAs after.</div>
+                        <a href="product.html?id=sunset" class="btn btn-secondary" style="font-size: 11px; padding: 6px 12px; border-radius: 15px;">View Gel</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo" style="display: block; margin-bottom: 20px;">
+                        <img src="assets/logo-white.png" alt="EnerThai Logo" style="height: 42px; width: auto;">
+                    </a>
+                    <p>Premium sports nutrition harnessing organic Thai ingredients, backed by sports metabolism science.</p>
+                    <div class="footer-socials">
+                        <a href="#" class="footer-social-link">IG</a>
+                        <a href="#" class="footer-social-link">ST</a>
+                        <a href="#" class="footer-social-link">FB</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Products</h4>
+                    <ul class="footer-links">
+                        <li><a href="product.html?id=sunrise" class="footer-link">SUNRISE (Pre)</a></li>
+                        <li><a href="product.html?id=strike" class="footer-link">STRIKE (During)</a></li>
+                        <li><a href="product.html?id=sunset" class="footer-link">SUNSET (Post)</a></li>
+                        <li><a href="products.html" class="footer-link">All Products</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="calculator.html" class="footer-link">Fueling Calculator</a></li>
+                        <li><a href="science.html" class="footer-link">Metabolic Science</a></li>
+                        <li><a href="story.html" class="footer-link">Our Story</a></li>
+                        <li><a href="faq.html" class="footer-link">FAQ Accordion</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html" class="footer-link">Get In Touch</a></li>
+                        <li><span style="color: #999999;">Bangkok, Thailand</span></li>
+                        <li><span style="color: #999999;">support@enerthai.com</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 EnerThai Nutrition Co., Ltd. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Drawer Overlay and Container -->
+    <div id="cartOverlay" class="cart-drawer-overlay"></div>
+    <div id="cartDrawer" class="cart-drawer">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button id="cartClose" class="cart-close" aria-label="Close Cart">&times;</button>
+        </div>
+        <div id="cartItems" class="cart-items-container">
+            <!-- Rendered dynamically via JS -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-summary-row">
+                <span>Subtotal</span>
+                <span id="cartSubtotal">฿0.00</span>
+            </div>
+            <div class="cart-summary-row" style="color: var(--text-muted); font-size: 13px;">
+                <span>Shipping</span>
+                <span>Free</span>
+            </div>
+            <div class="cart-summary-total">
+                <span>Total</span>
+                <span id="cartTotal">฿0.00</span>
+            </div>
+            <button id="checkoutBtn" class="btn btn-primary cart-checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Simulated Checkout Modal -->
+    <div id="checkoutOverlay" class="checkout-modal-overlay">
+        <div class="checkout-modal">
+            <button id="checkoutClose" class="checkout-modal-close" aria-label="Close Checkout">&times;</button>
+            <div class="text-center" style="margin-bottom: 20px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-sunrise-hover);">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+            </div>
+            <h3>Demo Order Checkout</h3>
+            <p>This is a simulated order. Confirming will empty your cart and simulate a successful order shipment.</p>
+            <div class="order-summary-box">
+                <div id="checkoutSummaryItems">
+                    <!-- Populated dynamically -->
+                </div>
+                <div class="order-summary-divider"></div>
+                <div class="order-summary-item">
+                    <span>Subtotal</span>
+                    <span id="checkoutSubtotal">฿0.00</span>
+                </div>
+                <div class="order-summary-item">
+                    <span>Shipping</span>
+                    <span>Free</span>
+                </div>
+                <div class="order-summary-divider"></div>
+                <div class="order-summary-total">
+                    <span>Total</span>
+                    <span id="checkoutTotal">฿0.00</span>
+                </div>
+            </div>
+            <button id="checkoutConfirmBtn" class="btn btn-primary" style="width: 100%;">Place Order</button>
+        </div>
+    </div>
+
+    <!-- Shared Global Scripts -->
+    <script src="js/main.js"></script>
+
+    <!-- Page Specific Script for Loading Product Data -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get product ID from URL query string
+            const params = new URLSearchParams(window.location.search);
+            let productId = params.get('id');
+
+            // Fallback to 'strike' if ID is missing or invalid
+            if (!productId || !window.EnerThaiProducts[productId]) {
+                productId = 'strike';
+            }
+
+            const product = window.EnerThaiProducts[productId];
+
+            // Render Product Information
+            document.title = `${product.name} | EnerThai Sports Nutrition`;
+            document.getElementById('productName').textContent = product.name;
+            document.getElementById('productFlavor').textContent = `Flavor: ${product.flavor}`;
+            
+            function updateProductPrice() {
+                const currency = localStorage.getItem('enerthai_currency') || 'THB';
+                const convertedPrice = window.getConvertedPrice(productId, currency);
+                document.getElementById('productPrice').textContent = window.formatCurrency(convertedPrice, currency);
+            }
+            updateProductPrice();
+            window.addEventListener('currencychange', updateProductPrice);
+
+            document.getElementById('productTagline').textContent = product.tagline;
+            document.getElementById('productDescription').textContent = product.description;
+            document.getElementById('productIngredients').textContent = product.ingredients;
+
+            // Render Purpose Tag Styling
+            const purposeTag = document.getElementById('productPurposeTag');
+            purposeTag.textContent = product.purpose;
+            if (productId === 'sunrise') {
+                purposeTag.style.backgroundColor = 'rgba(233,196,106,0.2)';
+                purposeTag.style.color = '#B58D20';
+            } else if (productId === 'strike') {
+                purposeTag.style.backgroundColor = 'rgba(231,111,81,0.2)';
+                purposeTag.style.color = '#C64F34';
+            } else if (productId === 'sunset') {
+                purposeTag.style.backgroundColor = 'rgba(139,92,246,0.2)';
+                purposeTag.style.color = '#6D28D9';
+            }
+
+            // Set visual packaging image
+            const detailImage = document.getElementById('productDetailImage');
+            detailImage.src = `assets/gel-${product.id}.png`;
+            detailImage.alt = product.name;
+
+            // Render key benefits list
+            const benefitsList = document.getElementById('productBenefits');
+            benefitsList.innerHTML = product.benefits.map(b => `<li>${b}</li>`).join('');
+
+            // Render nutrition panel
+            document.getElementById('nutrServing').textContent = product.nutrition.servingSize;
+            document.getElementById('nutrCalories').textContent = product.nutrition.calories;
+            document.getElementById('nutrSodium').textContent = product.nutrition.sodium;
+            document.getElementById('nutrCarbs').textContent = product.nutrition.totalCarb;
+            document.getElementById('nutrSugars').textContent = product.nutrition.sugars;
+            document.getElementById('nutrProtein').textContent = product.nutrition.protein;
+            document.getElementById('nutrPotassium').textContent = product.nutrition.potassium;
+
+            // Calculate percentage DV based on normal standards
+            // Sodium DV reference ~ 2300mg
+            const sodiumMg = parseInt(product.nutrition.sodium);
+            document.getElementById('nutrSodiumDV').textContent = `${Math.round(sodiumMg / 2300 * 100)}%`;
+            
+            // Carbs DV reference ~ 275g
+            const carbsG = parseInt(product.nutrition.totalCarb);
+            document.getElementById('nutrCarbsDV').textContent = `${Math.round(carbsG / 275 * 100)}%`;
+
+            // Potassium DV reference ~ 4700mg
+            const potassiumMg = parseInt(product.nutrition.potassium);
+            document.getElementById('nutrPotassiumDV').textContent = `${Math.round(potassiumMg / 4700 * 100)}%`;
+
+            // Handle special rows (Caffeine or BCAAs)
+            const specialRow = document.getElementById('nutrSpecialRow');
+            if (product.nutrition.caffeine) {
+                specialRow.style.display = 'flex';
+                document.getElementById('nutrSpecialLabel').textContent = 'Caffeine';
+                document.getElementById('nutrSpecialVal').textContent = product.nutrition.caffeine;
+            } else if (product.nutrition.bcaas) {
+                specialRow.style.display = 'flex';
+                document.getElementById('nutrSpecialLabel').textContent = 'Amino Acids (BCAAs)';
+                document.getElementById('nutrSpecialVal').textContent = product.nutrition.bcaas;
+            } else {
+                specialRow.style.display = 'none';
+            }
+
+            // Highlighting active step card in the bottom cross-sell journey
+            const stepCards = document.querySelectorAll('.system-step-card');
+            stepCards.forEach(card => card.classList.remove('active'));
+            const activeStepCard = document.getElementById(`step-${productId}`);
+            if (activeStepCard) {
+                activeStepCard.classList.add('active');
+            }
+
+            // Dynamically inject Product Schema (JSON-LD) for SEO
+            try {
+                const schemaData = {
+                    "@context": "https://schema.org/",
+                    "@type": "Product",
+                    "name": product.name,
+                    "description": product.description,
+                    "image": window.location.origin + window.location.pathname.replace('product.html', '') + 'assets/' + product.id + '.png',
+                    "offers": {
+                        "@type": "Offer",
+                        "priceCurrency": "THB",
+                        "price": product.price.toFixed(2),
+                        "availability": "https://schema.org/InStock",
+                        "url": window.location.href
+                    }
+                };
+                
+                const scriptEl = document.createElement('script');
+                scriptEl.type = 'application/ld+json';
+                scriptEl.text = JSON.stringify(schemaData);
+                document.head.appendChild(scriptEl);
+            } catch (e) {
+                console.error("Schema injection failed:", e);
+            }
+
+            // Quantity selector and Add to Cart triggers
+            let activeQty = 1;
+            const qtyValEl = document.getElementById('qtyVal');
+            const qtyMinusBtn = document.getElementById('qtyMinus');
+            const qtyPlusBtn = document.getElementById('qtyPlus');
+            const addToCartBtn = document.getElementById('addToCartBtn');
+
+            qtyMinusBtn.addEventListener('click', () => {
+                if (activeQty > 1) {
+                    activeQty--;
+                    qtyValEl.textContent = activeQty;
+                }
+            });
+
+            qtyPlusBtn.addEventListener('click', () => {
+                activeQty++;
+                qtyValEl.textContent = activeQty;
+            });
+
+            addToCartBtn.addEventListener('click', () => {
+                Cart.add(productId, activeQty);
+                // Reset quantity selector
+                activeQty = 1;
+                qtyValEl.textContent = activeQty;
+            });
+        });
+    </script>
+</body>
+</html>

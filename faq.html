@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frequently Asked Questions | EnerThai Sports Nutrition</title>
+    <meta name="description" content="Find answers to common questions about EnerThai energy gels, running fueling plans, hydration requirements, and organic Thai ingredients.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Custom Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <style>
+        .faq-header-section {
+            padding-top: 180px;
+            padding-bottom: 60px;
+            text-align: center;
+            background-color: var(--bg-primary);
+        }
+        .faq-header-section h1 {
+            font-size: 56px;
+            margin-bottom: 12px;
+        }
+        .faq-header-section p {
+            color: var(--text-muted);
+            font-size: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .faq-container {
+            padding-bottom: 100px;
+        }
+        
+        .faq-category-block {
+            margin-bottom: 60px;
+        }
+        .faq-category-block h2 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+            font-family: var(--font-heading);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo-black.png" alt="EnerThai Logo" class="logo-img logo-light-theme">
+                <img src="assets/logo-white.png" alt="EnerThai Logo" class="logo-img logo-dark-theme">
+            </a>
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="products.html" class="nav-link">Gels</a>
+                <a href="calculator.html" class="nav-link">Fueling Calculator</a>
+                <a href="science.html" class="nav-link">Science</a>
+                <a href="story.html" class="nav-link">Our Story</a>
+                <a href="faq.html" class="nav-link active">FAQ</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <button id="cartToggle" class="cart-toggle" aria-label="Shopping Cart">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span id="cartBadge" class="cart-badge">0</span>
+                </button>
+                <button id="menuBurger" class="menu-burger" aria-label="Open Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Nav Overlay -->
+    <div id="mobileMenu" class="mobile-menu">
+        <a href="index.html" class="mobile-menu-link">Home</a>
+        <a href="products.html" class="mobile-menu-link">Gels</a>
+        <a href="calculator.html" class="mobile-menu-link">Fueling Calculator</a>
+        <a href="science.html" class="mobile-menu-link">Science</a>
+        <a href="story.html" class="mobile-menu-link">Our Story</a>
+        <a href="faq.html" class="mobile-menu-link active">FAQ</a>
+        <a href="contact.html" class="mobile-menu-link">Contact</a>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        
+        <section class="faq-header-section animate-fade-in visible">
+            <div class="container">
+                <span class="badge" style="background-color: #F7EAE6; color: #B35136; margin-bottom: 16px;">Help & Support</span>
+                <h1>FAQ</h1>
+                <p>Common questions regarding our products, fueling strategies, and delivery logs.</p>
+            </div>
+        </section>
+
+        <section class="faq-container section-padding">
+            <div class="container" style="max-width: 800px;">
+                
+                <!-- Category 1: Gels Usage & Fueling -->
+                <div class="faq-category-block animate-fade-in visible">
+                    <h2>Usage & Fueling</h2>
+                    <div class="faq-accordion">
+                        <div class="faq-item">
+                            <div class="faq-question">What are energy gels, and how do they work?<span class="faq-icon">+</span></div>
+                            <div class="faq-answer">Energy gels are highly concentrated, easy-to-swallow carbohydrate mixtures designed for endurance athletes. During exercise, your body burns glycogen stores. Gels deliver immediate glucose directly to your bloodstream, sparing muscle glycogen reserves and delaying fatigue.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">When should I take energy gels during a race?<span class="faq-icon">+</span></div>
+                            <div class="faq-answer">For events longer than 60 minutes, we recommend taking your first STRIKE gel around 30 to 45 minutes into the run, and continuing to consume one gel every 30 to 40 minutes. Use our Fueling Calculator page to generate a precise timeline based on your target pace and race distance.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Do I need to take water with EnerThai gels?<span class="faq-icon">+</span></div>
+                            <div class="faq-answer">Yes. While our STRIKE gels are formulated with liquid coconut water concentrate and have a thin, fluid texture compared to thick syrups, we still advise chasing each gel with a few sips of water. Water helps lower the gel's concentration in the stomach, promoting faster gastric emptying and preventing gut issues.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 2: Ingredients & Sourcing -->
+                <div class="faq-category-block animate-fade-in visible">
+                    <h2>Ingredients & Sourcing</h2>
+                    <div class="faq-accordion">
+                        <div class="faq-item">
+                            <div class="faq-question">Why do some energy gels cause stomach distress?<span class="faq-icon">+</span></div>
+                            <div class="faq-answer">Stomach issues occur when too many carbohydrates are dumped into the gut at once, saturating the absorption pathways. Traditional gels often use high-fructose corn syrup or excessive single-source glucose that sits in the stomach. EnerThai utilizes a scientific 1:0.8 Maltodextrin-to-Fructose ratio alongside natural Jasmine rice and coconut water, which bypass the stomach quickly and use two separate absorption channels.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Are EnerThai gels suitable for vegans or vegetarians?<span class="faq-icon">+</span></div>
+                            <div class="faq-answer">Our SUNRISE and STRIKE gels are 100% vegan and plant-based. However, our SUNSET Recovery Gel contains wild-harvested Thai Forest Honey as a natural fructose source, so it is vegetarian-friendly but not strictly vegan.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Which gels contain caffeine?<span class="faq-icon">+</span></div>
+                            <div class="faq-answer">Our STRIKE (Perform) gel contains 100mg of natural caffeine sourced from organic green tea extract to boost mental focus and reduce perceived exertion during the hardest parts of your run. SUNRISE and SUNSET are entirely caffeine-free.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 3: Storage & Training -->
+                <div class="faq-category-block animate-fade-in visible">
+                    <h2>Storage & Training</h2>
+                    <div class="faq-accordion">
+                        <div class="faq-item">
+                            <div class="faq-question">How should I store my EnerThai gels?<span class="faq-icon">+</span></div>
+                            <div class="faq-answer">Store them in a cool, dry place away from direct sunlight. There is no need to refrigerate them, although some runners prefer the taste of chilled gels during hot summer training runs. Since we use pasteurized natural fruit purees and honey, they remain fresh for up to 12 months. Refer to the expiration date printed on the pouch seals.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Should I practice fueling in training?<span class="faq-icon">+</span></div>
+                            <div class="faq-answer">Absolutely. "Training your gut" is just as important as training your legs. Your digestive system adapts to absorbing carbohydrates under cardiovascular strain. We recommend practicing your race-day fueling plan during your weekly long runs to ensure comfort and optimal glycemic absorption on race day.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Can I use these gels for sports other than running?<span class="faq-icon">+</span></div>
+                            <div class="faq-answer">Yes. EnerThai gels are excellent for any high-intensity, long-duration athletic effort, including road cycling, mountain biking, triathlons, trail running, obstacle courses, football, and hiking.</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo" style="display: block; margin-bottom: 20px;">
+                        <img src="assets/logo-white.png" alt="EnerThai Logo" style="height: 42px; width: auto;">
+                    </a>
+                    <p>Premium sports nutrition harnessing organic Thai ingredients, backed by sports metabolism science.</p>
+                    <div class="footer-socials">
+                        <a href="#" class="footer-social-link">IG</a>
+                        <a href="#" class="footer-social-link">ST</a>
+                        <a href="#" class="footer-social-link">FB</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Products</h4>
+                    <ul class="footer-links">
+                        <li><a href="product.html?id=sunrise" class="footer-link">SUNRISE (Pre)</a></li>
+                        <li><a href="product.html?id=strike" class="footer-link">STRIKE (During)</a></li>
+                        <li><a href="product.html?id=sunset" class="footer-link">SUNSET (Post)</a></li>
+                        <li><a href="products.html" class="footer-link">All Products</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="calculator.html" class="footer-link">Fueling Calculator</a></li>
+                        <li><a href="science.html" class="footer-link">Metabolic Science</a></li>
+                        <li><a href="story.html" class="footer-link">Our Story</a></li>
+                        <li><a href="faq.html" class="footer-link">FAQ Accordion</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html" class="footer-link">Get In Touch</a></li>
+                        <li><span style="color: #999999;">Bangkok, Thailand</span></li>
+                        <li><span style="color: #999999;">support@enerthai.com</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 EnerThai Nutrition Co., Ltd. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Drawer Overlay and Container -->
+    <div id="cartOverlay" class="cart-drawer-overlay"></div>
+    <div id="cartDrawer" class="cart-drawer">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button id="cartClose" class="cart-close" aria-label="Close Cart">&times;</button>
+        </div>
+        <div id="cartItems" class="cart-items-container">
+            <!-- Rendered dynamically via JS -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-summary-row">
+                <span>Subtotal</span>
+                <span id="cartSubtotal">฿0.00</span>
+            </div>
+            <div class="cart-summary-row" style="color: var(--text-muted); font-size: 13px;">
+                <span>Shipping</span>
+                <span>Free</span>
+            </div>
+            <div class="cart-summary-total">
+                <span>Total</span>
+                <span id="cartTotal">฿0.00</span>
+            </div>
+            <button id="checkoutBtn" class="btn btn-primary cart-checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Simulated Checkout Modal -->
+    <div id="checkoutOverlay" class="checkout-modal-overlay">
+        <div class="checkout-modal">
+            <button id="checkoutClose" class="checkout-modal-close" aria-label="Close Checkout">&times;</button>
+            <div class="text-center" style="margin-bottom: 20px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-sunrise-hover);">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+            </div>
+            <h3>Demo Order Checkout</h3>
+            <p>This is a simulated order. Confirming will empty your cart and simulate a successful order shipment.</p>
+            <div class="order-summary-box">
+                <div id="checkoutSummaryItems">
+                    <!-- Populated dynamically -->
+                </div>
+                <div class="order-summary-divider"></div>
+                <div class="order-summary-item">
+                    <span>Subtotal</span>
+                    <span id="checkoutSubtotal">฿0.00</span>
+                </div>
+                <div class="order-summary-item">
+                    <span>Shipping</span>
+                    <span>Free</span>
+                </div>
+                <div class="order-summary-divider"></div>
+                <div class="order-summary-total">
+                    <span>Total</span>
+                    <span id="checkoutTotal">฿0.00</span>
+                </div>
+            </div>
+            <button id="checkoutConfirmBtn" class="btn btn-primary" style="width: 100%;">Place Order</button>
+        </div>
+    </div>
+
+    <!-- Shared Global Scripts -->
+    <script src="js/main.js"></script>
+
+    <!-- Accordion toggle interactions -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(q => {
+                q.addEventListener('click', () => {
+                    const item = q.parentElement;
+                    const isActive = item.classList.contains('active');
+                    
+                    // Close all FAQs in the same container to act as a proper accordion
+                    const accordion = item.parentElement;
+                    const siblingItems = accordion.querySelectorAll('.faq-item');
+                    siblingItems.forEach(i => i.classList.remove('active'));
+                    
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

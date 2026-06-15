@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gels Catalog | EnerThai Sports Nutrition</title>
+    <meta name="description" content="Explore EnerThai's natural sports nutrition products: SUNRISE for pre-exercise preparation, STRIKE for during-exercise performance, and SUNSET for recovery.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Custom Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <style>
+        .product-catalog-section {
+            padding-top: 140px;
+            padding-bottom: 100px;
+        }
+        .catalog-intro {
+            max-width: 700px;
+            margin: 0 auto 60px;
+            text-align: center;
+        }
+        .catalog-intro h1 {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        .catalog-intro p {
+            color: var(--text-muted);
+            font-size: 18px;
+        }
+        
+        /* Expandable Sections inside Card */
+        .card-expand-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--text-primary);
+            user-select: none;
+        }
+        .card-expand-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            font-size: 13px;
+            color: var(--text-muted);
+            padding-top: 0;
+        }
+        .card-expand-group {
+            margin-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+        .card-expand-item.active .card-expand-content {
+            max-height: 400px;
+            padding-top: 8px;
+            padding-bottom: 12px;
+        }
+        .card-expand-item.active .card-expand-toggle span {
+            transform: rotate(45deg);
+        }
+        .card-expand-toggle span {
+            font-size: 16px;
+            transition: transform 0.2s ease;
+            display: inline-block;
+        }
+        .benefit-bullets {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 20px;
+        }
+        .benefit-bullets li {
+            position: relative;
+            padding-left: 20px;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        .benefit-bullets li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--text-primary);
+            font-weight: bold;
+        }
+        .card-actions-wrapper {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            align-items: center;
+        }
+        .card-actions-wrapper .qty-selector {
+            background-color: var(--bg-card);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo-black.png" alt="EnerThai Logo" class="logo-img logo-light-theme">
+                <img src="assets/logo-white.png" alt="EnerThai Logo" class="logo-img logo-dark-theme">
+            </a>
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="products.html" class="nav-link active">Gels</a>
+                <a href="calculator.html" class="nav-link">Fueling Calculator</a>
+                <a href="science.html" class="nav-link">Science</a>
+                <a href="story.html" class="nav-link">Our Story</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <button id="cartToggle" class="cart-toggle" aria-label="Shopping Cart">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span id="cartBadge" class="cart-badge">0</span>
+                </button>
+                <button id="menuBurger" class="menu-burger" aria-label="Open Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Nav Overlay -->
+    <div id="mobileMenu" class="mobile-menu">
+        <a href="index.html" class="mobile-menu-link">Home</a>
+        <a href="products.html" class="mobile-menu-link active">Gels</a>
+        <a href="calculator.html" class="mobile-menu-link">Fueling Calculator</a>
+        <a href="science.html" class="mobile-menu-link">Science</a>
+        <a href="story.html" class="mobile-menu-link">Our Story</a>
+        <a href="faq.html" class="mobile-menu-link">FAQ</a>
+        <a href="contact.html" class="mobile-menu-link">Contact</a>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <section class="product-catalog-section">
+            <div class="container">
+                <div class="catalog-intro animate-fade-in visible">
+                    <h1>Sports Nutrition Gels</h1>
+                    <p>Scientifically formulated to fuel the athlete's body. Powered by organic Thai ingredients that are gentle on your gut.</p>
+                </div>
+
+                <!-- Search & Filters -->
+                <div class="animate-fade-in visible" style="margin-bottom: 40px; display: flex; flex-direction: column; gap: 20px; animation-delay: 0.1s;">
+                    <div style="display: flex; gap: 16px; width: 100%; flex-wrap: wrap;">
+                        <!-- Search Input -->
+                        <div style="position: relative; flex: 1; min-width: 280px; display: flex;">
+                            <input type="text" id="catalogSearch" placeholder="Search gels by flavor, ingredients, keywords..." style="width: 100%; border: 1px solid var(--border-color); padding: 12px 16px 12px 40px; border-radius: 30px; font-size: 14px; background-color: var(--bg-card); color: var(--text-primary); outline: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted); opacity: 0.7;">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Filters Row -->
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 16px 0;">
+                        <!-- Phase Filters -->
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;" id="phaseFilters">
+                            <button type="button" class="preset-btn active" data-filter="all" style="padding: 6px 14px; border-radius: 20px;">All Phases</button>
+                            <button type="button" class="preset-btn" data-filter="prepare" style="padding: 6px 14px; border-radius: 20px;">Prepare (Pre)</button>
+                            <button type="button" class="preset-btn" data-filter="perform" style="padding: 6px 14px; border-radius: 20px;">Perform (During)</button>
+                            <button type="button" class="preset-btn" data-filter="recover" style="padding: 6px 14px; border-radius: 20px;">Recover (Post)</button>
+                        </div>
+                        
+                        <!-- Dietary/Ingredient checks -->
+                        <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+                            <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-muted); margin-bottom: 0;">
+                                <input type="checkbox" id="chkCaffeineFilter" style="cursor: pointer;">
+                                Caffeinated Only
+                            </label>
+                            <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-muted); margin-bottom: 0;">
+                                <input type="checkbox" id="chkVeganFilter" style="cursor: pointer;">
+                                Vegan Only
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="products-grid animate-fade-in visible" style="animation-delay: 0.15s;">
+                    
+                    <!-- SUNRISE (Prepare) Card -->
+                    <div class="product-card" id="card-sunrise" data-phase="prepare" data-caffeine="false" data-vegan="true" data-keywords="jasmine rice mango yellow sweet starch carbs prepare">
+                        <div class="product-card-image-wrapper">
+                            <a href="product.html?id=sunrise" style="display: block;">
+                                <img src="assets/gel-sunrise.png" alt="EnerThai SUNRISE Energy Gel" class="product-card-image">
+                            </a>
+                        </div>
+                        <span class="badge" style="background-color: rgba(233,196,106,0.15); color: #B58D20; align-self: flex-start; margin-bottom: 10px;">PREPARE (PRE-EXERCISE)</span>
+                        <h2 class="product-card-title"><a href="product.html?id=sunrise">SUNRISE Energy Gel</a></h2>
+                        <p class="product-card-purpose">Flavor: Sweet Jasmine Rice & Mango</p>
+                        <p class="product-card-desc">Designed to top off muscle glycogen storage before exercise. Formulated with organic slow-release Thai Jasmine Rice syrup to prevent premature glycogen depletion without glycemic spikes.</p>
+                        
+                        <ul class="benefit-bullets">
+                            <li>Jasmine rice syrup provides steady glucose supply</li>
+                            <li>Natural mango puree offers active enzymes and beta-carotenes</li>
+                            <li>Packed with Potassium to jumpstart fluid balance</li>
+                        </ul>
+
+                        <div class="product-card-price" style="margin-bottom: 12px; font-size: 24px;">฿95.00</div>
+
+                        <div class="card-actions-wrapper">
+                            <div class="qty-selector">
+                                <button class="qty-btn" onclick="adjustCardQty('sunrise', -1)">-</button>
+                                <span class="qty-val" id="qty-sunrise">1</span>
+                                <button class="qty-btn" onclick="adjustCardQty('sunrise', 1)">+</button>
+                            </div>
+                            <button class="btn btn-primary" onclick="addCardToCart('sunrise')" style="flex: 1; padding: 12px;">Add to Cart</button>
+                        </div>
+
+                        <!-- Expandable Details -->
+                        <div class="card-expand-group">
+                            <div class="card-expand-item">
+                                <div class="card-expand-toggle" onclick="toggleCardExpand(this)">NUTRITION FACTS <span>+</span></div>
+                                <div class="card-expand-content">
+                                    <div class="nutrition-panel" style="border: 1px solid var(--border-color); max-width: 100%; padding: 12px;">
+                                        <div class="nutrition-row bold"><span>Calories</span><span>160 Kcal</span></div>
+                                        <div class="nutrition-row"><span>Total Fat</span><span>0g</span></div>
+                                        <div class="nutrition-row"><span>Sodium</span><span>180mg</span></div>
+                                        <div class="nutrition-row bold"><span>Total Carbohydrates</span><span>40g</span></div>
+                                        <div class="nutrition-row indent"><span>Dietary Fiber</span><span>0g</span></div>
+                                        <div class="nutrition-row indent"><span>Sugars</span><span>16g</span></div>
+                                        <div class="nutrition-row"><span>Protein</span><span>0g</span></div>
+                                        <div class="nutrition-row"><span>Potassium</span><span>90mg</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-expand-item">
+                                <div class="card-expand-toggle" onclick="toggleCardExpand(this)">INGREDIENTS <span>+</span></div>
+                                <div class="card-expand-content" style="line-height: 1.4; padding-top: 6px;">
+                                    Organic Thai Jasmine Rice Syrup, Natural Mango Puree, Water, Sea Salt, Potassium Chloride, Citric Acid, Natural Beta-Carotene (for natural coloring).
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STRIKE (Perform) Card -->
+                    <div class="product-card" id="card-strike" data-phase="perform" data-caffeine="true" data-vegan="true" data-keywords="coconut lime sodium caffeine green tea perform strike">
+                        <div class="product-card-image-wrapper">
+                            <a href="product.html?id=strike" style="display: block;">
+                                <img src="assets/gel-strike.png" alt="EnerThai STRIKE Energy Gel" class="product-card-image">
+                            </a>
+                        </div>
+                        <span class="badge" style="background-color: rgba(231,111,81,0.15); color: #C64F34; align-self: flex-start; margin-bottom: 10px;">PERFORM (DURING ACTIVITY)</span>
+                        <h2 class="product-card-title"><a href="product.html?id=strike">STRIKE Energy Gel</a></h2>
+                        <p class="product-card-purpose">Flavor: Thai Coconut & Lime</p>
+                        <p class="product-card-desc">High-performance energy during long runs. Formulated with a scientifically optimized 1:0.85 Maltodextrin to Fructose ratio for dual-gate carbohydrate transport, maximizing fuel throughput.</p>
+                        
+                        <ul class="benefit-bullets">
+                            <li>1:0.8 Maltodextrin:Fructose ratio allows up to 90g/hr intake</li>
+                            <li>Real Thai Coconut Water concentrate yields natural organic potassium</li>
+                            <li>100mg natural green tea caffeine boosts cognitive focus</li>
+                        </ul>
+
+                        <div class="product-card-price" style="margin-bottom: 12px; font-size: 24px;">฿85.00</div>
+
+                        <div class="card-actions-wrapper">
+                            <div class="qty-selector">
+                                <button class="qty-btn" onclick="adjustCardQty('strike', -1)">-</button>
+                                <span class="qty-val" id="qty-strike">1</span>
+                                <button class="qty-btn" onclick="adjustCardQty('strike', 1)">+</button>
+                            </div>
+                            <button class="btn btn-primary" onclick="addCardToCart('strike')" style="flex: 1; padding: 12px;">Add to Cart</button>
+                        </div>
+
+                        <!-- Expandable Details -->
+                        <div class="card-expand-group">
+                            <div class="card-expand-item">
+                                <div class="card-expand-toggle" onclick="toggleCardExpand(this)">NUTRITION FACTS <span>+</span></div>
+                                <div class="card-expand-content">
+                                    <div class="nutrition-panel" style="border: 1px solid var(--border-color); max-width: 100%; padding: 12px;">
+                                        <div class="nutrition-row bold"><span>Calories</span><span>120 Kcal</span></div>
+                                        <div class="nutrition-row"><span>Total Fat</span><span>0g</span></div>
+                                        <div class="nutrition-row"><span>Sodium</span><span>250mg</span></div>
+                                        <div class="nutrition-row bold"><span>Total Carbohydrates</span><span>30g</span></div>
+                                        <div class="nutrition-row indent"><span>Dietary Fiber</span><span>0g</span></div>
+                                        <div class="nutrition-row indent"><span>Sugars</span><span>12g</span></div>
+                                        <div class="nutrition-row"><span>Protein</span><span>0g</span></div>
+                                        <div class="nutrition-row"><span>Potassium</span><span>110mg</span></div>
+                                        <div class="nutrition-row bold"><span>Caffeine</span><span>100mg</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-expand-item">
+                                <div class="card-expand-toggle" onclick="toggleCardExpand(this)">INGREDIENTS <span>+</span></div>
+                                <div class="card-expand-content" style="line-height: 1.4; padding-top: 6px;">
+                                    Maltodextrin, Water, Fructose, Thai Coconut Water Concentrate, Lime Juice, Sea Salt, Green Tea Extract (source of caffeine), Natural Flavors, Sodium Benzoate.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUNSET (Recover) Card -->
+                    <div class="product-card" id="card-sunset" data-phase="recover" data-caffeine="false" data-vegan="false" data-keywords="forest honey ginger lemon bcaas amino acids protein recover sunset">
+                        <div class="product-card-image-wrapper">
+                            <a href="product.html?id=sunset" style="display: block;">
+                                <img src="assets/gel-sunset.png" alt="EnerThai SUNSET Energy Gel" class="product-card-image">
+                            </a>
+                        </div>
+                        <span class="badge" style="background-color: rgba(139,92,246,0.15); color: #6D28D9; align-self: flex-start; margin-bottom: 10px;">RECOVER (POST-EXERCISE)</span>
+                        <h2 class="product-card-title"><a href="product.html?id=sunset">SUNSET Recovery Gel</a></h2>
+                        <p class="product-card-purpose">Flavor: Thai Ginger & Forest Honey</p>
+                        <p class="product-card-desc">Restorative energy to replenish depleted glycogen levels and kickstart muscle repair. Enhanced with premium Thai Forest Honey and anti-inflammatory ginger extracts to soothe joints.</p>
+                        
+                        <ul class="benefit-bullets">
+                            <li>10g of plant-derived Branched Chain Amino Acids (BCAAs)</li>
+                            <li>Local Thai Forest Honey supplies natural glucose & minerals</li>
+                            <li>Active Gingerol compounds fight inflammation and muscle stiffness</li>
+                        </ul>
+
+                        <div class="product-card-price" style="margin-bottom: 12px; font-size: 24px;">฿105.00</div>
+
+                        <div class="card-actions-wrapper">
+                            <div class="qty-selector">
+                                <button class="qty-btn" onclick="adjustCardQty('sunset', -1)">-</button>
+                                <span class="qty-val" id="qty-sunset">1</span>
+                                <button class="qty-btn" onclick="adjustCardQty('sunset', 1)">+</button>
+                            </div>
+                            <button class="btn btn-primary" onclick="addCardToCart('sunset')" style="flex: 1; padding: 12px;">Add to Cart</button>
+                        </div>
+
+                        <!-- Expandable Details -->
+                        <div class="card-expand-group">
+                            <div class="card-expand-item">
+                                <div class="card-expand-toggle" onclick="toggleCardExpand(this)">NUTRITION FACTS <span>+</span></div>
+                                <div class="card-expand-content">
+                                    <div class="nutrition-panel" style="border: 1px solid var(--border-color); max-width: 100%; padding: 12px;">
+                                        <div class="nutrition-row bold"><span>Calories</span><span>140 Kcal</span></div>
+                                        <div class="nutrition-row"><span>Total Fat</span><span>0g</span></div>
+                                        <div class="nutrition-row"><span>Sodium</span><span>120mg</span></div>
+                                        <div class="nutrition-row bold"><span>Total Carbohydrates</span><span>25g</span></div>
+                                        <div class="nutrition-row indent"><span>Dietary Fiber</span><span>0g</span></div>
+                                        <div class="nutrition-row indent"><span>Sugars</span><span>18g</span></div>
+                                        <div class="nutrition-row bold"><span>Protein (BCAAs)</span><span>10g</span></div>
+                                        <div class="nutrition-row"><span>Potassium</span><span>75mg</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-expand-item">
+                                <div class="card-expand-toggle" onclick="toggleCardExpand(this)">INGREDIENTS <span>+</span></div>
+                                <div class="card-expand-content" style="line-height: 1.4; padding-top: 6px;">
+                                    Thai Forest Honey, Water, Plant-based L-Leucine, L-Isoleucine, L-Valine (2:1:1 Amino Blend), Ginger Root Extract, Lemon Juice Concentrate, Sea Salt, Potassium Sorbate.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo" style="display: block; margin-bottom: 20px;">
+                        <img src="assets/logo-white.png" alt="EnerThai Logo" style="height: 42px; width: auto;">
+                    </a>
+                    <p>Premium sports nutrition harnessing organic Thai ingredients, backed by sports metabolism science.</p>
+                    <div class="footer-socials">
+                        <a href="#" class="footer-social-link">IG</a>
+                        <a href="#" class="footer-social-link">ST</a>
+                        <a href="#" class="footer-social-link">FB</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Products</h4>
+                    <ul class="footer-links">
+                        <li><a href="product.html?id=sunrise" class="footer-link">SUNRISE (Pre)</a></li>
+                        <li><a href="product.html?id=strike" class="footer-link">STRIKE (During)</a></li>
+                        <li><a href="product.html?id=sunset" class="footer-link">SUNSET (Post)</a></li>
+                        <li><a href="products.html" class="footer-link">All Products</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="calculator.html" class="footer-link">Fueling Calculator</a></li>
+                        <li><a href="science.html" class="footer-link">Metabolic Science</a></li>
+                        <li><a href="story.html" class="footer-link">Our Story</a></li>
+                        <li><a href="faq.html" class="footer-link">FAQ Accordion</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html" class="footer-link">Get In Touch</a></li>
+                        <li><span style="color: #999999;">Bangkok, Thailand</span></li>
+                        <li><span style="color: #999999;">support@enerthai.com</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 EnerThai Nutrition Co., Ltd. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Drawer Overlay and Container -->
+    <div id="cartOverlay" class="cart-drawer-overlay"></div>
+    <div id="cartDrawer" class="cart-drawer">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button id="cartClose" class="cart-close" aria-label="Close Cart">&times;</button>
+        </div>
+        <div id="cartItems" class="cart-items-container">
+            <!-- Rendered dynamically via JS -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-summary-row">
+                <span>Subtotal</span>
+                <span id="cartSubtotal">฿0.00</span>
+            </div>
+            <div class="cart-summary-row" style="color: var(--text-muted); font-size: 13px;">
+                <span>Shipping</span>
+                <span>Free</span>
+            </div>
+            <div class="cart-summary-total">
+                <span>Total</span>
+                <span id="cartTotal">฿0.00</span>
+            </div>
+            <button id="checkoutBtn" class="btn btn-primary cart-checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Simulated Checkout Modal -->
+    <div id="checkoutOverlay" class="checkout-modal-overlay">
+        <div class="checkout-modal">
+            <button id="checkoutClose" class="checkout-modal-close" aria-label="Close Checkout">&times;</button>
+            <div class="text-center" style="margin-bottom: 20px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-sunrise-hover);">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+            </div>
+            <h3>Demo Order Checkout</h3>
+            <p>This is a simulated order. Confirming will empty your cart and simulate a successful order shipment.</p>
+            <div class="order-summary-box">
+                <div id="checkoutSummaryItems">
+                    <!-- Populated dynamically -->
+                </div>
+                <div class="order-summary-divider"></div>
+                <div class="order-summary-item">
+                    <span>Subtotal</span>
+                    <span id="checkoutSubtotal">฿0.00</span>
+                </div>
+                <div class="order-summary-item">
+                    <span>Shipping</span>
+                    <span>Free</span>
+                </div>
+                <div class="order-summary-divider"></div>
+                <div class="order-summary-total">
+                    <span>Total</span>
+                    <span id="checkoutTotal">฿0.00</span>
+                </div>
+            </div>
+            <button id="checkoutConfirmBtn" class="btn btn-primary" style="width: 100%;">Place Order</button>
+        </div>
+    </div>
+
+    <!-- Shared Global Scripts -->
+    <script src="js/main.js"></script>
+
+    <!-- Page Specific Quantity, Accordion, Filters, and Currency Actions -->
+    <script>
+        // 1. Hold quantities in local state before adding to cart
+        const quantities = {
+            sunrise: 1,
+            strike: 1,
+            sunset: 1
+        };
+
+        function adjustCardQty(id, delta) {
+            const currentQty = quantities[id];
+            const newQty = Math.max(1, currentQty + delta);
+            quantities[id] = newQty;
+            document.getElementById(`qty-${id}`).textContent = newQty;
+        }
+
+        function addCardToCart(id) {
+            const qty = quantities[id];
+            Cart.add(id, qty);
+            
+            // Reset quantity display to 1 after adding
+            quantities[id] = 1;
+            document.getElementById(`qty-${id}`).textContent = 1;
+        }
+
+        function toggleCardExpand(element) {
+            const parentItem = element.parentElement;
+            const isActive = parentItem.classList.contains('active');
+            
+            // Close other sibling items in this card
+            const siblingItems = parentItem.parentElement.querySelectorAll('.card-expand-item');
+            siblingItems.forEach(item => item.classList.remove('active'));
+
+            if (!isActive) {
+                parentItem.classList.add('active');
+            }
+        }
+
+        // 2. Catalog Search & Filtering Logic
+        const catalogSearchInput = document.getElementById('catalogSearch');
+        const phaseFilterButtons = document.querySelectorAll('#phaseFilters button');
+        const chkCaffeineFilter = document.getElementById('chkCaffeineFilter');
+        const chkVeganFilter = document.getElementById('chkVeganFilter');
+
+        let activePhase = 'all';
+
+        function applyFilters() {
+            const query = catalogSearchInput.value.toLowerCase().trim();
+            const caffeineOnly = chkCaffeineFilter.checked;
+            const veganOnly = chkVeganFilter.checked;
+
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                const phase = card.getAttribute('data-phase');
+                const caffeine = card.getAttribute('data-caffeine') === 'true';
+                const vegan = card.getAttribute('data-vegan') === 'true';
+                const keywords = card.getAttribute('data-keywords') || '';
+
+                const matchesPhase = activePhase === 'all' || phase === activePhase;
+                const matchesCaffeine = !caffeineOnly || caffeine;
+                const matchesVegan = !veganOnly || vegan;
+                const matchesSearch = !query || keywords.toLowerCase().includes(query);
+
+                if (matchesPhase && matchesCaffeine && matchesVegan && matchesSearch) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Attach event listeners for filters
+        if (catalogSearchInput) {
+            catalogSearchInput.addEventListener('input', applyFilters);
+        }
+
+        phaseFilterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                phaseFilterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activePhase = btn.getAttribute('data-filter');
+                applyFilters();
+            });
+        });
+
+        if (chkCaffeineFilter) {
+            chkCaffeineFilter.addEventListener('change', applyFilters);
+        }
+        if (chkVeganFilter) {
+            chkVeganFilter.addEventListener('change', applyFilters);
+        }
+
+        // 3. Dynamic Currency Selector Pricing Update
+        function updateCardPrices() {
+            const currency = localStorage.getItem('enerthai_currency') || 'THB';
+            
+            // Sunrise
+            const priceSunrise = window.getConvertedPrice('sunrise', currency);
+            const cardSunrise = document.getElementById('card-sunrise');
+            if (cardSunrise) {
+                cardSunrise.querySelector('.product-card-price').textContent = window.formatCurrency(priceSunrise, currency);
+            }
+            
+            // Strike
+            const priceStrike = window.getConvertedPrice('strike', currency);
+            const cardStrike = document.getElementById('card-strike');
+            if (cardStrike) {
+                cardStrike.querySelector('.product-card-price').textContent = window.formatCurrency(priceStrike, currency);
+            }
+            
+            // Sunset
+            const priceSunset = window.getConvertedPrice('sunset', currency);
+            const cardSunset = document.getElementById('card-sunset');
+            if (cardSunset) {
+                cardSunset.querySelector('.product-card-price').textContent = window.formatCurrency(priceSunset, currency);
+            }
+        }
+
+        // Register custom event listener
+        window.addEventListener('currencychange', updateCardPrices);
+
+        // Run once on initial DOM load
+        updateCardPrices();
+    </script>
+</body>
+</html>

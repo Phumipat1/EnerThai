@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Story | EnerThai Sports Nutrition</title>
+    <meta name="description" content="Discover the origins of EnerThai. We partner with local Thai farming cooperatives to source premium Jasmine rice, coconut water, forest honey, and ginger.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Custom Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <style>
+        .story-hero {
+            padding-top: 180px;
+            padding-bottom: 80px;
+            background-color: var(--bg-primary);
+            text-align: center;
+        }
+        .story-hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -0.03em;
+        }
+        .story-hero p {
+            font-size: 20px;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+        
+        .story-section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border-color);
+            background-color: #FFFFFF;
+        }
+        .story-section:nth-of-type(even) {
+            background-color: var(--bg-primary);
+        }
+        
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        
+        .story-section:nth-of-type(even) .story-grid {
+            grid-template-columns: 1.1fr 1fr;
+        }
+        
+        @media (max-width: 992px) {
+            .story-grid, .story-section:nth-of-type(even) .story-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .story-section:nth-of-type(even) .story-image-column {
+                order: -1;
+            }
+        }
+        
+        .story-content h2 {
+            font-size: 32px;
+            margin-bottom: 24px;
+            font-weight: 800;
+        }
+        .story-content p {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .story-content p:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Premium Editorial Image Placeholder using CSS Gradients */
+        .story-img-placeholder {
+            width: 100%;
+            height: 400px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #EAEAEA 0%, #FAF9F6 100%);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+        .story-img-placeholder span {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            z-index: 2;
+        }
+        .story-img-decor-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(17,17,17,0.02) 0%, rgba(255,255,255,0) 70%);
+        }
+
+        /* Dark Theme overrides for story page elements */
+        body.dark-theme .story-section {
+            background-color: var(--bg-card);
+        }
+        body.dark-theme .story-img-placeholder {
+            background: linear-gradient(135deg, #2D2D2D 0%, #161616 100%);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        body.dark-theme .story-img-decor-circle {
+            background: radial-gradient(circle, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0) 70%);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo-black.png" alt="EnerThai Logo" class="logo-img logo-light-theme">
+                <img src="assets/logo-white.png" alt="EnerThai Logo" class="logo-img logo-dark-theme">
+            </a>
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="products.html" class="nav-link">Gels</a>
+                <a href="calculator.html" class="nav-link">Fueling Calculator</a>
+                <a href="science.html" class="nav-link">Science</a>
+                <a href="story.html" class="nav-link active">Our Story</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <button id="cartToggle" class="cart-toggle" aria-label="Shopping Cart">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span id="cartBadge" class="cart-badge">0</span>
+                </button>
+                <button id="menuBurger" class="menu-burger" aria-label="Open Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Nav Overlay -->
+    <div id="mobileMenu" class="mobile-menu">
+        <a href="index.html" class="mobile-menu-link">Home</a>
+        <a href="products.html" class="mobile-menu-link">Gels</a>
+        <a href="calculator.html" class="mobile-menu-link">Fueling Calculator</a>
+        <a href="science.html" class="mobile-menu-link">Science</a>
+        <a href="story.html" class="mobile-menu-link active">Our Story</a>
+        <a href="faq.html" class="mobile-menu-link">FAQ</a>
+        <a href="contact.html" class="mobile-menu-link">Contact</a>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        
+        <!-- Editorial Story Hero -->
+        <section class="story-hero animate-fade-in visible">
+            <div class="container">
+                <span class="badge" style="background-color: #FAF2E6; color: #C27D38; margin-bottom: 16px;">Sourced in Thailand</span>
+                <h1>Our Story</h1>
+                <p>We are a premium sports nutrition brand born from a simple belief: elite endurance fuel should be clean, natural, and sourced from the rich soils of Thailand.</p>
+            </div>
+        </section>
+
+        <!-- Section 1: Our Mission -->
+        <section class="story-section">
+            <div class="container story-grid">
+                <div class="story-content animate-fade-in visible">
+                    <h2>Our Mission</h2>
+                    <p>Endurance sports demand everything from your body. Too often, athletes are forced to fuel their efforts with synthetic, chemical-laden syrups that cause severe gastrointestinal distress and energy crashes.</p>
+                    <p>At EnerThai, our mission is to eliminate that compromise. We build high-performance energy gels utilizing Thailand's organic, mineral-dense agricultural harvest. We create clean, biological fuel that acts in harmony with your digestive system to support peak performance.</p>
+                </div>
+                <div class="story-image-column animate-fade-in visible" style="animation-delay: 0.15s;">
+                    <div class="story-img-placeholder">
+                        <div class="story-img-decor-circle" style="width: 300px; height: 300px; left: -50px; top: -50px; background: radial-gradient(circle, rgba(233,196,106,0.15) 0%, rgba(255,255,255,0) 70%);"></div>
+                        <span>[ Photo: Organic Thai Farms ]</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Supporting Thai Farmers -->
+        <section class="story-section">
+            <div class="container story-grid">
+                <div class="story-image-column animate-fade-in visible">
+                    <div class="story-img-placeholder">
+                        <div class="story-img-decor-circle" style="width: 250px; height: 250px; right: -30px; bottom: -30px; background: radial-gradient(circle, rgba(231,111,81,0.15) 0%, rgba(255,255,255,0) 70%);"></div>
+                        <span>[ Photo: Jasmine Rice Harvest ]</span>
+                    </div>
+                </div>
+                <div class="story-content animate-fade-in visible" style="animation-delay: 0.15s;">
+                    <h2>Supporting Thai Farmers</h2>
+                    <p>Thailand's volcanic soils and tropical monsoons yield crops rich in mineral compounds and clean energy. We work directly with small agricultural cooperatives across the country to source our raw ingredients, establishing direct-trade contracts that bypass corporate middlemen.</p>
+                    <p>By purchasing organic Jasmine rice from Isan, fresh coconuts from Amphawa, wild forest honey from Chiang Mai, and raw ginger from Phetchabun, we ensure fair livable wages for local farmers while securing the most pristine ingredients for endurance athletes globally.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Thailand's Finest Ingredients -->
+        <section class="story-section">
+            <div class="container story-grid">
+                <div class="story-content animate-fade-in visible">
+                    <h2>Thailand's Finest Ingredients</h2>
+                    <p>Every element in an EnerThai gel serves a functional purpose, selected for its metabolic profile:</p>
+                    <p><strong>Organic Jasmine Rice Syrup:</strong> Retains a complex molecular structure that converts slowly to glucose, yielding a prolonged energy curve without glycemic spiking.</p>
+                    <p><strong>Amphawa Coconut Water:</strong> Contains a natural balance of bio-available Potassium, Sodium, and Magnesium to match electrolyte loss in sweat.</p>
+                    <p><strong>Wild Forest Honey:</strong> Provides a natural, enzyme-rich fructose compound that easily transports across the intestinal wall to supplement glycogen oxidation.</p>
+                </div>
+                <div class="story-image-column animate-fade-in visible" style="animation-delay: 0.15s;">
+                    <div class="story-img-placeholder">
+                        <div class="story-img-decor-circle" style="width: 350px; height: 350px; left: 30px; bottom: -100px; background: radial-gradient(circle, rgba(74,144,226,0.12) 0%, rgba(255,255,255,0) 70%);"></div>
+                        <span>[ Photo: Thai Organic Ingredients ]</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Science Meets Nature -->
+        <section class="story-section">
+            <div class="container story-grid">
+                <div class="story-image-column animate-fade-in visible">
+                    <div class="story-img-placeholder">
+                        <span>[ Photo: Nutrition Laboratory ]</span>
+                    </div>
+                </div>
+                <div class="story-content animate-fade-in visible" style="animation-delay: 0.15s;">
+                    <h2>Science Meets Nature</h2>
+                    <p>While we believe in the power of nature, we never compromise on performance science. Our formulas are engineered in sports nutrition labs and validated by professional endurance athletes.</p>
+                    <p>We configure our ingredients to match human digestive pathways. The dual-source carbohydrate ratios (Maltodextrin-to-Fructose) are meticulously calibrated to avoid clogging gut receptors. We test our gels for rapid gastric emptying rates, ensuring that the natural nutrition is converted to active ATP energy as quickly as possible.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Committed to Sustainability -->
+        <section class="story-section">
+            <div class="container story-grid">
+                <div class="story-content animate-fade-in visible">
+                    <h2>Committed to Sustainability</h2>
+                    <p>As runners and athletes, we are deeply connected to the natural trails and roads we run on. Protecting the environment is not a marketing catchphrase for us; it is a core business mandate.</p>
+                    <p>We minimize packaging plastic usage and source post-consumer recycled cardboard for our shipping boxes. Our direct farm agreements prioritize farmers practicing organic, pesticide-free agriculture, protecting local waterways. Furthermore, a portion of every gel sale is donated to forest reforestation projects in Northern Thailand to offset our manufacturing carbon footprint.</p>
+                </div>
+                <div class="story-image-column animate-fade-in visible" style="animation-delay: 0.15s;">
+                    <div class="story-img-placeholder">
+                        <span>[ Photo: Thai Forests Replanting ]</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Our Vision -->
+        <section class="story-section" style="border-bottom: none;">
+            <div class="container text-center animate-fade-in" style="max-width: 800px;">
+                <h2>Our Vision</h2>
+                <p style="font-size: 18px; line-height: 1.7;">"To build a global community of healthy, sustainably fueled athletes who achieve their absolute potential using natural foods that nourish the body, respect the stomach, and uplift the local agricultural communities of Thailand."</p>
+                <div style="margin-top: 40px;">
+                    <a href="products.html" class="btn btn-primary">Try EnerThai Gels</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo" style="display: block; margin-bottom: 20px;">
+                        <img src="assets/logo-white.png" alt="EnerThai Logo" style="height: 42px; width: auto;">
+                    </a>
+                    <p>Premium sports nutrition harnessing organic Thai ingredients, backed by sports metabolism science.</p>
+                    <div class="footer-socials">
+                        <a href="#" class="footer-social-link">IG</a>
+                        <a href="#" class="footer-social-link">ST</a>
+                        <a href="#" class="footer-social-link">FB</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Products</h4>
+                    <ul class="footer-links">
+                        <li><a href="product.html?id=sunrise" class="footer-link">SUNRISE (Pre)</a></li>
+                        <li><a href="product.html?id=strike" class="footer-link">STRIKE (During)</a></li>
+                        <li><a href="product.html?id=sunset" class="footer-link">SUNSET (Post)</a></li>
+                        <li><a href="products.html" class="footer-link">All Products</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="calculator.html" class="footer-link">Fueling Calculator</a></li>
+                        <li><a href="science.html" class="footer-link">Metabolic Science</a></li>
+                        <li><a href="story.html" class="footer-link">Our Story</a></li>
+                        <li><a href="faq.html" class="footer-link">FAQ Accordion</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html" class="footer-link">Get In Touch</a></li>
+                        <li><span style="color: #999999;">Bangkok, Thailand</span></li>
+                        <li><span style="color: #999999;">support@enerthai.com</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 EnerThai Nutrition Co., Ltd. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Drawer Overlay and Container -->
+    <div id="cartOverlay" class="cart-drawer-overlay"></div>
+    <div id="cartDrawer" class="cart-drawer">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button id="cartClose" class="cart-close" aria-label="Close Cart">&times;</button>
+        </div>
+        <div id="cartItems" class="cart-items-container">
+            <!-- Rendered dynamically via JS -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-summary-row">
+                <span>Subtotal</span>
+                <span id="cartSubtotal">฿0.00</span>
+            </div>
+            <div class="cart-summary-row" style="color: var(--text-muted); font-size: 13px;">
+                <span>Shipping</span>
+                <span>Free</span>
+            </div>
+            <div class="cart-summary-total">
+                <span>Total</span>
+                <span id="cartTotal">฿0.00</span>
+            </div>
+            <button id="checkoutBtn" class="btn btn-primary cart-checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Simulated Checkout Modal -->
+    <div id="checkoutOverlay" class="checkout-modal-overlay">
+        <div class="checkout-modal">
+            <button id="checkoutClose" class="checkout-modal-close" aria-label="Close Checkout">&times;</button>
+            <div class="text-center" style="margin-bottom: 20px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-sunrise-hover);">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+            </div>
+            <h3>Demo Order Checkout</h3>
+            <p>This is a simulated order. Confirming will empty your cart and simulate a successful order shipment.</p>
+            <div class="order-summary-box">
+                <div id="checkoutSummaryItems">
+                    <!-- Populated dynamically -->
+                </div>
+                <div class="order-summary-divider"></div>
+                <div class="order-summary-item">
+                    <span>Subtotal</span>
+                    <span id="checkoutSubtotal">฿0.00</span>
+                </div>
+                <div class="order-summary-item">
+                    <span>Shipping</span>
+                    <span>Free</span>
+                </div>
+                <div class="order-summary-divider"></div>
+                <div class="order-summary-total">
+                    <span>Total</span>
+                    <span id="checkoutTotal">฿0.00</span>
+                </div>
+            </div>
+            <button id="checkoutConfirmBtn" class="btn btn-primary" style="width: 100%;">Place Order</button>
+        </div>
+    </div>
+
+    <!-- Shared Global Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>

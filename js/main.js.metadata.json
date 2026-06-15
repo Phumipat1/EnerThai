@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_OTHER",
+  "summary":  "Global JavaScript file managing product definitions, cart state in localStorage, header responsive toggles, scroll-fade animations, and the checkout dialog.",
+  "updatedAt":  "2026-06-12T13:02:24.470449Z"
+}

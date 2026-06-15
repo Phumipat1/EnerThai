@@ -1,0 +1,6 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_OTHER",
+  "summary":  "Updated product.html to render real product package images in the detail page, updating both the HTML markup and the javascript loader logic.",
+  "updatedAt":  "2026-06-15T14:51:03.199088700Z",
+  "userFacing":  true
+}

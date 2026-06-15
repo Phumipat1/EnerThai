@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_OTHER",
+  "summary":  "PWA Service Worker script that caches core HTML, CSS, and JS files for offline execution.",
+  "updatedAt":  "2026-06-12T13:23:48.704741200Z"
+}
