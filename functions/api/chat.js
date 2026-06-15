@@ -257,3 +257,5 @@ TONE & BEHAVIOR:
         );
     }
 }
+
+// Rebuild trigger: 2026-06-16
