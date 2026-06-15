@@ -163,7 +163,10 @@ TONE & BEHAVIOR:
                         contents: gemmaContents,
                         generationConfig: {
                             temperature: 0.7,
-                            maxOutputTokens: 4000 // Increased allowed tokens for Gemma
+                            maxOutputTokens: 4000, // Increased allowed tokens for Gemma
+                            thinkingConfig: {
+                                thinkingLevel: "MINIMAL"
+                            }
                         }
                     };
                 } else {
@@ -210,8 +213,8 @@ TONE & BEHAVIOR:
                     };
                 }
                 
-                // Use v1beta endpoint to ensure systemInstruction parameter is fully supported for Gemini
-                const apiVersion = isGemma ? "v1" : "v1beta";
+                // Use v1beta endpoint to ensure systemInstruction and thinkingConfig parameters are fully supported
+                const apiVersion = "v1beta";
                 response = await fetch(
                     `https://generativelanguage.googleapis.com/${apiVersion}/models/${modelName}:generateContent?key=${apiKey}`,
                     {
@@ -246,7 +249,12 @@ TONE & BEHAVIOR:
             );
         }
 
-        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't formulate a response. Please try again.";
+        let reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't formulate a response. Please try again.";
+        
+        // Strip out thinking/thought blocks to guarantee clean responses (handles Gemma and standard XML-style tags)
+        reply = reply.replace(/<\|channel>thought[\s\S]*?<channel\|>/gi, "");
+        reply = reply.replace(/<think>[\s\S]*?<\/think>/gi, "");
+        reply = reply.trim();
         
         return new Response(
             JSON.stringify({ reply }),

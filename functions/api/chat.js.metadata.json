@@ -1,4 +1,4 @@
 {
-  "summary":  "Updated functions/api/chat.js to use the v1beta endpoint for Gemini models with root-level systemInstruction, and fallback to prepended system instructions for Gemma.",
-  "updatedAt":  "2026-06-15T17:09:04.724794500Z"
+  "summary":  "Modified Cloudflare Pages Function functions/api/chat.js to configure thinkingConfig for Gemma 4 models on v1beta endpoint and parse/strip any leaked thinking blocks from responses before returning them to the user.",
+  "updatedAt":  "2026-06-15T17:25:24.417831300Z"
 }
