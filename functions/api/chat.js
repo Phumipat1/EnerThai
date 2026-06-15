@@ -168,6 +168,14 @@ TONE & BEHAVIOR:
                     };
                 } else {
                     // Gemini models support root-level systemInstruction on the v1beta endpoint
+                    // Configure thinkingConfig dynamically to prevent thought leakage
+                    const thinkingConfig = {};
+                    if (modelName.includes("gemini-3")) {
+                        thinkingConfig.thinkingLevel = "low";
+                    } else if (modelName.includes("gemini-2.5")) {
+                        thinkingConfig.thinkingBudget = 0;
+                    }
+
                     bodyPayload = {
                         contents,
                         systemInstruction,
@@ -196,7 +204,8 @@ TONE & BEHAVIOR:
                         ],
                         generationConfig: {
                             temperature: 0.7,
-                            maxOutputTokens: 2000 // Increased allowed tokens for Gemini
+                            maxOutputTokens: 2000, // Increased allowed tokens for Gemini
+                            ...(Object.keys(thinkingConfig).length > 0 ? { thinkingConfig } : {})
                         }
                     };
                 }
