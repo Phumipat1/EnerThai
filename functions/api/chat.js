@@ -107,13 +107,37 @@ TONE & BEHAVIOR:
             parts: [{ text: systemPrompt }]
         };
 
-        const fallbackModels = [
-            "gemini-3.1-flash-lite",
-            "gemini-3.5-flash",
-            "gemini-2.5-flash",
-            "gemini-2.0-flash",
-            "gemma-4-31b-it"
+        // Keyword-based router to determine if user message requires a web search
+        const searchKeywords = [
+            "search", "google", "web", "internet", "net", "weather", "news", 
+            "today", "current", "latest", "now", "date", "popular", "trending",
+            "recently", "recent", "lookup", "look up"
         ];
+        
+        const needsWebSearch = searchKeywords.some(keyword => 
+            message.toLowerCase().includes(keyword)
+        );
+
+        let fallbackModels = [];
+        if (needsWebSearch) {
+            // Web search: Query Gemini models first (with search tool), then Gemma as backup
+            fallbackModels = [
+                "gemini-3.1-flash-lite",
+                "gemini-3.5-flash",
+                "gemini-2.5-flash",
+                "gemini-2.0-flash",
+                "gemma-4-31b-it"
+            ];
+        } else {
+            // General query: Query Gemma 4 first (high limit, no search), then Gemini models as backup
+            fallbackModels = [
+                "gemma-4-31b-it",
+                "gemini-3.1-flash-lite",
+                "gemini-3.5-flash",
+                "gemini-2.5-flash",
+                "gemini-2.0-flash"
+            ];
+        }
 
         let response;
         let data;
@@ -138,7 +162,7 @@ TONE & BEHAVIOR:
                         contents: gemmaContents,
                         generationConfig: {
                             temperature: 0.7,
-                            maxOutputTokens: 1000
+                            maxOutputTokens: 4000 // Increased allowed tokens for Gemma
                         }
                     };
                 } else {
@@ -171,7 +195,7 @@ TONE & BEHAVIOR:
                         ],
                         generationConfig: {
                             temperature: 0.7,
-                            maxOutputTokens: 1000
+                            maxOutputTokens: 2000 // Increased allowed tokens for Gemini
                         }
                     };
                 }
