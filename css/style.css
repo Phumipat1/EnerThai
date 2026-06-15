@@ -1229,6 +1229,17 @@ body.dark-theme .btn-secondary:hover {
     margin-bottom: 4px;
 }
 
+.chatbot-msg-bubble a {
+    color: #FF6600; /* EnerThai brand orange link */
+    text-decoration: underline;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.chatbot-msg-bubble a:hover {
+    color: #FF3300;
+}
+
 /* Quick Suggestion Chips */
 .chatbot-suggestions {
     padding: 10px 16px;

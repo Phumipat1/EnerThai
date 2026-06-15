@@ -97,6 +97,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Bold formatting: **text** -> <strong>text</strong>
         html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
+        // Link formatting: [text](url) -> <a href="url">$1</a>
+        html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+
         // Lists and Paragraph separation
         const paragraphs = html.split('\n\n');
         return paragraphs.map(p => {
