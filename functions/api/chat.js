@@ -22,9 +22,10 @@ export async function onRequestPost(context) {
             );
         }
 
-        const systemPrompt = `Please act as EnerBot, the premium sports nutrition AI assistant for EnerThai. Your goal is to answer users' questions about EnerThai products, pricing, ingredients, fueling science, and run recommendations.
+        const systemPrompt = `You are EnerBot, the premium sports nutrition AI assistant for EnerThai. 
+Your goal is to answer users' questions about EnerThai products, pricing, ingredients, fueling science, and run recommendations.
 
-Here is your knowledge base:
+PRODUCT DATABASE:
 1. SUNRISE Energy Gel (Prepare):
    - Flavor: Mango & Banana
    - Purpose: Pre-race glycogen priming, mental focus, stomach settling.
@@ -84,34 +85,27 @@ TONE & BEHAVIOR:
 - Recommend users visit the custom Fueling Calculator page (calculator.html) if they want a visual printable timeline.
 - Never mention internal coding details, JSON, or APIs.`;
 
-        // Format history for Gemini API (roles must be either 'user' or 'model')
+        // Format clean history for Gemini API (roles must be either 'user' or 'model')
         const contents = [];
         if (history && Array.isArray(history)) {
-            history.forEach((msg, index) => {
-                let text = msg.content;
-                // Prepend system instructions to the very first user message in the thread
-                if (index === 0) {
-                    text = `Instructions for your persona: [${systemPrompt}]\n\nUser message: "${text}"`;
-                }
+            history.forEach(msg => {
                 contents.push({
                     role: msg.role === "assistant" ? "model" : "user",
-                    parts: [{ text: text }]
+                    parts: [{ text: msg.content }]
                 });
             });
         }
         
         // Add current user message
-        if (contents.length === 0) {
-            contents.push({
-                role: "user",
-                parts: [{ text: `Instructions for your persona: [${systemPrompt}]\n\nUser message: "${message}"` }]
-            });
-        } else {
-            contents.push({
-                role: "user",
-                parts: [{ text: message }]
-            });
-        }
+        contents.push({
+            role: "user",
+            parts: [{ text: message }]
+        });
+
+        // Format systemInstruction specifically for the Gemini REST API
+        const systemInstruction = {
+            parts: [{ text: systemPrompt }]
+        };
 
         const fallbackModels = [
             "gemini-3.1-flash-lite",
@@ -131,25 +125,43 @@ TONE & BEHAVIOR:
             const isGemma = modelName.startsWith("gemma");
             
             try {
-                const bodyPayload = {
-                    contents,
-                    generationConfig: {
-                        temperature: 0.7,
-                        maxOutputTokens: 1000
-                    }
-                };
+                let bodyPayload;
                 
-                // Only Gemini models support search grounding tools
-                if (!isGemma) {
-                    bodyPayload.tools = [
-                        {
-                            google_search: {}
+                if (isGemma) {
+                    // Gemma does not support root-level systemInstruction in v1beta.
+                    // Prepend system instruction to the first message in contents instead.
+                    const gemmaContents = JSON.parse(JSON.stringify(contents));
+                    if (gemmaContents.length > 0) {
+                        gemmaContents[0].parts[0].text = `[SYSTEM INSTRUCTION: ${systemPrompt}]\n\n${gemmaContents[0].parts[0].text}`;
+                    }
+                    bodyPayload = {
+                        contents: gemmaContents,
+                        generationConfig: {
+                            temperature: 0.7,
+                            maxOutputTokens: 1000
                         }
-                    ];
+                    };
+                } else {
+                    // Gemini models support root-level systemInstruction on the v1beta endpoint
+                    bodyPayload = {
+                        contents,
+                        systemInstruction,
+                        tools: [
+                            {
+                                google_search: {}
+                            }
+                        ],
+                        generationConfig: {
+                            temperature: 0.7,
+                            maxOutputTokens: 1000
+                        }
+                    };
                 }
                 
+                // Use v1beta endpoint to ensure systemInstruction parameter is fully supported for Gemini
+                const apiVersion = isGemma ? "v1" : "v1beta";
                 response = await fetch(
-                    `https://generativelanguage.googleapis.com/v1/models/${modelName}:generateContent?key=${apiKey}`,
+                    `https://generativelanguage.googleapis.com/${apiVersion}/models/${modelName}:generateContent?key=${apiKey}`,
                     {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
