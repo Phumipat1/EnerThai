@@ -1,8 +1,8 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    Ener Thai Service Worker - Offline Caching
    ========================================================================== */
 
-const CACHE_NAME = 'enerthai-v2';
+const CACHE_NAME = 'enerthai-v3';
 const ASSETS_TO_CACHE = [
   'index.html',
   'products.html',
