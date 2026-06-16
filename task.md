@@ -59,3 +59,11 @@
 - `[x]` Integrate trace.html and js/trace.js in sw.js and bump cache version to enerthai-v4
 - `[x]` Add navigation links in header & footer of all HTML pages
 - `[x]` Verify scanning functions, manual input fallbacks, PWA caching, and update walkthrough.md
+
+## Phase 10: Bilingual Support (English / Thai)
+- `[x]` Add global CSS toggle rules and language button styles to css/style.css
+- `[x]` Implement language state management, toggle click handlers, and event broadcasting in js/main.js
+- `[x]` Update all HTML templates to wrap texts in lang="en" and lang="th" blocks
+- `[x]` Update js/calculator.js and js/trace.js to dynamically support Thai translations
+- `[x]` Update /functions/api/chat.js to respond in the query language
+- `[x]` Bump PWA cache name to enerthai-v6 in sw.js and verify all bilingual features

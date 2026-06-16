@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    Ener Thai Premium E-Commerce Website - AI Chatbot Front-end Logic
    ========================================================================== */
 
@@ -23,7 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="chatbot-name">EnerBot</div>
                         <div class="chatbot-status-row">
                             <span class="chatbot-status-dot"></span>
-                            <span>Nutrition Coach (Online)</span>
+                            <span>
+                                <span lang="en">Nutrition Coach (Online)</span>
+                                <span lang="th">โค้ชโภชนาการการกีฬา (ออนไลน์)</span>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -35,14 +38,26 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
 
             <div class="chatbot-suggestions" id="chatbotSuggestions">
-                <button class="chatbot-chip" data-msg="Recommend a fueling plan for me.">Plan my fuel 🏃‍♂️</button>
-                <button class="chatbot-chip" data-msg="Are your energy gels vegan?">Are they Vegan? 🌱</button>
-                <button class="chatbot-chip" data-msg="Will I get fat from taking 4 gels?">Will I get fat? ⚖️</button>
-                <button class="chatbot-chip" data-msg="Why are all gels priced at 99 THB?">Why 99 THB? ฿</button>
+                <button class="chatbot-chip" data-msg-en="Recommend a fueling plan for me." data-msg-th="ช่วยวางแผนการเติมพลังงานให้ฉันหน่อย" data-msg="Recommend a fueling plan for me.">
+                    <span lang="en">Plan my fuel 🏃‍♂️</span>
+                    <span lang="th">วางแผนพลังงาน 🏃‍♂️</span>
+                </button>
+                <button class="chatbot-chip" data-msg-en="Are your energy gels vegan?" data-msg-th="เจลพลังงานของคุณเป็นเจ/วีแกนไหม" data-msg="Are your energy gels vegan?">
+                    <span lang="en">Are they Vegan? 🌱</span>
+                    <span lang="th">เป็นเจ/วีแกนไหม 🌱</span>
+                </button>
+                <button class="chatbot-chip" data-msg-en="Will I get fat from taking 4 gels?" data-msg-th="กินเจล 4 ซองจะอ้วนไหม" data-msg="Will I get fat from taking 4 gels?">
+                    <span lang="en">Will I get fat? ⚖️</span>
+                    <span lang="th">จะอ้วนไหม? ⚖️</span>
+                </button>
+                <button class="chatbot-chip" data-msg-en="Why are all gels priced at 99 THB?" data-msg-th="ทำไมเจลทุกสูตรราคา 99 บาท" data-msg="Why are all gels priced at 99 THB?">
+                    <span lang="en">Why 99 THB? ฿</span>
+                    <span lang="th">ทำไมต้อง 99 บาท? ฿</span>
+                </button>
             </div>
 
             <form class="chatbot-input-form" id="chatbotInputForm">
-                <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Ask EnerBot something..." autocomplete="off" required>
+                <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Ask EnerBot something..." data-placeholder-en="Ask EnerBot something..." data-placeholder-th="ถามคำถามกับ EnerBot..." autocomplete="off" required>
                 <button type="submit" class="chatbot-send-btn" id="chatbotSend" aria-label="Send Message">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -69,11 +84,19 @@ document.addEventListener('DOMContentLoaded', () => {
     let isWaiting = false;
     const sessionKey = 'enerthai_chat_history';
     
+    // Welcome message helper
+    const getWelcomeMessage = (lang) => {
+        return lang === 'th'
+            ? "สวัสดีครับ! ผมชื่อ EnerBot **โค้ชโภชนาการการกีฬาของ Ener Thai** 🏃‍♂️\n\nสามารถสอบถามผมเกี่ยวกับเจลพลังงาน วิธีการทำงาน หรือให้ผมช่วยคำนวณตารางการเติมพลังงานสำหรับการวิ่งครั้งต่อไปของคุณได้เลยครับ!"
+            : "Hi! I'm EnerBot, your **Ener Thai sports nutrition coach**. 🏃‍♂️\n\nAsk me about our energy gels, how they work, or let me calculate a customized fueling schedule for your next run!";
+    };
+
     // Load existing history or set default welcome
+    const activeLang = localStorage.getItem('enerthai_lang') || 'en';
     let chatHistory = JSON.parse(sessionStorage.getItem(sessionKey)) || [
         {
             role: 'assistant',
-            content: "Hi! I'm EnerBot, your **Ener Thai sports nutrition coach**. 🏃‍♂️\n\nAsk me about our energy gels, how they work, or let me calculate a customized fueling schedule for your next run!"
+            content: getWelcomeMessage(activeLang)
         }
     ];
 
@@ -97,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Bold formatting: **text** -> <strong>text</strong>
         html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
-        // Link formatting: [text](url) -> <a href="url">$1</a>
+        // Link formatting: [text](url) -> <a href="$2">$1</a>
         html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
 
         // Lists and Paragraph separation
@@ -245,14 +268,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 chatHistory.push({ role: 'assistant', content: data.reply });
                 appendBubble('assistant', data.reply);
             } else {
-                const errMsg = data.error || "Sorry, I am having trouble connecting to my servers right now. Please try again in a bit.";
+                const isTh = (localStorage.getItem('enerthai_lang') || 'en') === 'th';
+                const defaultErr = isTh 
+                    ? "ขออภัยครับ ขณะนี้การเชื่อมต่อไปยังเซิร์ฟเวอร์ขัดข้อง กรุณาลองใหม่อีกครั้งในภายหลัง"
+                    : "Sorry, I am having trouble connecting to my servers right now. Please try again in a bit.";
+                const errMsg = data.error || defaultErr;
                 appendBubble('assistant', `⚠️ **Error:** ${errMsg}`);
             }
 
         } catch (err) {
             console.error("Chatbot transmission error:", err);
             removeTypingIndicator();
-            appendBubble('assistant', "⚠️ **Network Error:** Could not contact EnerBot. Please check your internet connection.");
+            const isTh = (localStorage.getItem('enerthai_lang') || 'en') === 'th';
+            const netErr = isTh
+                ? "⚠️ **การเชื่อมต่อขัดข้อง:** ไม่สามารถติดต่อ EnerBot ได้ โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ"
+                : "⚠️ **Network Error:** Could not contact EnerBot. Please check your internet connection.";
+            appendBubble('assistant', netErr);
         } finally {
             isWaiting = false;
             inputField.disabled = false;
@@ -272,8 +303,41 @@ document.addEventListener('DOMContentLoaded', () => {
     // Suggestion chips handler
     suggestionChips.forEach(chip => {
         chip.addEventListener('click', () => {
-            const msg = chip.getAttribute('data-val') || chip.getAttribute('data-msg') || chip.textContent;
+            const lang = localStorage.getItem('enerthai_lang') || 'en';
+            const msg = chip.getAttribute(`data-msg-${lang}`) || chip.getAttribute('data-msg') || chip.textContent;
             sendMessage(msg);
         });
+    });
+
+    // Initial placeholder setup
+    const initLang = localStorage.getItem('enerthai_lang') || 'en';
+    const initPh = initLang === 'th' ? inputField.getAttribute('data-placeholder-th') : inputField.getAttribute('data-placeholder-en');
+    if (initPh) inputField.placeholder = initPh;
+
+    // 8. Register Language Change Listener to dynamically update chatbot UI elements
+    window.addEventListener('langchange', (e) => {
+        const lang = e.detail.lang || localStorage.getItem('enerthai_lang') || 'en';
+        
+        // Update placeholder
+        if (inputField) {
+            const ph = lang === 'th' ? inputField.getAttribute('data-placeholder-th') : inputField.getAttribute('data-placeholder-en');
+            if (ph) inputField.placeholder = ph;
+        }
+        
+        // Update welcome message if it's the only message in history
+        if (chatHistory.length === 1 && chatHistory[0].role === 'assistant') {
+            const enWelcome = getWelcomeMessage('en');
+            const thWelcome = getWelcomeMessage('th');
+            
+            if (lang === 'th' && chatHistory[0].content === enWelcome) {
+                chatHistory[0].content = thWelcome;
+                saveHistory();
+                renderMessages();
+            } else if (lang === 'en' && chatHistory[0].content === thWelcome) {
+                chatHistory[0].content = enWelcome;
+                saveHistory();
+                renderMessages();
+            }
+        }
     });
 });

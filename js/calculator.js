@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    Ener Thai Premium E-Commerce Website - Fueling Calculator JS
    ========================================================================== */
 
@@ -186,17 +186,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // 3.3 Build Timeline
+        const lang = localStorage.getItem('enerthai_lang') || 'en';
         let timelineHTML = '';
         
         // Pre-race Sunrise Gel
         if (countSunrise > 0) {
+            const timeStr = lang === 'th' ? '60 นาทีก่อนเริ่มวิ่ง' : '60 Minutes Before Start';
+            const textStr = lang === 'th' 
+                ? '<strong>เตรียมไกลโคเจน:</strong> รับประทานเจล SUNRISE ผสมคาเฟอีน 1 ซอง (คาร์โบไฮเดรต 31 กรัม, คาเฟอีน 70 มิลลิกรัม) พร้อมน้ำ 250 มล. เพื่อเตรียมความพร้อมไกลโคเจนในกล้ามเนื้อ เพิ่มสมาธิ และช่วยให้ท้องอิ่มสบาย'
+                : '<strong>Prep Glycogen:</strong> Take 1 caffeinated SUNRISE gel (31g carbs, 70mg caffeine) with 250ml water to prime muscle glycogen, boost cognitive focus, and settle your stomach.';
             timelineHTML += `
                 <div class="timeline-item">
                     <div class="timeline-dot sunrise"></div>
-                    <div class="timeline-time">60 Minutes Before Start</div>
+                    <div class="timeline-time">${timeStr}</div>
                     <div class="timeline-content">
                         <span class="timeline-product-tag sunrise">SUNRISE</span>
-                        <div><strong>Prep Glycogen:</strong> Take 1 caffeinated SUNRISE gel (31g carbs, 70mg caffeine) with 250ml water to prime muscle glycogen, boost cognitive focus, and settle your stomach.</div>
+                        <div>${textStr}</div>
                     </div>
                 </div>
             `;
@@ -205,43 +210,45 @@ document.addEventListener('DOMContentLoaded', () => {
         // During Race Strike Gels
         let actualStrikeCount = 0;
         if (countStrike > 0) {
-            // Space out Strike gels evenly.
-            // E.g., if duration is 120 mins and count is 3, take them at 30 min, 60 min, 90 min.
-            // A standard recommendation is a gel every 30 to 45 minutes.
             const interval = Math.round(durationMinutes / (countStrike + 1));
-            const capInterval = Math.max(30, Math.min(45, interval)); // lock between 30 and 45 mins
+            const capInterval = Math.max(30, Math.min(45, interval));
             
             for (let i = 1; i <= countStrike; i++) {
                 const timePoint = Math.round(i * capInterval);
-                
-                // If it happens after the race is over, adjust it.
                 if (timePoint >= durationMinutes - 5) break;
                 
                 actualStrikeCount++;
+                const timeStr = lang === 'th' ? `นาทีที่ ${timePoint} ของการวิ่ง` : `${timePoint} Minutes In`;
+                const textStr = lang === 'th'
+                    ? `<strong>รักษาระดับพลังงาน:</strong> รับประทานเจล STRIKE สูตรปราศจากคาเฟอีนซองที่ #${actualStrikeCount} (สะสมคาร์โบไฮเดรต ${actualStrikeCount * 30} กรัม, อิเล็กโทรไลต์) ดื่มน้ำตามเล็กน้อย`
+                    : `<strong>Maintain energy:</strong> Take caffeine-free STRIKE gel #${actualStrikeCount} (${actualStrikeCount * 30}g cumulative carbs, electrolytes). Wash down with a few sips of water.`;
                 timelineHTML += `
                     <div class="timeline-item">
                         <div class="timeline-dot strike"></div>
-                        <div class="timeline-time">${timePoint} Minutes In</div>
+                        <div class="timeline-time">${timeStr}</div>
                         <div class="timeline-content">
                             <span class="timeline-product-tag strike">STRIKE</span>
-                            <div><strong>Maintain energy:</strong> Take caffeine-free STRIKE gel #${actualStrikeCount} (${actualStrikeCount * 30}g cumulative carbs, electrolytes). Wash down with a few sips of water.</div>
+                            <div>${textStr}</div>
                         </div>
                     </div>
                 `;
             }
         }
-        // Update countStrike to match the actual number of Strike gels rendered
         countStrike = actualStrikeCount;
         
         // Post-race Sunset Gel
         if (countSunset > 0) {
+            const timeStr = lang === 'th' ? 'เส้นชัย (ภายใน 30 นาที)' : 'Finish Line (Within 30 Min)';
+            const textStr = lang === 'th'
+                ? '<strong>เร่งการฟื้นฟู:</strong> รับประทานเจลฟื้นฟู SUNSET 1 ซอง (คาร์โบไฮเดรต 23 กรัม, โปรตีนถั่วลันเตา 9 กรัม) ส่วนผสมสับปะรด ส้มแมนดาริน และเสาวรสบดเข้มข้นช่วยเติมเต็มไกลโคเจน ในขณะที่โปรตีนถั่วลันเตาออร์แกนิกไอโซเลตช่วยซ่อมแซมเส้นใยกล้ามเนื้อ'
+                : '<strong>Accelerate Repair:</strong> Take 1 SUNSET recovery gel (23g carbs, 9g pea protein). Concentrated pineapple, mandarin, and passion fruit purees replenish glycogen, while organic pea protein isolate repairs muscle fibers.';
             timelineHTML += `
                 <div class="timeline-item">
                     <div class="timeline-dot sunset"></div>
-                    <div class="timeline-time">Finish Line (Within 30 Min)</div>
+                    <div class="timeline-time">${timeStr}</div>
                     <div class="timeline-content">
                         <span class="timeline-product-tag sunset">SUNSET</span>
-                        <div><strong>Accelerate Repair:</strong> Take 1 SUNSET recovery gel (23g carbs, 9g pea protein). Concentrated pineapple, mandarin, and passion fruit purees replenish glycogen, while organic pea protein isolate repairs muscle fibers.</div>
+                        <div>${textStr}</div>
                     </div>
                 </div>
             `;
@@ -256,12 +263,16 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // If race is extremely short and no gels recommended
         if (timelineHTML === '') {
+            const timeStr = lang === 'th' ? 'ไม่จำเป็นต้องใช้เจลพลังงาน' : 'No Gels Needed';
+            const textStr = lang === 'th'
+                ? 'การวิ่งที่น้อยกว่า 45 นาทีไม่จำเป็นต้องได้รับพลังงานเสริมภายนอก การดื่มน้ำในแต่ละวันอย่างเพียงพอและมื้ออาหารปกติก็เพียงพอแล้ว!'
+                : 'Runs under 45 minutes do not require external fueling. Adequate daily hydration and normal meals are sufficient!';
             timelineHTML = `
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-time">No Gels Needed</div>
+                    <div class="timeline-time">${timeStr}</div>
                     <div class="timeline-content">
-                        <div>Runs under 45 minutes do not require external fueling. Adequate daily hydration and normal meals are sufficient!</div>
+                        <div>${textStr}</div>
                     </div>
                 </div>
             `;
@@ -283,7 +294,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let paceMin = Math.floor(pace);
         let paceSec = Math.round((pace % 1) * 60);
         let formattedPace = `${paceMin}:${paceSec.toString().padStart(2, '0')}`;
-        planSubtitle.textContent = `Based on a ${distance} km run at a ${formattedPace} min/km pace.`;
+        planSubtitle.textContent = lang === 'th'
+            ? `คำนวณจากการวิ่งระยะทาง ${distance} กม. ที่เพซ ${formattedPace} นาที/กม.`
+            : `Based on a ${distance} km run at a ${formattedPace} min/km pace.`;
         
         // Timeline content
         resTimeline.innerHTML = timelineHTML;
@@ -291,16 +304,16 @@ document.addEventListener('DOMContentLoaded', () => {
         // Bundle pills
         let pillsHTML = '';
         if (countSunrise > 0) {
-            pillsHTML += `<span class="rec-product-pill"><span style="color:var(--color-sunrise);">●</span> ${countSunrise}x Sunrise</span>`;
+            pillsHTML += `<span class="rec-product-pill"><span style="color:var(--color-sunrise);">●</span> ${countSunrise}x ${lang === 'th' ? 'ซันไรส์' : 'Sunrise'}</span>`;
         }
         if (countStrike > 0) {
-            pillsHTML += `<span class="rec-product-pill"><span style="color:var(--color-strike);">●</span> ${countStrike}x Strike</span>`;
+            pillsHTML += `<span class="rec-product-pill"><span style="color:var(--color-strike);">●</span> ${countStrike}x ${lang === 'th' ? 'สไตรก์' : 'Strike'}</span>`;
         }
         if (countSunset > 0) {
-            pillsHTML += `<span class="rec-product-pill"><span style="color:var(--color-sunset);">●</span> ${countSunset}x Sunset</span>`;
+            pillsHTML += `<span class="rec-product-pill"><span style="color:var(--color-sunset);">●</span> ${countSunset}x ${lang === 'th' ? 'ซันเซ็ต' : 'Sunset'}</span>`;
         }
         if (pillsHTML === '') {
-            pillsHTML = '<span>No gels recommended</span>';
+            pillsHTML = `<span>${lang === 'th' ? 'ไม่พบคำแนะนำเจลพลังงาน' : 'No gels recommended'}</span>`;
             btnBuyBundle.style.display = 'none';
         } else {
             btnBuyBundle.style.display = 'block';
@@ -363,14 +376,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const mins = parseFloat(sweatDuration.value);
             const fluid = parseFloat(sweatFluidIntake.value) || 0;
 
+            const lang = localStorage.getItem('enerthai_lang') || 'en';
             if (isNaN(preWeight) || isNaN(postWeight) || isNaN(mins) || mins <= 0) {
-                alert('Please enter valid weight and run duration values.');
+                const msg = lang === 'th' ? 'กรุณากรอกค่าน้ำหนักและระยะเวลาการวิ่งที่ถูกต้อง' : 'Please enter valid weight and run duration values.';
+                alert(msg);
                 return;
             }
 
             const weightLossKg = preWeight - postWeight;
             if (weightLossKg < -1) {
-                alert('Post-run weight cannot be higher than pre-run weight.');
+                const msg = lang === 'th' ? 'น้ำหนักหลังวิ่งไม่สามารถสูงกว่าน้ำหนักก่อนวิ่งได้' : 'Post-run weight cannot be higher than pre-run weight.';
+                alert(msg);
                 return;
             }
 
@@ -393,9 +409,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnCopyPlan) {
         btnCopyPlan.addEventListener('click', () => {
+            const lang = localStorage.getItem('enerthai_lang') || 'en';
             const items = document.querySelectorAll('#resTimeline .timeline-item');
-            if (items.length === 0 || (items.length === 1 && items[0].innerText.includes('No Gels Needed'))) {
-                window.showToast('No fueling plan to copy!');
+            if (items.length === 0 || (items.length === 1 && items[0].innerText.includes(lang === 'th' ? 'ไม่จำเป็นต้องใช้เจลพลังงาน' : 'No Gels Needed'))) {
+                window.showToast(lang === 'th' ? 'ไม่มีแผนพลังงานที่จะคัดลอก!' : 'No fueling plan to copy!');
                 return;
             }
             const text = Array.from(items)
@@ -408,11 +425,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             navigator.clipboard.writeText(text)
                 .then(() => {
-                    window.showToast('Fueling plan copied to clipboard!');
+                    window.showToast(lang === 'th' ? 'คัดลอกแผนพลังงานไปยังคลิปบอร์ดแล้ว!' : 'Fueling plan copied to clipboard!');
                 })
                 .catch(err => {
                     console.error('Failed to copy plan:', err);
-                    window.showToast('Failed to copy fueling plan.');
+                    window.showToast(lang === 'th' ? 'ไม่สามารถคัดลอกแผนพลังงานได้' : 'Failed to copy fueling plan.');
                 });
         });
     }
@@ -422,4 +439,11 @@ document.addEventListener('DOMContentLoaded', () => {
             window.print();
         });
     }
+
+    // Listen for language change to recalculate plan automatically if it's already calculated
+    window.addEventListener('langchange', () => {
+        if (resultsState && resultsState.style.display === 'block') {
+            form.dispatchEvent(new Event('submit'));
+        }
+    });
 });

@@ -503,3 +503,56 @@ We have completed the remaining visual integration of the Our Story page, popula
    - Specifically verify that the "Science Meets Nature" section features the custom machinery image (`assets/story-science.jpg`).
 3. **Verify Hover Transitions**:
    - Hover over the section photos and verify they scale up slightly.
+
+---
+
+## Phase 9: Batch Traceability Scanner
+
+We have successfully built the Batch Traceability Scanner page (`trace.html`) and backend logic (`js/trace.js`):
+
+1. **Interactive Camera Scanner Viewport**:
+   - Integrated the `html5-qrcode` library for high-speed, in-browser barcode and QR code decoding.
+   - Designed a responsive camera viewport container with a red-laser scan overlay and toggle buttons to turn the camera feed on and off to preserve user battery.
+2. **Manual Batch Code Lookup**:
+   - Built a fallback input block where users can type batch codes (e.g. `B-BAN-01`, `B-MAN-01`, `B-PIN-01`, `B-COC-01`) to look up sourcing origins instantly.
+3. **Traceability Database & Timeline**:
+   - Map cooperative profiles (farming cooperative names, highland elevations, volcanic soil details), batch-specific harvesting timelines (harvesting, lab checks, packing, and expiration limits), and certified audit statistics (heavy metal screens, pesticide load, mold counts).
+   - Dynamic rendering of certified lab audit badges and interactive mineral profile chips.
+
+---
+
+## Phase 10: Bilingual Support (English / Thai)
+
+We have implemented comprehensive client-side bilingual switching (English / Thai) across all 8 pages:
+
+1. **Declarative Multi-Language Elements**:
+   - Wrapped all static headers, navigation, cards, lists, paragraphs, labels, and footer menus across all 8 pages in custom `lang="en"` and `lang="th"` blocks.
+   - Client-side CSS handles visibility toggles instantaneously using class names: `body.lang-th [lang="en"] { display: none !important; }` and `body.lang-en [lang="th"] { display: none !important; }`.
+2. **Dynamic Language Switcher Nav Widget**:
+   - Toggles persisted in `localStorage` under `enerthai_lang` (defaulting to `'en'`).
+   - Broad-scale event broadcast via custom `langchange` event updates the active page's dynamic outputs, inputs, and elements without page reloads.
+3. **Dynamic Script Localizations**:
+   - **Calculator (`js/calculator.js`)**: Real-time calculated timelines, timing intervals, presets, calorie validations, and clipboard plans render in high-quality Thai when Thai is selected.
+   - **Traceability (`js/trace.js`)**: Dynamic date translators, error alerts, soil profiles, cooperative titles, harvesting milestones, and toast notifications adjust to the selected language.
+   - **Chatbot front-end (`js/chatbot.js`)**: Updates welcome instructions, suggestion chips, placeholders, and connection errors on `langchange` events.
+   - **Chatbot backend function (`/functions/api/chat.js`)**: Pre-prompt guidelines configure the Gemini AI to auto-detect client query languages, reply in matching formats, and route fueling calculator queries to localized pages.
+4. **Service Worker Version Invalidation**:
+   - Bumped the Service Worker `CACHE_NAME` to `enerthai-v6` in `sw.js` to clear current caches and force clients to retrieve updated bilingual scripts.
+
+---
+
+## Verification Steps (Phase 9 & 10 Updates)
+
+1. **Verify Global Language Selector**:
+   - Click the `EN | TH` indicator in the header of any page.
+   - Confirm that the page content transitions instantly to the selected language. Toggle page navigation to confirm state persistence.
+2. **Verify Localized Fueling Recommendations**:
+   - Switch language to Thai, open `calculator.html`, and run a pacing plan.
+   - Verify that the resulting timeline steps and timing recommendations are printed in high-quality Thai (e.g. "60 นาทีก่อนเริ่มวิ่ง").
+3. **Verify Localized Sachet Origins**:
+   - Switch language to Thai, go to `trace.html`, and search batch `B-BAN-01`.
+   - Verify that Phop Phra agricultural cooperative details, organic farm locations, harvesting dates, and soil elevated statistics display in Thai.
+4. **Verify Bilingual AI Chatbot**:
+   - Switch language to Thai and ask the chatbot a question in Thai (e.g., "มีคาเฟอีนไหม").
+   - Confirm it replies in Thai about green tea caffeine.
+   - Type a query in English (e.g., "what is the price"). Confirm it replies in English.

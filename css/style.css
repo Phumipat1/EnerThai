@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    Ener Thai Premium E-Commerce Website - Base Design System & Styles
    Inspired by Maurten, Neversecond, and Apple
    ========================================================================== */
@@ -985,6 +985,44 @@ body.dark-theme .btn-secondary:hover {
 .theme-toggle-nav:hover {
     border-color: var(--text-primary);
 }
+
+/* Bilingual Support (Phase 10) */
+body.lang-th [lang="en"] { display: none !important; }
+body.lang-en [lang="th"] { display: none !important; }
+
+.lang-selector-nav {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: transparent;
+    color: var(--text-primary);
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.lang-selector-nav:hover {
+    border-color: var(--text-primary);
+}
+.lang-selector-nav .lang-indicator {
+    transition: var(--transition-fast);
+}
+body.lang-en .lang-indicator.en-active {
+    opacity: 1;
+}
+body.lang-en .lang-indicator.th-active {
+    opacity: 0.4;
+}
+body.lang-th .lang-indicator.en-active {
+    opacity: 0.4;
+}
+body.lang-th .lang-indicator.th-active {
+    opacity: 1;
+}
+
 
 /* Print Media Overrides for PDF plans */
 @media print {
