@@ -1,4 +1,4 @@
-# Task List: EnerThai E-Commerce Website
+﻿# Task List: Ener Thai E-Commerce Website
 
 - `[x]` Create directory structure and asset placeholders
 - `[x]` Create core CSS stylesheets (`css/style.css` & `css/pages.css`)

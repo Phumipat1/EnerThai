@@ -1,5 +1,5 @@
-/* ==========================================================================
-   EnerThai Premium E-Commerce Website - Fueling Calculator JS
+﻿/* ==========================================================================
+   Ener Thai Premium E-Commerce Website - Fueling Calculator JS
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {

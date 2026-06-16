@@ -1,4 +1,4 @@
-export async function onRequestPost(context) {
+﻿export async function onRequestPost(context) {
     try {
         const apiKey = context.env.GEMINI_API_KEY;
         if (!apiKey) {
@@ -22,8 +22,8 @@ export async function onRequestPost(context) {
             );
         }
 
-        const systemPrompt = `You are EnerBot, the premium sports nutrition AI assistant for EnerThai. 
-Your goal is to answer users' questions about EnerThai products, pricing, ingredients, fueling science, and run recommendations.
+        const systemPrompt = `You are EnerBot, the premium sports nutrition AI assistant for Ener Thai. 
+Your goal is to answer users' questions about Ener Thai products, pricing, ingredients, fueling science, and run recommendations.
 
 PRODUCT DATABASE:
 1. SUNRISE Energy Gel (Prepare):

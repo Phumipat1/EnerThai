@@ -1,5 +1,5 @@
-/* ==========================================================================
-   EnerThai Premium E-Commerce Website - Global JavaScript
+﻿/* ==========================================================================
+   Ener Thai Premium E-Commerce Website - Global JavaScript
    ========================================================================== */
 
 // 1. Centralized Product Database
@@ -581,7 +581,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const cartItems = Cart.get();
         if (cartItems.length === 0) return;
 
-        let message = `Hello EnerThai! I would like to place an order:\n\n`;
+        let message = `Hello Ener Thai! I would like to place an order:\n\n`;
         cartItems.forEach(item => {
             message += `• ${item.name} (x${item.qty}) - ฿${(item.price * item.qty).toFixed(2)}\n`;
         });
@@ -628,7 +628,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </svg>
                 </div>
                 <h3>Order Placed Successfully!</h3>
-                <p style="margin-bottom: 24px;">Thank you for refueling with EnerThai. We have sent a simulated order confirmation to your email.</p>
+                <p style="margin-bottom: 24px;">Thank you for refueling with Ener Thai. We have sent a simulated order confirmation to your email.</p>
                 <button class="btn btn-primary" onclick="window.location.reload();" style="width: 100%;">Return to Shop</button>
             `;
         }
@@ -639,8 +639,8 @@ document.addEventListener('DOMContentLoaded', () => {
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js')
-            .then(reg => console.log('EnerThai Service Worker registered with scope:', reg.scope))
-            .catch(err => console.error('EnerThai Service Worker registration failed:', err));
+            .then(reg => console.log('Ener Thai Service Worker registered with scope:', reg.scope))
+            .catch(err => console.error('Ener Thai Service Worker registration failed:', err));
     });
 }
 

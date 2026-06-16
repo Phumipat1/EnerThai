@@ -1,5 +1,5 @@
-/* ==========================================================================
-   EnerThai Premium E-Commerce Website - Base Design System & Styles
+﻿/* ==========================================================================
+   Ener Thai Premium E-Commerce Website - Base Design System & Styles
    Inspired by Maurten, Neversecond, and Apple
    ========================================================================== */
 
@@ -1230,7 +1230,7 @@ body.dark-theme .btn-secondary:hover {
 }
 
 .chatbot-msg-bubble a {
-    color: #FF6600; /* EnerThai brand orange link */
+    color: #FF6600; /* Ener Thai brand orange link */
     text-decoration: underline;
     font-weight: 600;
     transition: color 0.2s ease;

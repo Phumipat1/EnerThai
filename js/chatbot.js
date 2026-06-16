@@ -1,5 +1,5 @@
-/* ==========================================================================
-   EnerThai Premium E-Commerce Website - AI Chatbot Front-end Logic
+﻿/* ==========================================================================
+   Ener Thai Premium E-Commerce Website - AI Chatbot Front-end Logic
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let chatHistory = JSON.parse(sessionStorage.getItem(sessionKey)) || [
         {
             role: 'assistant',
-            content: "Hi! I'm EnerBot, your **EnerThai sports nutrition coach**. 🏃‍♂️\n\nAsk me about our energy gels, how they work, or let me calculate a customized fueling schedule for your next run!"
+            content: "Hi! I'm EnerBot, your **Ener Thai sports nutrition coach**. 🏃‍♂️\n\nAsk me about our energy gels, how they work, or let me calculate a customized fueling schedule for your next run!"
         }
     ];
 

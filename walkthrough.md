@@ -1,6 +1,6 @@
-# Walkthrough - EnerThai Nutrition E-Commerce Website
+﻿# Walkthrough - Ener Thai Nutrition E-Commerce Website
 
-A complete, premium, responsive e-commerce web platform for **EnerThai Nutrition**, a premium Thai natural sports nutrition company creating energy gels (SUNRISE, STRIKE, and SUNSET) for endurance runners.
+A complete, premium, responsive e-commerce web platform for **Ener Thai Nutrition**, a premium Thai natural sports nutrition company creating energy gels (SUNRISE, STRIKE, and SUNSET) for endurance runners.
 
 The website has been built using 100% vanilla **HTML5, CSS3, and JavaScript**, completely free of external dependencies. This makes it light, secure, and ready to deploy instantly onto **GitHub Pages**.
 
@@ -11,7 +11,7 @@ The website has been built using 100% vanilla **HTML5, CSS3, and JavaScript**, c
 All 8 requested pages are located in the project root:
 
 1. **Home Page ([index.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/index.html))**
-   - Premium atmospheric hero section showcasing EnerThai’s natural identity.
+   - Premium atmospheric hero section showcasing Ener Thai’s natural identity.
    - Interactive, tab-based **PREPARE → PERFORM → RECOVER** switcher displaying Sunrise, Strike, and Sunset timing, flavors, and buy buttons.
    - Featured products row, benefit points (stomach safety, natural absorption), customer testimonials, and FAQ preview accordions.
    - Newsletter signup.
@@ -136,9 +136,9 @@ We have successfully integrated the official brand assets:
 ## Verification Steps (Phase 4 Updates)
 
 1. **Verify Logo Rendering & Theme Toggling**:
-   - Refresh the page and inspect the header. Confirm that the black EnerThai logo is displayed cleanly.
+   - Refresh the page and inspect the header. Confirm that the black Ener Thai logo is displayed cleanly.
    - Click the Dark Mode toggle button. Verify that the logo instantly transitions to the white version.
-   - Inspect the global footer. Verify that the white EnerThai logo is rendered on the dark background.
+   - Inspect the global footer. Verify that the white Ener Thai logo is rendered on the dark background.
 2. **Verify Sachet Packagings & Animations**:
    - On [index.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/index.html), verify that the hero visual displays the Strike sachet image, and the PREPARE/PERFORM/RECOVER journey tabs render the respective Sunrise/Strike/Sunset sachet images. Hover over them to see the smooth float/tilt hover animation.
    - Go to [products.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/products.html) and check that each product card contains its respective sachet image instead of solid color gradients.
