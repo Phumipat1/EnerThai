@@ -1,4 +1,4 @@
-﻿# Task List: Ener Thai E-Commerce Website
+# Task List: Ener Thai E-Commerce Website
 
 - `[x]` Create directory structure and asset placeholders
 - `[x]` Create core CSS stylesheets (`css/style.css` & `css/pages.css`)
@@ -51,3 +51,11 @@
 - `[x]` Build dynamic chatbot script `js/chatbot.js` containing chat UI rendering, state, and user interactions
 - `[x]` Integrate `js/chatbot.js` script tag across all 8 HTML page files
 - `[x]` Verify local execution and update walkthrough.md
+
+## Phase 9: Batch Traceability Scanner (Option A)
+- `[x]` Create trace.html with camera viewport and manual input fallbacks
+- `[x]` Create js/trace.js containing scanning logic and batch database mapping
+- `[x]` Add custom scanner styling to css/pages.css
+- `[x]` Integrate trace.html and js/trace.js in sw.js and bump cache version to enerthai-v4
+- `[x]` Add navigation links in header & footer of all HTML pages
+- `[x]` Verify scanning functions, manual input fallbacks, PWA caching, and update walkthrough.md

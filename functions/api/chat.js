@@ -1,4 +1,4 @@
-﻿export async function onRequestPost(context) {
+export async function onRequestPost(context) {
     try {
         const apiKey = context.env.GEMINI_API_KEY;
         if (!apiKey) {
@@ -59,6 +59,10 @@ CALORIE & FAT MYTH BUSTER:
 - A 10K run burns roughly 700-750 calories. A full 4-gel bundle is only ~488 calories, meaning they are still in a calorie deficit and WILL NOT get fat.
 - Proper fueling prevents blood sugar crashes and ghrelin spikes, which stops post-run binge eating (the real cause of weight gain).
 - Muscle recovery (with Sunset's 9g protein) builds lean muscle, boosting BMR (metabolic rate) to burn more fat at rest.
+
+TRACEABILITY & SACHET ORIGINS:
+- If a user asks where their sachet comes from, how to track its harvest, or what the sachet barcode is, direct them to our Traceability Scanner page (trace.html).
+- Explain that they can scan the sachet's barcode with their phone camera on the Traceability page to view the exact farming cooperative (Tak for bananas, Chachoengsao for mangoes, Prachuap Khiri Khan for pineapples, and Amphawa for coconuts), harvest dates, and laboratory purity certifications.
 
 TONE & BEHAVIOR:
 - Be highly encouraging, active, and athletic.

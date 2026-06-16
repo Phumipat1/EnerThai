@@ -2,7 +2,7 @@
    Ener Thai Service Worker - Offline Caching
    ========================================================================== */
 
-const CACHE_NAME = 'enerthai-v3';
+const CACHE_NAME = 'enerthai-v4';
 const ASSETS_TO_CACHE = [
   'index.html',
   'products.html',
@@ -10,12 +10,14 @@ const ASSETS_TO_CACHE = [
   'calculator.html',
   'story.html',
   'science.html',
+  'trace.html',
   'faq.html',
   'contact.html',
   'css/style.css',
   'css/pages.css',
   'js/main.js',
   'js/calculator.js',
+  'js/trace.js',
   'manifest.json',
   'assets/logo-black.png',
   'assets/logo-white.png',

@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traceability Origin Tracker | Ener Thai Sports Nutrition</title>
+    <meta name="description" content="Trace your Ener Thai energy gel from farm to sachet. Scan the barcode or enter your batch code to view harvesting cooperative details, lab purity certificates, and mineral profiles.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Custom Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <!-- AI Chatbot Widget -->
+    <script src="js/chatbot.js" defer></script>
+    <!-- html5-qrcode Library for In-Browser Scanning -->
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js" defer></script>
+    <style>
+        .trace-hero {
+            padding-top: 180px;
+            padding-bottom: 60px;
+            background-color: var(--bg-primary);
+            text-align: center;
+        }
+        .trace-hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -0.03em;
+        }
+        .trace-hero p {
+            font-size: 18px;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+        
+        .trace-container {
+            max-width: 1000px;
+            margin: 0 auto 100px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1.2fr 1.8fr;
+            gap: 50px;
+        }
+        
+        @media (max-width: 992px) {
+            .trace-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+        
+        /* Scanner Section Styles */
+        .scanner-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            height: fit-content;
+        }
+        .scanner-card h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .scanner-viewport-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background-color: #000000;
+            aspect-ratio: 1 / 1;
+            margin-bottom: 24px;
+        }
+        
+        /* Laser scanning overlay animation */
+        .scanner-laser {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, rgba(231,111,81,0) 0%, rgba(231,111,81,1) 50%, rgba(231,111,81,0) 100%);
+            z-index: 10;
+            animation: scanning-line 2.5s infinite linear;
+            display: none;
+        }
+        
+        @keyframes scanning-line {
+            0% { top: 0%; }
+            50% { top: 100%; }
+            100% { top: 0%; }
+        }
+        
+        #reader {
+            width: 100%;
+            height: 100%;
+            border: none !important;
+        }
+        
+        #reader video {
+            object-fit: cover !important;
+            width: 100% !important;
+            height: 100% !important;
+            border-radius: 16px;
+        }
+        
+        /* Manual entry fallback styles */
+        .manual-entry-box {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .manual-entry-box label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        .manual-input-group {
+            display: flex;
+            gap: 10px;
+        }
+        .manual-input {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .manual-input:focus {
+            outline: none;
+            border-color: #E76F51;
+            box-shadow: 0 0 0 3px rgba(231,111,81,0.1);
+        }
+        
+        /* Results Section Styles */
+        .results-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        /* Empty/Default state */
+        .results-empty-state {
+            background-color: var(--bg-card);
+            border: 1px dashed var(--border-color);
+            border-radius: 24px;
+            padding: 60px 40px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            min-height: 400px;
+        }
+        .results-empty-state svg {
+            margin-bottom: 20px;
+            color: var(--border-color);
+        }
+        .results-empty-state p {
+            font-size: 15px;
+            max-width: 320px;
+            line-height: 1.5;
+        }
+        
+        /* Real results sheet (hidden by default) */
+        .results-data-sheet {
+            display: none; /* Controlled via JS */
+            flex-direction: column;
+            gap: 30px;
+            animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Cooperative and origin card */
+        .coop-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .coop-img-container {
+            width: 100%;
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .coop-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .coop-map-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #FFFFFF;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .coop-details {
+            padding: 30px;
+        }
+        
+        .coop-details h3 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+        
+        .coop-details .thai-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 20px;
+        }
+        
+        .coop-details p {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        
+        /* Timeline card styles */
+        .track-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 30px;
+        }
+        .track-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        
+        .timeline-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline-steps::before {
+            content: '';
+            position: absolute;
+            left: 9px;
+            top: 6px;
+            bottom: 6px;
+            width: 2px;
+            background-color: var(--border-color);
+        }
+        
+        .timeline-step {
+            position: relative;
+        }
+        
+        .timeline-bullet {
+            position: absolute;
+            left: -30px;
+            top: 2px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--bg-card);
+            border: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .timeline-step.completed .timeline-bullet {
+            border-color: #2A9D8F;
+            background-color: #2A9D8F;
+        }
+        .timeline-step.completed .timeline-bullet::after {
+            content: '✓';
+            color: #FFFFFF;
+            font-size: 10px;
+            font-weight: 700;
+        }
+        
+        .timeline-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .timeline-title {
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .timeline-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+        .timeline-date {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        
+        /* Purity and Minerals Grid */
+        .purity-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 576px) {
+            .purity-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .purity-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 30px;
+        }
+        .purity-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .certificate-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: rgba(42, 157, 143, 0.1);
+            color: #2A9D8F;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .test-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+        }
+        .test-row:last-child {
+            border-bottom: none;
+        }
+        .test-label {
+            color: var(--text-muted);
+        }
+        .test-val {
+            font-weight: 600;
+        }
+        .test-val.pass {
+            color: #2A9D8F;
+        }
+        
+        .minerals-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 30px;
+        }
+        .minerals-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .mineral-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .mineral-chip {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        /* Dark Theme custom overrides */
+        body.dark-theme .scanner-card,
+        body.dark-theme .coop-card,
+        body.dark-theme .track-card,
+        body.dark-theme .purity-card,
+        body.dark-theme .minerals-card {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo-black.png" alt="Ener Thai Logo" class="logo-img logo-light-theme">
+                <img src="assets/logo-white.png" alt="Ener Thai Logo" class="logo-img logo-dark-theme">
+            </a>
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="products.html" class="nav-link">Gels</a>
+                <a href="calculator.html" class="nav-link">Fueling Calculator</a>
+                <a href="science.html" class="nav-link">Science</a>
+                <a href="story.html" class="nav-link">Our Story</a>
+                <a href="trace.html" class="nav-link active">Traceability</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <button id="cartToggle" class="cart-toggle" aria-label="Shopping Cart">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span id="cartBadge" class="cart-badge">0</span>
+                </button>
+                <button id="menuBurger" class="menu-burger" aria-label="Open Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Nav Overlay -->
+    <div id="mobileMenu" class="mobile-menu">
+        <a href="index.html" class="mobile-menu-link">Home</a>
+        <a href="products.html" class="mobile-menu-link">Gels</a>
+        <a href="calculator.html" class="mobile-menu-link">Fueling Calculator</a>
+        <a href="science.html" class="mobile-menu-link">Science</a>
+        <a href="story.html" class="mobile-menu-link">Our Story</a>
+        <a href="trace.html" class="mobile-menu-link active">Traceability</a>
+        <a href="faq.html" class="mobile-menu-link">FAQ</a>
+        <a href="contact.html" class="mobile-menu-link">Contact</a>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        
+        <!-- Hero section -->
+        <section class="trace-hero animate-fade-in visible">
+            <div class="container">
+                <span class="badge" style="background-color: #E2ECE9; color: #2A9D8F; margin-bottom: 16px;">Verified Traceability</span>
+                <h1>Sachet Origin Tracker</h1>
+                <p>Scan your gel packet's barcode or enter the batch code printed on your sachet to trace its harvest location, farmer story, and testing reports.</p>
+            </div>
+        </section>
+
+        <!-- Container Grid -->
+        <section class="trace-container animate-fade-in visible" style="animation-delay: 0.15s;">
+            
+            <!-- Left Column: Scanner -->
+            <div class="scanner-card">
+                <h2>Scan Barcode / QR</h2>
+                <div class="scanner-viewport-wrapper">
+                    <div class="scanner-laser" id="laserLine"></div>
+                    <div id="reader"></div>
+                </div>
+                
+                <div class="manual-entry-box">
+                    <label for="batchCodeInput">OR ENTER BATCH CODE MANUALLY</label>
+                    <div class="manual-input-group">
+                        <input type="text" id="batchCodeInput" class="manual-input" placeholder="e.g. B-BAN-01" autocomplete="off">
+                        <button id="submitBatchBtn" class="btn btn-primary" style="padding: 12px 24px;">Track</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column: Results Dashboard -->
+            <div class="results-wrapper">
+                
+                <!-- Default state when empty -->
+                <div class="results-empty-state" id="emptyState">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="4"></line>
+                        <line x1="8" y1="2" x2="8" y2="4"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                        <path d="M8 14h.01"></path>
+                        <path d="M12 14h.01"></path>
+                        <path d="M16 14h.01"></path>
+                        <path d="M8 18h.01"></path>
+                        <path d="M12 18h.01"></path>
+                        <path d="M16 18h.01"></path>
+                    </svg>
+                    <h3>No Gel Tracked Yet</h3>
+                    <p>Use your camera to scan the packet barcode above or type a valid batch code (e.g. <strong>B-BAN-01</strong>, <strong>B-MAN-01</strong>) to view sourcing origins.</p>
+                </div>
+                
+                <!-- Dynamic Results Sheet -->
+                <div class="results-data-sheet" id="resultsSheet">
+                    
+                    <!-- 1. Cooperative Card -->
+                    <div class="coop-card">
+                        <div class="coop-img-container">
+                            <img src="assets/story-banana.jpg" alt="Cooperative Farm Sourcing" class="coop-img" id="resultCoopImg">
+                            <span class="coop-map-badge" id="resultMapBadge">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                                <span id="resultMapLocation">Tak, Thailand</span>
+                            </span>
+                        </div>
+                        <div class="coop-details">
+                            <h3 id="resultCoopTitle">Phop Phra Agricultural Cooperative</h3>
+                            <span class="thai-name" id="resultCoopThaiName">สหกรณ์การเกษตรพบพระ จำกัด จังหวัดตาก</span>
+                            <p id="resultCoopDesc">Grown in the volcanic highlands of Phop Phra District in Tak, over 600 meters above sea level, these premium golden bananas slowly accumulate rich potassium and natural energy compounds.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2. Sourcing Timeline -->
+                    <div class="track-card">
+                        <h4>Sourcing & Quality Timeline</h4>
+                        <div class="timeline-steps">
+                            <div class="timeline-step completed">
+                                <div class="timeline-bullet"></div>
+                                <div class="timeline-info">
+                                    <div>
+                                        <div class="timeline-title">Farming Harvest</div>
+                                        <div class="timeline-desc" id="timelineHarvestDesc">Phop Phra Tak cooperatives harvest golden bananas.</div>
+                                    </div>
+                                    <div class="timeline-date" id="timelineHarvestDate">Apr 2026</div>
+                                </div>
+                            </div>
+                            <div class="timeline-step completed">
+                                <div class="timeline-bullet"></div>
+                                <div class="timeline-info">
+                                    <div>
+                                        <div class="timeline-title">Laboratory Purity Check</div>
+                                        <div class="timeline-desc">Analyzed for chemical purity, heavy metal exclusion, and mold indicators.</div>
+                                    </div>
+                                    <div class="timeline-date" id="timelineLabDate">May 2026</div>
+                                </div>
+                            </div>
+                            <div class="timeline-step completed">
+                                <div class="timeline-bullet"></div>
+                                <div class="timeline-info">
+                                    <div>
+                                        <div class="timeline-title">Blending & Packaging</div>
+                                        <div class="timeline-desc">Cold-pressed blending with electrolyte water and pea protein.</div>
+                                    </div>
+                                    <div class="timeline-date" id="timelinePackDate">May 2026</div>
+                                </div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-bullet" style="background-color: var(--bg-card); border-color: var(--border-color);"></div>
+                                <div class="timeline-info">
+                                    <div>
+                                        <div class="timeline-title" style="color: var(--text-muted);">Expiration Date</div>
+                                        <div class="timeline-desc">Recommended best use before shelf boundary limit.</div>
+                                    </div>
+                                    <div class="timeline-date" id="timelineExpDate" style="color: var(--text-muted);">May 2027</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 3. Lab Report and Purity -->
+                    <div class="purity-grid">
+                        
+                        <div class="purity-card">
+                            <h4>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #2A9D8F;">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                </svg>
+                                Lab Inspection
+                            </h4>
+                            <div class="certificate-badge">✓ Purity Verified</div>
+                            <div class="test-row">
+                                <span class="test-label">Heavy Metals</span>
+                                <span class="test-val pass">None Detected</span>
+                            </div>
+                            <div class="test-row">
+                                <span class="test-label">Pesticides</span>
+                                <span class="test-val pass">0.0% (Organic)</span>
+                            </div>
+                            <div class="test-row">
+                                <span class="test-label">Microbial Load</span>
+                                <span class="test-val pass">Negative</span>
+                            </div>
+                            <div class="test-row">
+                                <span class="test-label">Audit Status</span>
+                                <span class="test-val" id="resultInspector">ISO-17025 Certified</span>
+                            </div>
+                        </div>
+                        
+                        <div class="minerals-card">
+                            <h4>Mineral & Sourcing Profile</h4>
+                            <div class="mineral-chips" id="resultMineralChips">
+                                <!-- Chips added dynamically -->
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </section>
+        
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo" style="display: block; margin-bottom: 20px;">
+                        <img src="assets/logo-white.png" alt="Ener Thai Logo" style="height: 42px; width: auto;">
+                    </a>
+                    <p>Premium sports nutrition harnessing organic Thai ingredients, backed by sports metabolism science.</p>
+                    <div class="footer-socials">
+                        <a href="#" class="footer-social-link">IG</a>
+                        <a href="#" class="footer-social-link">ST</a>
+                        <a href="#" class="footer-social-link">FB</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Products</h4>
+                    <ul class="footer-links">
+                        <li><a href="product.html?id=sunrise" class="footer-link">SUNRISE (Pre)</a></li>
+                        <li><a href="product.html?id=strike" class="footer-link">STRIKE (During)</a></li>
+                        <li><a href="product.html?id=sunset" class="footer-link">SUNSET (Post)</a></li>
+                        <li><a href="products.html" class="footer-link">All Products</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="calculator.html" class="footer-link">Fueling Calculator</a></li>
+                        <li><a href="science.html" class="footer-link">Metabolic Science</a></li>
+                        <li><a href="story.html" class="footer-link">Our Story</a></li>
+                        <li><a href="trace.html" class="footer-link">Our Origins Traceability</a></li>
+                        <li><a href="faq.html" class="footer-link">FAQ Accordion</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html" class="footer-link">Get In Touch</a></li>
+                        <li><span style="color: #999999;">Bangkok, Thailand</span></li>
+                        <li><span style="color: #999999;">support@enerthai.com</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Ener Thai Nutrition Co., Ltd. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Drawer Overlay and Container -->
+    <div id="cartOverlay" class="cart-drawer-overlay"></div>
+    <div id="cartDrawer" class="cart-drawer">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button id="cartClose" class="cart-close" aria-label="Close Cart">&times;</button>
+        </div>
+        <div id="cartItems" class="cart-items-container">
+            <!-- Rendered dynamically via JS -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-summary-row">
+                <span>Subtotal</span>
+                <span id="cartSubtotal">฿0.00</span>
+            </div>
+            <div class="cart-summary-row" style="color: var(--text-muted); font-size: 13px;">
+                <span>Shipping</span>
+                <span>Free</span>
+            </div>
+            <div class="cart-summary-total">
+                <span>Total</span>
+                <span id="cartTotal">฿0.00</span>
+            </div>
+            <button id="checkoutBtn" class="btn btn-primary cart-checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Script execution links -->
+    <script src="js/main.js"></script>
+    <script src="js/trace.js" defer></script>
+</body>
+</html>
