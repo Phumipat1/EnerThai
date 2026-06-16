@@ -1,4 +1,4 @@
-﻿# Walkthrough - Ener Thai Nutrition E-Commerce Website
+# Walkthrough - Ener Thai Nutrition E-Commerce Website
 
 A complete, premium, responsive e-commerce web platform for **Ener Thai Nutrition**, a premium Thai natural sports nutrition company creating energy gels (SUNRISE, STRIKE, and SUNSET) for endurance runners.
 
@@ -243,3 +243,38 @@ We have successfully integrated the real-time AI Chatbot ("EnerBot"):
    - Open `calculator.html`, open the chatbot, and press `Ctrl+P`.
    - Verify that the print preview excludes the chatbot button and chat window, keeping the printable plan layout 100% clean.
 
+---
+
+## Phase 7: Premium Agricultural Origins Images
+
+We have successfully integrated the actual local farm images into the "Premium Agricultural Origins" section of the Our Story page:
+
+1. **Image Assets Sourced**:
+   - `assets/story-banana.jpg` (Phop Phra Golden Banana, Tak)
+   - `assets/story-mango.png` (Bang Khla Nam Dok Mai Mango, Chachoengsao)
+   - `assets/story-pineapple.jpg` (Prachuap Pattavia Pineapple, Prachuap Khiri Khan)
+2. **HTML Update**:
+   - Replaced CSS gradient placeholders inside Section 4 of `story.html` with responsive `<img>` elements pointing to the respective farm assets.
+   - Added class `.origin-image` to the image elements.
+   - Wrapped the location text in a span with class `.origin-label` to serve as a floating text badge.
+3. **CSS Enhancements**:
+   - Configured `.origin-img-placeholder` with `position: relative; overflow: hidden;` to contain the absolute-positioned images.
+   - Designed `.origin-image` with `width: 100%; height: 100%; object-fit: cover;` to ensure perfect aspect ratio preservation.
+   - Added a smooth micro-animation: on hover, the image scales up gently (`transform: scale(1.05)`) with a transition time of `0.5s`.
+   - Styled the `.origin-label` using a modern glassmorphic theme (background opacity, blur filter, subtle borders) to float on top of the image in the bottom-left corner.
+   - Provided dark theme overrides for the glassmorphic label (`body.dark-theme .origin-label`) to preserve contrast and aesthetics in dark mode.
+
+---
+
+## Verification Steps (Phase 7 Updates)
+
+1. **Verify Image Loading**:
+   - Open [story.html](file:///C:/Users/Kaopan/.gemini/antigravity/brain/f054b131-c7b5-44a1-91e6-977638858d86/story.html) in a browser.
+   - Scroll down to Section 4: "Premium Agricultural Origins".
+   - Confirm that the Phop Phra Banana, Bang Khla Mango, and Prachuap Pineapple cards show the actual photographic assets instead of the grey-orange gradients.
+2. **Verify Hover Animation**:
+   - Hover the cursor over any of the three cards.
+   - Confirm that the image smoothly scales up slightly, giving a premium interactive feel.
+3. **Verify Glassmorphic Label**:
+   - Confirm that the location label (e.g. `🍌 Phop Phra, Tak`) floats clearly on the bottom-left corner of the image.
+   - Toggle Dark Mode in the header. Confirm that the label's background updates to a darker translucent style, remaining highly legible and premium.
