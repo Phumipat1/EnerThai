@@ -150,21 +150,67 @@ const submitBatchBtn = document.getElementById('submitBatchBtn');
 // Active Html5Qrcode Instance
 let html5Qrcode = null;
 
+// Toggle scanner state
+function toggleScanner() {
+    if (html5Qrcode && html5Qrcode.isScanning) {
+        html5Qrcode.stop().then(() => {
+            updateScannerUI(false);
+            console.log("Scanner stopped manually.");
+        }).catch(err => {
+            console.error("Failed to stop scanner manually:", err);
+        });
+    } else {
+        startScanner();
+    }
+}
+
+// Update the scanner button and laser UI states
+function updateScannerUI(isScanning) {
+    const scannerStatusIcon = document.getElementById('scannerStatusIcon');
+    const scannerStatusText = document.getElementById('scannerStatusText');
+    const laserLine = document.getElementById('laserLine');
+
+    if (isScanning) {
+        if (scannerStatusIcon) scannerStatusIcon.textContent = '🔴';
+        if (scannerStatusText) scannerStatusText.textContent = 'Stop Camera';
+        if (laserLine) laserLine.style.display = 'block';
+    } else {
+        if (scannerStatusIcon) scannerStatusIcon.textContent = '🟢';
+        if (scannerStatusText) scannerStatusText.textContent = 'Start Camera';
+        if (laserLine) laserLine.style.display = 'none';
+        
+        // Show stopped placeholder inside #reader if camera is not active
+        const readerEl = document.getElementById('reader');
+        if (readerEl && !html5Qrcode?.isScanning) {
+            readerEl.innerHTML = `
+                <div style="padding: 20px; text-align: center; color: var(--text-muted); font-size: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+                    <p style="font-size: 32px; margin-bottom: 8px;">📷</p>
+                    <p><strong>Camera is Stopped</strong></p>
+                    <p style="font-size: 12px; margin-top: 4px; color: var(--text-muted);">Click "Start Camera" below to scan.</p>
+                </div>
+            `;
+        }
+    }
+}
+
 // Initialize QR/Barcode Scanner
 function startScanner() {
-    // Check if the scanner element exists
     if (!document.getElementById('reader')) return;
 
-    // Show scanner laser animation line
-    laserLine.style.display = 'block';
+    // Reset reader element in case it contains stopped placeholder
+    document.getElementById('reader').innerHTML = '';
 
-    // Instance of Html5Qrcode
-    html5Qrcode = new Html5Qrcode("reader");
+    // Create Html5Qrcode instance if not exists
+    if (!html5Qrcode) {
+        html5Qrcode = new Html5Qrcode("reader");
+    }
+
+    // Set UI to active scanning state
+    updateScannerUI(true);
 
     const config = {
         fps: 15,
         qrbox: function(width, height) {
-            // Responsive box sizing
             const minDim = Math.min(width, height);
             return {
                 width: Math.floor(minDim * 0.7),
@@ -179,22 +225,20 @@ function startScanner() {
         { facingMode: "environment" },
         config,
         (decodedText) => {
-            // On Success Decode
-            laserLine.style.display = 'none';
             handleScannedText(decodedText);
         },
         (errorMessage) => {
-            // Silent error on frame scanning failures (keeps scanning silently)
+            // Silent error on frame scanning failures
         }
     ).catch(err => {
         console.error("Camera startup failed:", err);
-        laserLine.style.display = 'none';
+        updateScannerUI(false);
         
-        // Hide reader container and show a simple camera permission fallback message
         document.getElementById('reader').innerHTML = `
-            <div style="padding: 40px 20px; text-align: center; color: var(--text-muted); font-size: 14px;">
-                <p>📷 <strong>Camera Access Denied or Unavailable</strong></p>
-                <p style="margin-top: 8px;">Please allow camera permission in your browser or type the batch code manually below.</p>
+            <div style="padding: 20px; text-align: center; color: var(--text-muted); font-size: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+                <p style="font-size: 32px; margin-bottom: 8px;">📷</p>
+                <p><strong>Camera Permission Denied</strong></p>
+                <p style="font-size: 12px; margin-top: 4px; color: var(--text-muted);">Please allow camera access in settings or enter code manually.</p>
             </div>
         `;
     });
@@ -204,7 +248,6 @@ function startScanner() {
 function handleScannedText(text) {
     let batchId = text.trim().toUpperCase();
 
-    // If it's a URL (e.g. https://enerthai.com/trace.html?batch=B-BAN-01)
     if (text.includes('?batch=')) {
         try {
             const urlObj = new URL(text);
@@ -216,14 +259,12 @@ function handleScannedText(text) {
             console.error("Failed to parse scanned URL:", e);
         }
     } else if (text.includes('trace.html')) {
-        // Fallback for relative or local strings
         const splitParts = text.split('batch=');
         if (splitParts.length > 1) {
             batchId = splitParts[1].split('&')[0].trim().toUpperCase();
         }
     }
 
-    // Display the batch
     showBatchDetails(batchId);
 }
 
@@ -232,7 +273,6 @@ function showBatchDetails(batchCode) {
     const data = BATCH_DATABASE[batchCode];
 
     if (!data) {
-        // Show dynamic toast alert for invalid codes
         if (window.showToast) {
             window.showToast(`Batch code "${batchCode}" not found. Try B-BAN-01 or B-MAN-01!`, 'error');
         } else {
@@ -244,10 +284,13 @@ function showBatchDetails(batchCode) {
     // Stop scanner if running to preserve device battery
     if (html5Qrcode && html5Qrcode.isScanning) {
         html5Qrcode.stop().then(() => {
+            updateScannerUI(false);
             console.log("Scanner stopped after successful decode.");
         }).catch(err => {
             console.error("Failed to stop scanner:", err);
         });
+    } else {
+        updateScannerUI(false);
     }
 
     // Update Form Inputs
@@ -316,17 +359,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Bind Toggle Scanner Button
+    const toggleScannerBtn = document.getElementById('toggleScannerBtn');
+    if (toggleScannerBtn) {
+        toggleScannerBtn.addEventListener('click', () => {
+            toggleScanner();
+        });
+    }
+
     // Check for query parameter triggers (?batch=B-BAN-01)
     const urlParams = new URLSearchParams(window.location.search);
     const batchParam = urlParams.get('batch');
     if (batchParam) {
-        // Small delay to let styles/DOM settle
         setTimeout(() => {
             showBatchDetails(batchParam.trim().toUpperCase());
         }, 300);
     } else {
-        // Start camera scanner if no batch parameter is directly provided in URL
-        // Delay scanner start slightly to prevent browser frame locks
         setTimeout(() => {
             startScanner();
         }, 500);
