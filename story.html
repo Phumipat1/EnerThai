@@ -96,6 +96,19 @@
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.02);
         }
+        .story-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: transform 0.5s ease;
+            z-index: 1;
+        }
+        .story-img-placeholder:hover .story-image {
+            transform: scale(1.03);
+        }
         .story-img-placeholder span {
             font-size: 14px;
             font-weight: 700;
@@ -311,8 +324,7 @@
                 </div>
                 <div class="story-image-column animate-fade-in visible" style="animation-delay: 0.15s;">
                     <div class="story-img-placeholder">
-                        <div class="story-img-decor-circle" style="width: 300px; height: 300px; left: -50px; top: -50px; background: radial-gradient(circle, rgba(233,196,106,0.15) 0%, rgba(255,255,255,0) 70%);"></div>
-                        <span>[ Photo: Organic Thai Farms ]</span>
+                        <img src="assets/story-mission.png" alt="Organic Thai Farms in Thailand" class="story-image">
                     </div>
                 </div>
             </div>
@@ -323,14 +335,13 @@
             <div class="container story-grid">
                 <div class="story-image-column animate-fade-in visible">
                     <div class="story-img-placeholder">
-                        <div class="story-img-decor-circle" style="width: 250px; height: 250px; right: -30px; bottom: -30px; background: radial-gradient(circle, rgba(231,111,81,0.15) 0%, rgba(255,255,255,0) 70%);"></div>
-                        <span>[ Photo: Jasmine Rice Harvest ]</span>
+                        <img src="assets/story-farmers.png" alt="Supporting local Thai farmers" class="story-image">
                     </div>
                 </div>
                 <div class="story-content animate-fade-in visible" style="animation-delay: 0.15s;">
                     <h2>Supporting Thai Farmers</h2>
                     <p>Thailand's volcanic soils and tropical monsoons yield crops rich in mineral compounds and clean energy. We work directly with small agricultural cooperatives across the country to source our raw ingredients, establishing direct-trade contracts that bypass corporate middlemen.</p>
-                    <p>By purchasing organic mangoes and bananas from northern cooperatives, fresh coconuts from Amphawa, and organic pineapples, mandarins, and passion fruits from local southern farms, we ensure fair livable wages for local farmers while securing the most pristine ingredients for endurance athletes globally.</p>
+                    <p>By sourcing our premium ingredients directly from specialized local cooperatives—including highland <strong>Phop Phra Golden Bananas</strong> from Tak, vibrant <strong>Bang Khla Nam Dok Mai Mangoes</strong> from Chachoengsao, mineral-dense <strong>Prachuap Pattavia Pineapples</strong> from Prachuap Khiri Khan, and fresh <strong>Amphawa coconuts</strong>—we ensure fair livable wages for local farmers while securing the most pristine ingredients for endurance athletes globally.</p>
                 </div>
             </div>
         </section>
@@ -347,8 +358,7 @@
                 </div>
                 <div class="story-image-column animate-fade-in visible" style="animation-delay: 0.15s;">
                     <div class="story-img-placeholder">
-                        <div class="story-img-decor-circle" style="width: 350px; height: 350px; left: 30px; bottom: -100px; background: radial-gradient(circle, rgba(74,144,226,0.12) 0%, rgba(255,255,255,0) 70%);"></div>
-                        <span>[ Photo: Thai Organic Ingredients ]</span>
+                        <img src="assets/story-ingredients.png" alt="Premium Thai Organic Ingredients" class="story-image">
                     </div>
                 </div>
             </div>
@@ -411,7 +421,7 @@
             <div class="container story-grid">
                 <div class="story-image-column animate-fade-in visible">
                     <div class="story-img-placeholder">
-                        <span>[ Photo: Nutrition Laboratory ]</span>
+                        <img src="assets/story-science.png" alt="Sports Nutrition Laboratory" class="story-image">
                     </div>
                 </div>
                 <div class="story-content animate-fade-in visible" style="animation-delay: 0.15s;">
@@ -432,7 +442,7 @@
                 </div>
                 <div class="story-image-column animate-fade-in visible" style="animation-delay: 0.15s;">
                     <div class="story-img-placeholder">
-                        <span>[ Photo: Thai Forests Replanting ]</span>
+                        <img src="assets/story-sustainability.png" alt="Reforestation in Northern Thailand" class="story-image">
                     </div>
                 </div>
             </div>
