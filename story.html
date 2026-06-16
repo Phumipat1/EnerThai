@@ -121,6 +121,87 @@
         body.dark-theme .story-img-decor-circle {
             background: radial-gradient(circle, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0) 70%);
         }
+
+        /* Premium Agricultural Origins Grid Styles */
+        .origins-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .origin-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .origin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+        }
+        
+        .origin-img-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #FAF9F6 0%, #F3F1EC 100%);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+        }
+        
+        body.dark-theme .origin-img-placeholder {
+            background: linear-gradient(135deg, #2D2D2D 0%, #1E1E1E 100%);
+        }
+        
+        .origin-details {
+            padding: 30px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .origin-details h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.4;
+            color: var(--text-primary);
+        }
+        
+        .origin-details .thai-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 4px;
+        }
+        
+        .origin-details p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+        
+        .origin-details p:last-child {
+            margin-bottom: 0;
+        }
+        
+        @media (max-width: 992px) {
+            .origins-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -235,7 +316,56 @@
             </div>
         </section>
 
-        <!-- Section 4: Science Meets Nature -->
+        <!-- Section 4: Premium Agricultural Origins -->
+        <section class="story-section">
+            <div class="container">
+                <div class="text-center animate-fade-in visible" style="max-width: 800px; margin: 0 auto 60px;">
+                    <span class="badge" style="background-color: #FAF2E6; color: #C27D38; margin-bottom: 16px;">Geographical Indication (GI) & Local Pride</span>
+                    <h2 style="font-size: 36px; font-weight: 800; margin-bottom: 20px;">Premium Agricultural Origins</h2>
+                    <p style="font-size: 18px; color: var(--text-muted); line-height: 1.6;">We carefully select only the finest agricultural zones in Thailand, where microclimates and soil conditions yield ingredients with exceptional metabolic value.</p>
+                </div>
+                
+                <div class="origins-grid">
+                    <!-- Origin 1: Phop Phra Golden Banana -->
+                    <div class="origin-card animate-fade-in visible">
+                        <div class="origin-img-placeholder">
+                            <span style="color: #FFA34F; font-weight: 700;">🍌 Phop Phra, Tak</span>
+                        </div>
+                        <div class="origin-details">
+                            <h3>Phop Phra Golden Banana<br><span class="thai-name">กล้วยหอมทองพบพระ อำเภอพบพระ จังหวัดตาก</span></h3>
+                            <p>Grown in the highlands of Phop Phra District in Tak Province, over 600 meters above sea level, these bananas benefit from pristine watersheds like Huay Wa Lay and the Moei River. The high altitude and cool mountain forest climate extend the growing cycle to 10–12 months (compared to 8–9 months in lowlands).</p>
+                            <p>This allows the banana plant to slowly accumulate rich nutrients, resulting in an exceptionally dense, chewy texture and a sweet, aromatic flavor. A certified Geographical Indication (GI) product, it provides a highly efficient, clean source of natural carbohydrates while securing sustainable incomes for local farming communities.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Origin 2: Bang Khla Nam Dok Mai Mango -->
+                    <div class="origin-card animate-fade-in visible" style="animation-delay: 0.15s;">
+                        <div class="origin-img-placeholder">
+                            <span style="color: #FFB703; font-weight: 700;">🥭 Bang Khla, Chachoengsao</span>
+                        </div>
+                        <div class="origin-details">
+                            <h3>Bang Khla Nam Dok Mai Mango<br><span class="thai-name">มะม่วงน้ำดอกไม้อำเภอบางคล้า จังหวัดฉะเชิงเทรา</span></h3>
+                            <p>Bang Khla District in Chachoengsao is legendary for producing the finest Nam Dok Mai mangoes in Thailand. Blessed with mineral-rich soils and an optimal microclimate, the ripe mangoes boast a vibrant golden-yellow skin, a sweet tropical aroma, fine fiberless flesh, and a rich, velvety sweetness.</p>
+                            <p>Widely celebrated as a premium culinary export to China, Taiwan, and Vietnam, we harness this sweet, easily absorbable glucose source to power rapid glycogen replenishment.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Origin 3: Prachuap Pattavia Pineapple -->
+                    <div class="origin-card animate-fade-in visible" style="animation-delay: 0.3s;">
+                        <div class="origin-img-placeholder">
+                            <span style="color: #E76F51; font-weight: 700;">🍍 Prachuap Khiri Khan</span>
+                        </div>
+                        <div class="origin-details">
+                            <h3>Prachuap Pattavia Pineapple<br><span class="thai-name">สับปะรดพันธุ์ปัตตาเวีย จังหวัดประจวบคีรีขันธ์</span></h3>
+                            <p>Prachuap Khiri Khan is Thailand’s premier cultivation hub for the renowned Pattavia pineapple, accounting for over 80% of the country’s high-grade production. These pineapples grow large and juicy with a pale yellow flesh, balanced natural acidity, and a crisp, refreshing sweetness.</p>
+                            <p>The natural bromelain and organic fruit acids provide a vibrant flavor profile that naturally settles the stomach and refreshes the palate during intense physical efforts.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Science Meets Nature -->
         <section class="story-section">
             <div class="container story-grid">
                 <div class="story-image-column animate-fade-in visible">
@@ -251,7 +381,7 @@
             </div>
         </section>
 
-        <!-- Section 5: Committed to Sustainability -->
+        <!-- Section 6: Committed to Sustainability -->
         <section class="story-section">
             <div class="container story-grid">
                 <div class="story-content animate-fade-in visible">
@@ -267,7 +397,7 @@
             </div>
         </section>
 
-        <!-- Section 6: Our Vision -->
+        <!-- Section 7: Our Vision -->
         <section class="story-section" style="border-bottom: none;">
             <div class="container text-center animate-fade-in" style="max-width: 800px;">
                 <h2>Our Vision</h2>
