@@ -7,6 +7,8 @@ const BATCH_DATABASE = {
     'B-BAN-01': {
         name: 'Phop Phra Golden Banana',
         thaiName: 'กล้วยหอมทองพบพระ อำเภอพบพระ จังหวัดตาก',
+        farmName: 'Phop Phra Highland Organic Farms',
+        farmId: 'TH-TAK-PP-047',
         cooperative: 'Phop Phra Highland Agricultural Cooperative',
         location: 'Tak, Thailand',
         image: 'assets/story-banana.jpg',
@@ -34,6 +36,8 @@ const BATCH_DATABASE = {
     'B-MAN-01': {
         name: 'Bang Khla Nam Dok Mai Mango',
         thaiName: 'มะม่วงน้ำดอกไม้อำเภอบางคล้า จังหวัดฉะเชิงเทรา',
+        farmName: 'Bang Khla Sweet Gold Orchards',
+        farmId: 'TH-CCS-BK-112',
         cooperative: 'Bang Khla Fruit Growers Cooperative',
         location: 'Chachoengsao, Thailand',
         image: 'assets/story-mango.png',
@@ -61,6 +65,8 @@ const BATCH_DATABASE = {
     'B-PIN-01': {
         name: 'Prachuap Pattavia Pineapple',
         thaiName: 'สับปะรดพันธุ์ปัตตาเวีย จังหวัดประจวบคีรีขันธ์',
+        farmName: 'Prachuap Gulf Coast Farms',
+        farmId: 'TH-PKK-PV-089',
         cooperative: 'Prachuap Pineapple Cooperative Union',
         location: 'Prachuap Khiri Khan, Thailand',
         image: 'assets/story-pineapple.jpg',
@@ -88,6 +94,8 @@ const BATCH_DATABASE = {
     'B-COC-01': {
         name: 'Amphawa Organic Coconut Water',
         thaiName: 'วิสาหกิจชุมชนมะพร้าวอ่อนน้ำหอมอัมพวา จังหวัดสมุทรสงคราม',
+        farmName: 'Amphawa Estuary Organic Groves',
+        farmId: 'TH-SSK-AP-023',
         cooperative: 'Amphawa Organic Coconut Farmers Enterprise',
         location: 'Samut Songkhram, Thailand',
         image: 'assets/story-farmers.png', // Fall back to farmers profile image
@@ -123,6 +131,8 @@ const resultCoopImg = document.getElementById('resultCoopImg');
 const resultMapLocation = document.getElementById('resultMapLocation');
 const resultCoopTitle = document.getElementById('resultCoopTitle');
 const resultCoopThaiName = document.getElementById('resultCoopThaiName');
+const resultFarmName = document.getElementById('resultFarmName');
+const resultFarmId = document.getElementById('resultFarmId');
 const resultCoopDesc = document.getElementById('resultCoopDesc');
 
 const timelineHarvestDesc = document.getElementById('timelineHarvestDesc');
@@ -249,6 +259,8 @@ function showBatchDetails(batchCode) {
     resultMapLocation.textContent = data.location;
     resultCoopTitle.textContent = data.name;
     resultCoopThaiName.textContent = data.thaiName;
+    resultFarmName.textContent = data.farmName;
+    resultFarmId.textContent = data.farmId;
     resultCoopDesc.textContent = data.description;
 
     // Fill Sourcing Timeline
