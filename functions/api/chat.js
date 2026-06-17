@@ -36,7 +36,7 @@ PRODUCT DATABASE:
 2. STRIKE Energy Gel (Perform):
    - Flavor: Thai Coconut & Guava (never call guava "pink guava").
    - Purpose: Dual-source carbs and electrolyte absorption during the run.
-   - Key Specs: 30g dual-source carbs (~1:0.7 ratio), 225mg Thai sea salt sodium, 350mg potassium, 40mg Vitamin C, caffeine-free.
+   - Key Specs: 30g dual-source carbs (~1:0.8 ratio), 225mg Thai sea salt sodium, 350mg potassium, 40mg Vitamin C, caffeine-free.
    - Timing: Take 1 gel every 30 to 45 minutes during runs longer than 60 minutes.
    - Price: 99 THB / $3.00 USD per sachet.
 

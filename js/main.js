@@ -87,19 +87,19 @@ window.EnerThaiProducts = {
         descriptionEn: 'STRIKE is our premium performance fuel, utilizing organic coconut water and guava puree. It delivers 30g of fast-absorbing carbohydrates per sachet. Packed with 225mg of natural sea salt sodium, 350mg of potassium, and 40mg of Vitamin C, it maintains fluid balance and prevents muscle cramps at race pace. Caffeine-free and easy on the stomach.',
         descriptionTh: 'STRIKE คือเชื้อเพลิงสำหรับประสิทธิภาพระดับพรีเมียมของเรา โดยใช้น้ำมะพร้าวออร์แกนิกและฝรั่งบด ให้คาร์โบไฮเดรตที่ดูดซึมได้รวดเร็ว 30 กรัมต่อซอง อุดมด้วยโซเดียมจากเกลือทะเลธรรมชาติ 225 มิลลิกรัม โพแทสเซียม 350 มิลลิกรัม และวิตามินซี 40 มิลลิกรัม ช่วยรักษาสมดุลของเหลวและป้องกันตะคริวของกล้ามเนื้อที่เพซการแข่งขัน สูตรไม่มีคาเฟอีนและเป็นมิตรต่อกระเพาะอาหารอย่างยิ่ง',
         benefits: [
-            '30g of dual-source carbohydrates (fructose-dominant ~1:0.7) for gut-friendly absorption',
+            '30g of dual-source carbohydrates (fructose-dominant ~1:0.8) for gut-friendly absorption',
             '225mg of clean Thai sea salt sodium to replenish lost sweat minerals',
             '350mg of Potassium and 40mg of Calcium from natural coconut and guava',
             '40mg of Vitamin C to reduce oxidative stress during heavy efforts'
         ],
         benefitsEn: [
-            '30g of dual-source carbohydrates (fructose-dominant ~1:0.7) for gut-friendly absorption',
+            '30g of dual-source carbohydrates (fructose-dominant ~1:0.8) for gut-friendly absorption',
             '225mg of clean Thai sea salt sodium to replenish lost sweat minerals',
             '350mg of Potassium and 40mg of Calcium from natural coconut and guava',
             '40mg of Vitamin C to reduce oxidative stress during heavy efforts'
         ],
         benefitsTh: [
-            'คาร์โบไฮเดรตสองแหล่ง 30 กรัม (ฟรักโทสเด่น ~1:0.7) เพื่อการดูดซึมที่ดีต่อลำไส้',
+            'คาร์โบไฮเดรตสองแหล่ง 30 กรัม (ฟรักโทสเด่น ~1:0.8) เพื่อการดูดซึมที่ดีต่อลำไส้',
             'โซเดียมเกลือทะเลไทยที่สะอาด 225 มิลลิกรัม เพื่อชดเชยแร่ธาตุที่เสียไปกับเหงื่อ',
             'โพแทสเซียม 350 มิลลิกรัม และแคลเซียม 40 มิลลิกรัม จากมะพร้าวธรรมชาติและฝรั่ง',
             'วิตามินซี 40 มิลลิกรัม เพื่อลดความเครียดจากการเกิดออกซิเดชันระหว่างการออกกำลังกายหนัก'
